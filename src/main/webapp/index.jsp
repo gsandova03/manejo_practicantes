@@ -12,6 +12,6 @@
         <title>Manejo practicantes</title>
     </head>
     <body>
-        <h1>Manejo practicantes</h1>
+        <h1>Manejo practicantes desde la rama de formulario-registro</h1>
     </body>
 </html>
