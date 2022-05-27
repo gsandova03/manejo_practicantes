@@ -5,21 +5,15 @@
 package com.gbm.entidades;
 
 import java.io.Serializable;
-import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -30,70 +24,48 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "BscLogin.findAll", query = "SELECT b FROM BscLogin b"),
-    @NamedQuery(name = "BscLogin.findByIdLogin", query = "SELECT b FROM BscLogin b WHERE b.idLogin = :idLogin"),
-    @NamedQuery(name = "BscLogin.findByEmiCorporativo", query = "SELECT b FROM BscLogin b WHERE b.emiCorporativo = :emiCorporativo"),
-    @NamedQuery(name = "BscLogin.findByPswUsuario", query = "SELECT b FROM BscLogin b WHERE b.pswUsuario = :pswUsuario")})
+    @NamedQuery(name = "BscLogin.findByIdLogin", query = "SELECT b FROM BscLogin b WHERE b.bscLoginPK.idLogin = :idLogin"),
+    @NamedQuery(name = "BscLogin.findByCodUsuario", query = "SELECT b FROM BscLogin b WHERE b.bscLoginPK.codUsuario = :codUsuario")})
 public class BscLogin implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id_login", nullable = false)
-    private Integer idLogin;
-    @Size(max = 45)
-    @Column(name = "emi_corporativo", length = 45)
-    private String emiCorporativo;
-    @Size(max = 45)
-    @Column(name = "psw_usuario", length = 45)
-    private String pswUsuario;
-    @OneToMany(mappedBy = "idLoginUsuario", fetch = FetchType.LAZY)
-    private List<BcsUsuario> bcsUsuarioList;
+    @EmbeddedId
+    protected BscLoginPK bscLoginPK;
+    @JoinColumn(name = "cod_usuario", referencedColumnName = "cod_usuario", nullable = false, insertable = false, updatable = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private BcsUsuario bcsUsuario;
 
     public BscLogin() {
     }
 
-    public BscLogin(Integer idLogin) {
-        this.idLogin = idLogin;
+    public BscLogin(BscLoginPK bscLoginPK) {
+        this.bscLoginPK = bscLoginPK;
     }
 
-    public Integer getIdLogin() {
-        return idLogin;
+    public BscLogin(int idLogin, int codUsuario) {
+        this.bscLoginPK = new BscLoginPK(idLogin, codUsuario);
     }
 
-    public void setIdLogin(Integer idLogin) {
-        this.idLogin = idLogin;
+    public BscLoginPK getBscLoginPK() {
+        return bscLoginPK;
     }
 
-    public String getEmiCorporativo() {
-        return emiCorporativo;
+    public void setBscLoginPK(BscLoginPK bscLoginPK) {
+        this.bscLoginPK = bscLoginPK;
     }
 
-    public void setEmiCorporativo(String emiCorporativo) {
-        this.emiCorporativo = emiCorporativo;
+    public BcsUsuario getBcsUsuario() {
+        return bcsUsuario;
     }
 
-    public String getPswUsuario() {
-        return pswUsuario;
-    }
-
-    public void setPswUsuario(String pswUsuario) {
-        this.pswUsuario = pswUsuario;
-    }
-
-    @XmlTransient
-    public List<BcsUsuario> getBcsUsuarioList() {
-        return bcsUsuarioList;
-    }
-
-    public void setBcsUsuarioList(List<BcsUsuario> bcsUsuarioList) {
-        this.bcsUsuarioList = bcsUsuarioList;
+    public void setBcsUsuario(BcsUsuario bcsUsuario) {
+        this.bcsUsuario = bcsUsuario;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idLogin != null ? idLogin.hashCode() : 0);
+        hash += (bscLoginPK != null ? bscLoginPK.hashCode() : 0);
         return hash;
     }
 
@@ -104,7 +76,7 @@ public class BscLogin implements Serializable {
             return false;
         }
         BscLogin other = (BscLogin) object;
-        if ((this.idLogin == null && other.idLogin != null) || (this.idLogin != null && !this.idLogin.equals(other.idLogin))) {
+        if ((this.bscLoginPK == null && other.bscLoginPK != null) || (this.bscLoginPK != null && !this.bscLoginPK.equals(other.bscLoginPK))) {
             return false;
         }
         return true;
@@ -112,7 +84,7 @@ public class BscLogin implements Serializable {
 
     @Override
     public String toString() {
-        return "com.gbm.entidades.BscLogin[ idLogin=" + idLogin + " ]";
+        return "com.gbm.entidades.BscLogin[ bscLoginPK=" + bscLoginPK + " ]";
     }
     
 }

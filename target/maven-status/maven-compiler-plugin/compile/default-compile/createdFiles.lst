@@ -2,6 +2,7 @@ com\gbm\dao\CprComentariosFacade.class
 com\gbm\dao\BcsEstadosFacade.class
 com\gbm\dao\CprInstitucionesFacade.class
 com\gbm\entidades\CprCarreras.class
+com\gbm\controladores\PracticanteControlador.class
 com\gbm\entidades\CprCiclos.class
 com\gbm\entidades\CprPracticantes.class
 com\gbm\entidades\CprValoracionPracticantesPK.class

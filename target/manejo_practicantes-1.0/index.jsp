@@ -13,5 +13,6 @@
     </head>
     <body>
         <h1>Manejo practicantes</h1>
+        <a href="${pageContext.request.contextPath}/Practicante">Crear un practicante</a>
     </body>
 </html>
