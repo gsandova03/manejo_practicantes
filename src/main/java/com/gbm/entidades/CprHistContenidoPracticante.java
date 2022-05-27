@@ -7,7 +7,6 @@ package com.gbm.entidades;
 import java.io.Serializable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -17,10 +16,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author gsandoval
+ * @author jfilot
  */
 @Entity
-@Table(name = "cpr_hist_contenido_practicante", catalog = "mydb", schema = "")
+@Table(name = "cpr_hist_contenido_practicante")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "CprHistContenidoPracticante.findAll", query = "SELECT c FROM CprHistContenidoPracticante c"),
@@ -32,14 +31,14 @@ public class CprHistContenidoPracticante implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected CprHistContenidoPracticantePK cprHistContenidoPracticantePK;
-    @JoinColumn(name = "cod_usuario_hist", referencedColumnName = "cod_usuario", nullable = false, insertable = false, updatable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "cod_usuario_hist", referencedColumnName = "cod_usuario", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
     private BcsUsuario bcsUsuario;
-    @JoinColumn(name = "id_ciclo_hist", referencedColumnName = "id_ciclo", nullable = false, insertable = false, updatable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_ciclo_hist", referencedColumnName = "id_ciclo", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
     private CprCiclos cprCiclos;
-    @JoinColumn(name = "id_contenido", referencedColumnName = "id_contenido", nullable = false, insertable = false, updatable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_contenido", referencedColumnName = "id_contenido", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
     private CprContenido cprContenido;
 
     public CprHistContenidoPracticante() {

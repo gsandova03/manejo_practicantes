@@ -12,22 +12,22 @@ import javax.validation.constraints.NotNull;
 
 /**
  *
- * @author gsandoval
+ * @author jfilot
  */
 @Embeddable
 public class CprHistContenidoPracticantePK implements Serializable {
 
     @Basic(optional = false)
     @NotNull
-    @Column(name = "id_ciclo_hist", nullable = false)
+    @Column(name = "id_ciclo_hist")
     private int idCicloHist;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "id_contenido", nullable = false)
+    @Column(name = "id_contenido")
     private int idContenido;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "cod_usuario_hist", nullable = false)
+    @Column(name = "cod_usuario_hist")
     private int codUsuarioHist;
 
     public CprHistContenidoPracticantePK() {

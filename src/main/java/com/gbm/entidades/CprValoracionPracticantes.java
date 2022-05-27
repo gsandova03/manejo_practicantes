@@ -7,7 +7,6 @@ package com.gbm.entidades;
 import java.io.Serializable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -17,10 +16,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author gsandoval
+ * @author jfilot
  */
 @Entity
-@Table(name = "cpr_valoracion_practicantes", catalog = "mydb", schema = "")
+@Table(name = "cpr_valoracion_practicantes")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "CprValoracionPracticantes.findAll", query = "SELECT c FROM CprValoracionPracticantes c"),
@@ -32,14 +31,14 @@ public class CprValoracionPracticantes implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected CprValoracionPracticantesPK cprValoracionPracticantesPK;
-    @JoinColumn(name = "id_ciclo_val", referencedColumnName = "id_ciclo", nullable = false, insertable = false, updatable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_ciclo_val", referencedColumnName = "id_ciclo", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
     private CprCiclos cprCiclos;
-    @JoinColumn(name = "cod_usuario", referencedColumnName = "cod_usuario_pract", nullable = false, insertable = false, updatable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "cod_usuario", referencedColumnName = "cod_usuario_pract", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
     private CprPracticantes cprPracticantes;
-    @JoinColumn(name = "id_valoracion", referencedColumnName = "id_valoracion", nullable = false, insertable = false, updatable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_valoracion", referencedColumnName = "id_valoracion", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
     private CprValoraciones cprValoraciones;
 
     public CprValoracionPracticantes() {

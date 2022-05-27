@@ -8,7 +8,6 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,10 +21,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author gsandoval
+ * @author jfilot
  */
 @Entity
-@Table(name = "bcs_bitacora", catalog = "mydb", schema = "")
+@Table(name = "bcs_bitacora")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "BcsBitacora.findAll", query = "SELECT b FROM BcsBitacora b"),
@@ -39,19 +38,19 @@ public class BcsBitacora implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id_bitacora", nullable = false)
+    @Column(name = "id_bitacora")
     private Integer idBitacora;
     @Size(max = 45)
-    @Column(name = "fec_bitacora", length = 45)
+    @Column(name = "fec_bitacora")
     private String fecBitacora;
     @Size(max = 45)
-    @Column(name = "tio_transaccion", length = 45)
+    @Column(name = "tio_transaccion")
     private String tioTransaccion;
     @Size(max = 100)
-    @Column(name = "des_transaccion", length = 100)
+    @Column(name = "des_transaccion")
     private String desTransaccion;
     @JoinColumn(name = "cod_usuario", referencedColumnName = "cod_usuario")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private BcsUsuario codUsuario;
 
     public BcsBitacora() {

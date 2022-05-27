@@ -5,12 +5,11 @@
 package com.gbm.entidades;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,10 +23,10 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author gsandoval
+ * @author jfilot
  */
 @Entity
-@Table(name = "cpr_contenido", catalog = "mydb", schema = "")
+@Table(name = "cpr_contenido")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "CprContenido.findAll", query = "SELECT c FROM CprContenido c"),
@@ -39,13 +38,13 @@ public class CprContenido implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id_contenido", nullable = false)
+    @Column(name = "id_contenido")
     private Integer idContenido;
     @Size(max = 100)
-    @Column(name = "des_contenido", length = 100)
+    @Column(name = "des_contenido")
     private String desContenido;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cprContenido", fetch = FetchType.LAZY)
-    private List<CprHistContenidoPracticante> cprHistContenidoPracticanteList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cprContenido")
+    private Collection<CprHistContenidoPracticante> cprHistContenidoPracticanteCollection;
 
     public CprContenido() {
     }
@@ -71,12 +70,12 @@ public class CprContenido implements Serializable {
     }
 
     @XmlTransient
-    public List<CprHistContenidoPracticante> getCprHistContenidoPracticanteList() {
-        return cprHistContenidoPracticanteList;
+    public Collection<CprHistContenidoPracticante> getCprHistContenidoPracticanteCollection() {
+        return cprHistContenidoPracticanteCollection;
     }
 
-    public void setCprHistContenidoPracticanteList(List<CprHistContenidoPracticante> cprHistContenidoPracticanteList) {
-        this.cprHistContenidoPracticanteList = cprHistContenidoPracticanteList;
+    public void setCprHistContenidoPracticanteCollection(Collection<CprHistContenidoPracticante> cprHistContenidoPracticanteCollection) {
+        this.cprHistContenidoPracticanteCollection = cprHistContenidoPracticanteCollection;
     }
 
     @Override

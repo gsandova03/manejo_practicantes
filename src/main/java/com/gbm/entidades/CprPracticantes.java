@@ -5,12 +5,11 @@
 package com.gbm.entidades;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -26,10 +25,10 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author gsandoval
+ * @author jfilot
  */
 @Entity
-@Table(name = "cpr_practicantes", catalog = "mydb", schema = "")
+@Table(name = "cpr_practicantes")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "CprPracticantes.findAll", query = "SELECT c FROM CprPracticantes c"),
@@ -52,68 +51,68 @@ public class CprPracticantes implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "cod_usuario_pract", nullable = false)
+    @Column(name = "cod_usuario_pract")
     private Integer codUsuarioPract;
     @Size(max = 45)
-    @Column(name = "cod_generacion", length = 45)
+    @Column(name = "cod_generacion")
     private String codGeneracion;
     @Size(max = 45)
-    @Column(name = "fec_ingreso", length = 45)
+    @Column(name = "fec_ingreso")
     private String fecIngreso;
     @Size(max = 45)
-    @Column(name = "dur_practica", length = 45)
+    @Column(name = "dur_practica")
     private String durPractica;
     @Size(max = 100)
-    @Column(name = "ldr_administrativo", length = 100)
+    @Column(name = "ldr_administrativo")
     private String ldrAdministrativo;
     @Size(max = 100)
-    @Column(name = "ldr_entrenamiento", length = 100)
+    @Column(name = "ldr_entrenamiento")
     private String ldrEntrenamiento;
     @Size(max = 100)
-    @Column(name = "ldr_funcional", length = 100)
+    @Column(name = "ldr_funcional")
     private String ldrFuncional;
     @Size(max = 60)
-    @Column(name = "can_materias_pendientes", length = 60)
+    @Column(name = "can_materias_pendientes")
     private String canMateriasPendientes;
     @Size(max = 60)
-    @Column(name = "des_materias_pendientes", length = 60)
+    @Column(name = "des_materias_pendientes")
     private String desMateriasPendientes;
     @Size(max = 60)
-    @Column(name = "rev_materias_pendientes", length = 60)
+    @Column(name = "rev_materias_pendientes")
     private String revMateriasPendientes;
     @Size(max = 45)
-    @Column(name = "fec_actualizacion_expediente", length = 45)
+    @Column(name = "fec_actualizacion_expediente")
     private String fecActualizacionExpediente;
     @Size(max = 45)
-    @Column(name = "usiuario_cambio_expediente", length = 45)
+    @Column(name = "usiuario_cambio_expediente")
     private String usiuarioCambioExpediente;
     @Size(max = 45)
-    @Column(name = "ind_borrado", length = 45)
+    @Column(name = "ind_borrado")
     private String indBorrado;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cprPracticantes", fetch = FetchType.LAZY)
-    private List<CprValoracionPracticantes> cprValoracionPracticantesList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codUsuarioComentario", fetch = FetchType.LAZY)
-    private List<CprComentarios> cprComentariosList;
-    @JoinColumn(name = "id_estado", referencedColumnName = "id_estado", nullable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cprPracticantes")
+    private Collection<CprValoracionPracticantes> cprValoracionPracticantesCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codUsuarioComentario")
+    private Collection<CprComentarios> cprComentariosCollection;
+    @JoinColumn(name = "id_estado", referencedColumnName = "id_estado")
+    @ManyToOne(optional = false)
     private BcsEstados idEstado;
-    @JoinColumn(name = "id_genero", referencedColumnName = "id_genero", nullable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_genero", referencedColumnName = "id_genero")
+    @ManyToOne(optional = false)
     private BcsGenero idGenero;
-    @JoinColumn(name = "cod_usuario_pract", referencedColumnName = "cod_usuario", nullable = false, insertable = false, updatable = false)
-    @OneToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "cod_usuario_pract", referencedColumnName = "cod_usuario", insertable = false, updatable = false)
+    @OneToOne(optional = false)
     private BcsUsuario bcsUsuario;
-    @JoinColumn(name = "id_carrera", referencedColumnName = "id_carrera", nullable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_carrera", referencedColumnName = "id_carrera")
+    @ManyToOne(optional = false)
     private CprCarreras idCarrera;
-    @JoinColumn(name = "id_especialidad", referencedColumnName = "id_especialidad", nullable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_especialidad", referencedColumnName = "id_especialidad")
+    @ManyToOne(optional = false)
     private CprEspecialidades idEspecialidad;
-    @JoinColumn(name = "id_institucion", referencedColumnName = "id_institucion", nullable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_institucion", referencedColumnName = "id_institucion")
+    @ManyToOne(optional = false)
     private CprInstituciones idInstitucion;
-    @JoinColumn(name = "id_tipo_practica", referencedColumnName = "id_practica", nullable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_tipo_practica", referencedColumnName = "id_practica")
+    @ManyToOne(optional = false)
     private CprTipoPracticas idTipoPractica;
 
     public CprPracticantes() {
@@ -228,21 +227,21 @@ public class CprPracticantes implements Serializable {
     }
 
     @XmlTransient
-    public List<CprValoracionPracticantes> getCprValoracionPracticantesList() {
-        return cprValoracionPracticantesList;
+    public Collection<CprValoracionPracticantes> getCprValoracionPracticantesCollection() {
+        return cprValoracionPracticantesCollection;
     }
 
-    public void setCprValoracionPracticantesList(List<CprValoracionPracticantes> cprValoracionPracticantesList) {
-        this.cprValoracionPracticantesList = cprValoracionPracticantesList;
+    public void setCprValoracionPracticantesCollection(Collection<CprValoracionPracticantes> cprValoracionPracticantesCollection) {
+        this.cprValoracionPracticantesCollection = cprValoracionPracticantesCollection;
     }
 
     @XmlTransient
-    public List<CprComentarios> getCprComentariosList() {
-        return cprComentariosList;
+    public Collection<CprComentarios> getCprComentariosCollection() {
+        return cprComentariosCollection;
     }
 
-    public void setCprComentariosList(List<CprComentarios> cprComentariosList) {
-        this.cprComentariosList = cprComentariosList;
+    public void setCprComentariosCollection(Collection<CprComentarios> cprComentariosCollection) {
+        this.cprComentariosCollection = cprComentariosCollection;
     }
 
     public BcsEstados getIdEstado() {

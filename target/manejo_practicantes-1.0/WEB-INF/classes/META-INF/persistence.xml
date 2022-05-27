@@ -1,12 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
-    <!-- Define Persistence Unit -->
-    <persistence-unit name="mydb" transaction-type="JTA">
-        <jta-data-source>jdbc/mydbProyecto</jta-data-source>
-        <properties>
-            <property name="eclipselink.logging.level.sql" value="FINE"/>
-            <property name="eclipselink.logging.parameters" value="true"/>
-            <property name="eclipselink.canonicalmodel.subpackage" value="prod"/>
-        </properties>
-    </persistence-unit>
+<persistence version="2.2" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+  <!-- Define Persistence Unit -->
+  <persistence-unit name="mydb" transaction-type="JTA">
+    <jta-data-source>jdbc/mydbProyecto</jta-data-source>
+    <class>com.gbm.entidades.BcsBitacora</class>
+    <class>com.gbm.entidades.CprCiclos</class>
+    <class>com.gbm.entidades.BcsRoles</class>
+    <class>com.gbm.entidades.CprHistContenidoPracticante</class>
+    <class>com.gbm.entidades.CprInstituciones</class>
+    <class>com.gbm.entidades.BcsUsuario</class>
+    <class>com.gbm.entidades.CprTipoPracticas</class>
+    <class>com.gbm.entidades.BcsEstados</class>
+    <class>com.gbm.entidades.CprEspecialidades</class>
+    <class>com.gbm.entidades.CprValoraciones</class>
+    <class>com.gbm.entidades.CprCarreras</class>
+    <class>com.gbm.entidades.BcsGenero</class>
+    <class>com.gbm.entidades.CprComentarios</class>
+    <class>com.gbm.entidades.CprPracticantes</class>
+    <class>com.gbm.entidades.CprValoracionPracticantes</class>
+    <class>com.gbm.entidades.CprContenido</class>
+    <class>com.gbm.entidades.BscLogin</class>
+    <properties>
+      <property name="eclipselink.logging.level.sql" value="FINE"/>
+      <property name="eclipselink.logging.parameters" value="true"/>
+      <property name="eclipselink.canonicalmodel.subpackage" value="prod"/>
+    </properties>
+  </persistence-unit>
 </persistence>

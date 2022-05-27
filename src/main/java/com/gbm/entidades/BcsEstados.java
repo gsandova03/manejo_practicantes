@@ -5,12 +5,11 @@
 package com.gbm.entidades;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,10 +23,10 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author gsandoval
+ * @author jfilot
  */
 @Entity
-@Table(name = "bcs_estados", catalog = "mydb", schema = "")
+@Table(name = "bcs_estados")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "BcsEstados.findAll", query = "SELECT b FROM BcsEstados b"),
@@ -39,13 +38,13 @@ public class BcsEstados implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id_estado", nullable = false)
+    @Column(name = "id_estado")
     private Integer idEstado;
     @Size(max = 100)
-    @Column(name = "des_estados", length = 100)
+    @Column(name = "des_estados")
     private String desEstados;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEstado", fetch = FetchType.LAZY)
-    private List<CprPracticantes> cprPracticantesList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEstado")
+    private Collection<CprPracticantes> cprPracticantesCollection;
 
     public BcsEstados() {
     }
@@ -71,12 +70,12 @@ public class BcsEstados implements Serializable {
     }
 
     @XmlTransient
-    public List<CprPracticantes> getCprPracticantesList() {
-        return cprPracticantesList;
+    public Collection<CprPracticantes> getCprPracticantesCollection() {
+        return cprPracticantesCollection;
     }
 
-    public void setCprPracticantesList(List<CprPracticantes> cprPracticantesList) {
-        this.cprPracticantesList = cprPracticantesList;
+    public void setCprPracticantesCollection(Collection<CprPracticantes> cprPracticantesCollection) {
+        this.cprPracticantesCollection = cprPracticantesCollection;
     }
 
     @Override

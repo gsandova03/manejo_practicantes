@@ -1,4 +1,5 @@
 C:\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\dao\CprPracticantesFacade.java
+C:\manejo_practicantes\manejo_practicantes\src\main\java\contoladores\BscUsuarioControler.java
 C:\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\entidades\CprCiclos.java
 C:\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\dao\CprCarrerasFacade.java
 C:\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\dao\CprCiclosFacade.java
@@ -10,6 +11,7 @@ C:\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\entidades\CprCo
 C:\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\entidades\BcsUsuario.java
 C:\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\dao\AbstractFacade.java
 C:\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\entidades\CprValoracionPracticantesPK.java
+C:\manejo_practicantes\manejo_practicantes\src\main\java\contoladores\CprHistContPracticanteControler.java
 C:\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\dao\CprTipoPracticasFacade.java
 C:\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\dao\CprValoracionPracticantesFacade.java
 C:\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\dao\BcsBitacoraFacade.java
@@ -31,7 +33,9 @@ C:\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\entidades\CprEs
 C:\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\entidades\CprValoraciones.java
 C:\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\entidades\CprTipoPracticas.java
 C:\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\entidades\BcsEstados.java
+C:\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\entidades\BscLoginPK.java
 C:\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\dao\BcsUsuarioFacade.java
 C:\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\entidades\CprPracticantes.java
 C:\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\entidades\CprHistContenidoPracticantePK.java
+C:\manejo_practicantes\manejo_practicantes\src\main\java\contoladores\CprContenidoControler.java
 C:\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\dao\CprEspecialidadesFacade.java

@@ -13,23 +13,23 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author gsandoval
+ * @author jfilot
  */
 @Embeddable
 public class CprValoracionPracticantesPK implements Serializable {
 
     @Basic(optional = false)
     @NotNull
-    @Column(name = "id_ciclo_val", nullable = false)
+    @Column(name = "id_ciclo_val")
     private int idCicloVal;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 3)
-    @Column(name = "id_valoracion", nullable = false, length = 3)
+    @Column(name = "id_valoracion")
     private String idValoracion;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "cod_usuario", nullable = false)
+    @Column(name = "cod_usuario")
     private int codUsuario;
 
     public CprValoracionPracticantesPK() {

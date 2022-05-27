@@ -5,12 +5,11 @@
 package com.gbm.entidades;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -23,10 +22,10 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author gsandoval
+ * @author jfilot
  */
 @Entity
-@Table(name = "cpr_valoraciones", catalog = "mydb", schema = "")
+@Table(name = "cpr_valoraciones")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "CprValoraciones.findAll", query = "SELECT c FROM CprValoraciones c"),
@@ -38,16 +37,16 @@ public class CprValoraciones implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
-    @Column(name = "des_descripcion", nullable = false, length = 100)
+    @Column(name = "des_descripcion")
     private String desDescripcion;
     @Id
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 3)
-    @Column(name = "id_valoracion", nullable = false, length = 3)
+    @Column(name = "id_valoracion")
     private String idValoracion;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cprValoraciones", fetch = FetchType.LAZY)
-    private List<CprValoracionPracticantes> cprValoracionPracticantesList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cprValoraciones")
+    private Collection<CprValoracionPracticantes> cprValoracionPracticantesCollection;
 
     public CprValoraciones() {
     }
@@ -78,12 +77,12 @@ public class CprValoraciones implements Serializable {
     }
 
     @XmlTransient
-    public List<CprValoracionPracticantes> getCprValoracionPracticantesList() {
-        return cprValoracionPracticantesList;
+    public Collection<CprValoracionPracticantes> getCprValoracionPracticantesCollection() {
+        return cprValoracionPracticantesCollection;
     }
 
-    public void setCprValoracionPracticantesList(List<CprValoracionPracticantes> cprValoracionPracticantesList) {
-        this.cprValoracionPracticantesList = cprValoracionPracticantesList;
+    public void setCprValoracionPracticantesCollection(Collection<CprValoracionPracticantes> cprValoracionPracticantesCollection) {
+        this.cprValoracionPracticantesCollection = cprValoracionPracticantesCollection;
     }
 
     @Override

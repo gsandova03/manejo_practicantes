@@ -5,11 +5,10 @@
 package com.gbm.entidades;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,10 +22,10 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author gsandoval
+ * @author jfilot
  */
 @Entity
-@Table(name = "bcs_roles", catalog = "mydb", schema = "")
+@Table(name = "bcs_roles")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "BcsRoles.findAll", query = "SELECT b FROM BcsRoles b"),
@@ -38,13 +37,13 @@ public class BcsRoles implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id_rol", nullable = false)
+    @Column(name = "id_rol")
     private Integer idRol;
     @Size(max = 100)
-    @Column(name = "nom_rol", length = 100)
+    @Column(name = "nom_rol")
     private String nomRol;
-    @OneToMany(mappedBy = "idRol", fetch = FetchType.LAZY)
-    private List<BcsUsuario> bcsUsuarioList;
+    @OneToMany(mappedBy = "idRol")
+    private Collection<BcsUsuario> bcsUsuarioCollection;
 
     public BcsRoles() {
     }
@@ -70,12 +69,12 @@ public class BcsRoles implements Serializable {
     }
 
     @XmlTransient
-    public List<BcsUsuario> getBcsUsuarioList() {
-        return bcsUsuarioList;
+    public Collection<BcsUsuario> getBcsUsuarioCollection() {
+        return bcsUsuarioCollection;
     }
 
-    public void setBcsUsuarioList(List<BcsUsuario> bcsUsuarioList) {
-        this.bcsUsuarioList = bcsUsuarioList;
+    public void setBcsUsuarioCollection(Collection<BcsUsuario> bcsUsuarioCollection) {
+        this.bcsUsuarioCollection = bcsUsuarioCollection;
     }
 
     @Override

@@ -11,7 +11,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author gsandoval
+ * @author jfilot
  */
 @Stateless
 public class CprValoracionPracticantesFacade extends AbstractFacade<CprValoracionPracticantes> {

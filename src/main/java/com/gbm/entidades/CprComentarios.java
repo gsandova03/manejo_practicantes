@@ -8,7 +8,8 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -21,10 +22,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author gsandoval
+ * @author jfilot
  */
 @Entity
-@Table(name = "cpr_comentarios", catalog = "mydb", schema = "")
+@Table(name = "cpr_comentarios")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "CprComentarios.findAll", query = "SELECT c FROM CprComentarios c"),
@@ -35,25 +36,25 @@ public class CprComentarios implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
-    @Column(name = "id_comentarios", nullable = false)
+    @Column(name = "id_comentarios")
     private Integer idComentarios;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
-    @Column(name = "des_comentario", nullable = false, length = 100)
+    @Column(name = "des_comentario")
     private String desComentario;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
-    @Column(name = "fec_comentario", nullable = false, length = 45)
+    @Column(name = "fec_comentario")
     private String fecComentario;
-    @JoinColumn(name = "id_usuario_crea_comentario", referencedColumnName = "cod_usuario", nullable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_usuario_crea_comentario", referencedColumnName = "cod_usuario")
+    @ManyToOne(optional = false)
     private BcsUsuario idUsuarioCreaComentario;
-    @JoinColumn(name = "cod_usuario_comentario", referencedColumnName = "cod_usuario_pract", nullable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "cod_usuario_comentario", referencedColumnName = "cod_usuario_pract")
+    @ManyToOne(optional = false)
     private CprPracticantes codUsuarioComentario;
 
     public CprComentarios() {

@@ -2,8 +2,11 @@ com\gbm\dao\CprComentariosFacade.class
 com\gbm\dao\BcsEstadosFacade.class
 com\gbm\dao\CprInstitucionesFacade.class
 com\gbm\entidades\CprCarreras.class
+contoladores\BscUsuarioControler.class
 com\gbm\entidades\CprCiclos.class
 com\gbm\entidades\CprPracticantes.class
+contoladores\CprHistContPracticanteControler.class
+com\gbm\entidades\BscLoginPK.class
 com\gbm\entidades\CprValoracionPracticantesPK.class
 com\gbm\entidades\CprComentarios.class
 com\gbm\entidades\CprContenido.class
@@ -34,4 +37,5 @@ com\gbm\dao\BcsGeneroFacade.class
 com\gbm\entidades\BcsUsuario.class
 com\gbm\entidades\CprTipoPracticas.class
 com\gbm\entidades\CprValoraciones.class
+contoladores\CprContenidoControler.class
 com\gbm\entidades\BscLogin.class

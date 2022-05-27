@@ -11,7 +11,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author gsandoval
+ * @author jfilot
  */
 @Stateless
 public class BcsUsuarioFacade extends AbstractFacade<BcsUsuario> {
@@ -26,6 +26,12 @@ public class BcsUsuarioFacade extends AbstractFacade<BcsUsuario> {
 
     public BcsUsuarioFacade() {
         super(BcsUsuario.class);
+    }
+    
+    public BcsUsuario buscarPorCc(String cc){
+        return (BcsUsuario) em.createNamedQuery("BcsUsuario.findByCedUsuario")
+                .setParameter("cedUsuario", cc)
+                .getSingleResult();
     }
     
 }

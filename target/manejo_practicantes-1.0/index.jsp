@@ -1,7 +1,7 @@
 <%-- 
     Document   : index
-    Created on : 26/05/2022, 11:14:27 a. m.
-    Author     : gsandoval
+    Created on : 26 may 2022, 17:56:48
+    Author     : jfilot
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -9,9 +9,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Manejo practicantes</title>
+        <title>JSP Page</title>
     </head>
     <body>
-        <h1>Manejo practicantes desde la rama de formulario-registro</h1>
+        <h1>Hello World!</h1>
+        <a href="${pageContext.request.contextPath}/vista/registroUsuario/registroUsuario.jsp">Registrar usuario</a>
     </body>
 </html>
