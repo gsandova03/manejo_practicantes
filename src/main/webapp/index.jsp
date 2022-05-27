@@ -13,7 +13,13 @@
     </head>
     <body>
         <h1>Manejo practicantes</h1>
+        <br/>
+        <a href="${pageContext.request.contextPath}/vistas/login/registro_usuario.jsp">Registrar usuario</a><br/>
+        <br/>
+        <a href="${pageContext.request.contextPath}/vistas/login/login.jsp">Login</a>
+        <br/>
         <a href="${pageContext.request.contextPath}/Practicante?accion=listar">listar practicante</a>
+        <br/>
         <form action="${pageContext.request.contextPath}/Practicante?accion=crear" method="post">
             id: <input type="number" name="cod_usuario"/>
             <br/>
