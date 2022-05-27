@@ -11,6 +11,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -19,7 +21,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -40,17 +41,18 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "BcsUsuario.findByDirFisica", query = "SELECT b FROM BcsUsuario b WHERE b.dirFisica = :dirFisica"),
     @NamedQuery(name = "BcsUsuario.findByEmiCoorporativo", query = "SELECT b FROM BcsUsuario b WHERE b.emiCoorporativo = :emiCoorporativo"),
     @NamedQuery(name = "BcsUsuario.findByEmiPersonal", query = "SELECT b FROM BcsUsuario b WHERE b.emiPersonal = :emiPersonal"),
+    @NamedQuery(name = "BcsUsuario.findByFotoUsuario", query = "SELECT b FROM BcsUsuario b WHERE b.fotoUsuario = :fotoUsuario"),
     @NamedQuery(name = "BcsUsuario.findByPswUsuario", query = "SELECT b FROM BcsUsuario b WHERE b.pswUsuario = :pswUsuario")})
 public class BcsUsuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "cod_usuario", nullable = false)
     private Integer codUsuario;
-    @Size(max = 70)
-    @Column(name = "nom_usuario", length = 70)
+    @Size(max = 200)
+    @Column(name = "nom_usuario", length = 200)
     private String nomUsuario;
     @Size(max = 45)
     @Column(name = "ced_usuario", length = 45)
@@ -64,9 +66,12 @@ public class BcsUsuario implements Serializable {
     @Size(max = 45)
     @Column(name = "emi_coorporativo", length = 45)
     private String emiCoorporativo;
-    @Size(max = 20)
-    @Column(name = "emi_personal", length = 20)
+    @Size(max = 45)
+    @Column(name = "emi_personal", length = 45)
     private String emiPersonal;
+    @Size(max = 45)
+    @Column(name = "foto_usuario", length = 45)
+    private String fotoUsuario;
     @Size(max = 45)
     @Column(name = "psw_usuario", length = 45)
     private String pswUsuario;
@@ -79,9 +84,8 @@ public class BcsUsuario implements Serializable {
     @JoinColumn(name = "id_rol", referencedColumnName = "id_rol")
     @ManyToOne(fetch = FetchType.LAZY)
     private BcsRoles idRol;
-    @JoinColumn(name = "id_login_usuario", referencedColumnName = "id_login")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private BscLogin idLoginUsuario;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "bcsUsuario", fetch = FetchType.LAZY)
+    private List<BscLogin> bscLoginList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "bcsUsuario", fetch = FetchType.LAZY)
     private List<CprHistContenidoPracticante> cprHistContenidoPracticanteList;
 
@@ -148,6 +152,14 @@ public class BcsUsuario implements Serializable {
         this.emiPersonal = emiPersonal;
     }
 
+    public String getFotoUsuario() {
+        return fotoUsuario;
+    }
+
+    public void setFotoUsuario(String fotoUsuario) {
+        this.fotoUsuario = fotoUsuario;
+    }
+
     public String getPswUsuario() {
         return pswUsuario;
     }
@@ -190,12 +202,13 @@ public class BcsUsuario implements Serializable {
         this.idRol = idRol;
     }
 
-    public BscLogin getIdLoginUsuario() {
-        return idLoginUsuario;
+    @XmlTransient
+    public List<BscLogin> getBscLoginList() {
+        return bscLoginList;
     }
 
-    public void setIdLoginUsuario(BscLogin idLoginUsuario) {
-        this.idLoginUsuario = idLoginUsuario;
+    public void setBscLoginList(List<BscLogin> bscLoginList) {
+        this.bscLoginList = bscLoginList;
     }
 
     @XmlTransient
