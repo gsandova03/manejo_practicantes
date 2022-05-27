@@ -1,12 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.gbm.controladores;
 
-import com.gbm.dao.CprPracticantesFacade;
+import com.gbm.dao.*;
+import com.gbm.entidades.BcsEstados;
 import com.gbm.entidades.BcsGenero;
+import com.gbm.entidades.BcsUsuario;
+import com.gbm.entidades.CprCarreras;
+import com.gbm.entidades.CprEspecialidades;
+import com.gbm.entidades.CprInstituciones;
 import com.gbm.entidades.CprPracticantes;
+import com.gbm.entidades.CprTipoPracticas;
 import java.io.IOException;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -14,16 +17,33 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
-/**
- *
- * @author gsandoval
- */
+
 @WebServlet("/Practicante")
 public class PracticanteControlador extends HttpServlet{
     @EJB
     private CprPracticantesFacade practicanteFacade;
     @EJB
-    private BcsGenero genero;
+    private BcsUsuarioFacade usuario;
+    @EJB
+    private BcsGeneroFacade genero;
+    @EJB
+    private CprInstitucionesFacade institucion;
+    @EJB
+    private CprCarrerasFacade carrera;
+    @EJB
+    private CprEspecialidadesFacade especialidad;
+    @EJB
+    private CprTipoPracticasFacade tipo_practica;
+    @EJB
+    private BcsEstadosFacade estado;
+    
+    private BcsUsuario user;
+    private BcsGenero gen;
+    private CprInstituciones inst;
+    private CprCarreras carr;
+    private CprEspecialidades espec;
+    private CprTipoPracticas prac;
+    private BcsEstados estad;
     HttpSession sesion;
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
@@ -67,10 +87,40 @@ public class PracticanteControlador extends HttpServlet{
         int id_carrera = Integer.parseInt(request.getParameter("id_carrera"));
         int id_especialidad = Integer.parseInt(request.getParameter("id_especialidad"));
         int id_practica = Integer.parseInt(request.getParameter("id_practica"));
+        int id_estado = Integer.parseInt(request.getParameter("id_estado"));
+        
+        user = usuario.buscarUsuarioId(codigo_usuario);
+        gen = genero.find(id_genero);
+        inst = institucion.find(id_institucion);
+        carr = carrera.find(id_carrera);
+        espec = especialidad.find(id_especialidad);
+        prac = tipo_practica.find(id_practica);
+        estad = estado.find(id_estado);
+        
+        BcsUsuario u = new BcsUsuario();
+        u.setCodUsuario(user.getCodUsuario());
+        
+        BcsGenero g = new BcsGenero();
+        g.setIdGenero(gen.getIdGenero());
+        
+        CprInstituciones i = new CprInstituciones();
+        i.setIdInstitucion(id_institucion);
+        
+        CprCarreras c = new CprCarreras();
+        c.setIdCarrera(id_carrera);
+        
+        CprEspecialidades e = new CprEspecialidades();
+        e.setIdEspecialidad(id_especialidad);
+        
+        CprTipoPracticas t = new CprTipoPracticas();
+        t.setIdPractica(id_practica);
+        
+        BcsEstados est = new BcsEstados();
+        est.setIdEstado(id_estado);
         
         CprPracticantes practicante = new CprPracticantes();
         
-        practicante.setCodUsuarioPract(codigo_usuario);
+        practicante.setCodUsuarioPract(u.getCodUsuario());
         practicante.setCodGeneracion(codigo_generacion);
         practicante.setFecIngreso(fecha_ingreso);
         practicante.setDurPractica(duracion_practica);
@@ -81,7 +131,13 @@ public class PracticanteControlador extends HttpServlet{
         practicante.setDesMateriasPendientes(descripcion_materias_pendientes);
         practicante.setRevMateriasPendientes(revision_materias_pendientes);
         practicante.setFecActualizacionExpediente(fecha_actualizacion_expediente);
-//        practicante.setIdGenero(id_genero);
-//        practicante.setIdInstitucion(id_institucion);
+        practicante.setIdGenero(g);
+        practicante.setIdInstitucion(i);
+        practicante.setIdCarrera(c);
+        practicante.setIdEspecialidad(e);
+        practicante.setIdTipoPractica(t);
+        practicante.setIdEstado(est);
+        
+        practicanteFacade.create(practicante);
     }
 }

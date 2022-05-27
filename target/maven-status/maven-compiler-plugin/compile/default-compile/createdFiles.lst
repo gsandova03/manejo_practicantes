@@ -5,6 +5,7 @@ com\gbm\entidades\CprCarreras.class
 com\gbm\controladores\PracticanteControlador.class
 com\gbm\entidades\CprCiclos.class
 com\gbm\entidades\CprPracticantes.class
+com\gbm\entidades\BscLoginPK.class
 com\gbm\entidades\CprValoracionPracticantesPK.class
 com\gbm\entidades\CprComentarios.class
 com\gbm\entidades\CprContenido.class

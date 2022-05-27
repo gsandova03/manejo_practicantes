@@ -1,16 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.gbm.dao;
 
 import java.util.List;
 import javax.persistence.EntityManager;
 
-/**
- *
- * @author gsandoval
- */
+
 public abstract class AbstractFacade<T> {
 
     private Class<T> entityClass;
