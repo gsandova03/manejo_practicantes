@@ -13,6 +13,7 @@
     </head>
     <body>
         <h1>Hello World!</h1>
-        <a href="${pageContext.request.contextPath}/vista/registroUsuario/registroUsuario.jsp">Registrar usuario</a>
+        <a href="${pageContext.request.contextPath}/vista/registroUsuario/registroUsuario.jsp">Registrar usuario</a><br/>
+        <a href="${pageContext.request.contextPath}/vista/registroUsuario/login.jsp">Login</a>
     </body>
 </html>

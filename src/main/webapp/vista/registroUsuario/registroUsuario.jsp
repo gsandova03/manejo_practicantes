@@ -44,6 +44,7 @@
                 <p>${UsuarioExistente}</p>
                 <p>${UsuarioNuevo}</p>
             </div>
+            <a href="login.jsp">Login</a>
     </body>
 </html>
 

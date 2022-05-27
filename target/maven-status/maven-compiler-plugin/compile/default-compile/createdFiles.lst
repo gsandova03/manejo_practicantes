@@ -18,6 +18,7 @@ com\gbm\dao\CprTipoPracticasFacade.class
 com\gbm\dao\CprHistContenidoPracticanteFacade.class
 com\gbm\entidades\BcsBitacora.class
 com\gbm\entidades\CprHistContenidoPracticantePK.class
+contoladores\BcsLogin.class
 com\gbm\entidades\BcsGenero.class
 com\gbm\dao\CprContenidoFacade.class
 com\gbm\dao\BcsBitacoraFacade.class

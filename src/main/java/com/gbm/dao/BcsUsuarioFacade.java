@@ -34,4 +34,9 @@ public class BcsUsuarioFacade extends AbstractFacade<BcsUsuario> {
                 .getSingleResult();
     }
     
+    public BcsUsuario buscarPorCorreoC(String cr){
+        return (BcsUsuario) em.createNamedQuery("BcsUsuario.findByEmiCoorporativo")
+                .setParameter("emiCoorporativo", cr)
+                .getSingleResult();
+    }
 }

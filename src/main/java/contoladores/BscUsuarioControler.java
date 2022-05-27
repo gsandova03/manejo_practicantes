@@ -30,7 +30,7 @@ public class BscUsuarioControler extends HttpServlet {
     @EJB
     BcsRolesFacade bcsRolesFacade;
 
-    BcsUsuario exiteUsuari = null;
+    private BcsUsuario exiteUsuari = null;
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
