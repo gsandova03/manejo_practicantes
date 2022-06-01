@@ -22,6 +22,7 @@ com\gbm\entidades\BcsBitacora.class
 com\gbm\entidades\CprHistContenidoPracticantePK.class
 com\gbm\entidades\BcsGenero.class
 com\gbm\dao\CprContenidoFacade.class
+com\gbm\controladores\RecordarContraseña.class
 com\gbm\dao\BcsBitacoraFacade.class
 com\gbm\dao\CprValoracionesFacade.class
 com\gbm\controladores\CprContenidoControlador.class
