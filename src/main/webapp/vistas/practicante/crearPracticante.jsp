@@ -16,60 +16,58 @@
     </head>
     <body>
         <div class="formulario-modal">
-            <form action="${pageContext.request.contextPath}/Practicante?accion=crear" method="post">
+            <form action="${pageContext.request.contextPath}/Practicante?accion=verificar" method="post">
                 <div class="grupo-input">
                     <label>Cedula: </label>
                     <input class="form-control" type="text" name="ced_usuario"/>
                 </div>
-                
-                <div class="grupo-input">
-                    <label>Cod usuario: </label>
-                    <input class="form-control" type="text" name="cod_usuario"/>
-                </div>
+                <button class="btn btn-warning" type="submit"> Verificar cedula</button>
+            </form>
+            
+            <form action="${pageContext.request.contextPath}/Practicante?accion=crear" method="post">
                 <div class="grupo-input">
                     <label>Nombre: </label>
-                    <input class="form-control" type="text" name="nom_usuario"/>
+                    <input class="form-control" value="${Usuario.nomUsuario}" type="text" name="nom_usuario" readonly/>
+                </div>
+                <div class="grupo-input" hidden>
+                    <label>cod: </label>
+                    <input class="form-control" value="${Usuario.codUsuario}" type="text" name="cod_usuario"/>
                 </div>
                 <div class="grupo-input">
-                    <label>Genero: </label>
-                    <select class="form-select" name="id_genero">
-                        <option selected>Seleccionar</option>
-                        <option value="1">masculino</option>
-                        <option value="2">femenino</option>
-                        <option value="3">otro</option>
-                    </select>
+                    <label>Cedula: </label>
+                    <input class="form-control" value="${Usuario.cedUsuario}" type="text" name="ced_usuario" readonly/>
                 </div>
                 <div class="grupo-input">
                     <label>Fecha nacimiento: </label>
-                    <input class="form-control" type="date" name="fecha_nacimiento"/>
+                    <input class="form-control" value="${Usuario.fecNacimiento}" type="date" name="fecha_nacimiento" readonly/>
                 </div>
                 <div class="grupo-input">
                     <label>Foto: </label>
-                    <input class="form-control" type="file" name="foto_usuario"/>
+                    <input class="form-control" value="${Usuario.fotoUsuario}" type="file" name="foto_usuario" readonly/>
                 </div>
                 <div class="grupo-input">
                     <label>Codigo generacion: </label>
-                    <input class="form-control" type="text" name="cod_generacion"/>
+                    <input class="form-control" type="text" name="cod_generacion" required/>
                 </div>
                 <div class="grupo-input">
                     <label>Fecha ingreso: </label>
-                    <input class="form-control" type="date" name="fec_ingreso"/>
+                    <input class="form-control" type="date" name="fec_ingreso" required/>
                 </div>
                 <div class="grupo-input">
                     <label>Duracion practica: </label>
-                    <input class="form-control" type="text" name="dur_practica"/>
+                    <input class="form-control" type="text" name="dur_practica" required/>
                 </div>
                 <div class="grupo-input">
                     <label>Lider administrativo: </label>
-                    <input class="form-control" type="text" name="ldr_administrativo"/>
+                    <input class="form-control" type="text" name="ldr_administrativo" required/>
                 </div>
                 <div class="grupo-input">
                     <label>Lider entrenamiento: </label>
-                    <input class="form-control" type="text" name="ldr_entrenamiento"/>
+                    <input class="form-control" type="text" name="ldr_entrenamiento" required/>
                 </div>
                 <div class="grupo-input">
                     <label>Lider funcional: </label>
-                    <input class="form-control" type="text" name="ldr_funcional"/>
+                    <input class="form-control" type="text" name="ldr_funcional" required/>
                 </div>
                 <div class="form-floating">
                     <textarea class="form-control" placeholder="ingrese un comentario" 
@@ -91,17 +89,31 @@
                 </div>
                 <div class="grupo-input">
                     <label>Fecha actualizacion expediente: </label>
-                    <input class="form-control" name="fec_actualizacion_expediente" type="date" />
+                    <input class="form-control" name="fec_actualizacion_expediente" type="date" required/>
                 </div>
                 <div class="grupo-input">
                     <label>Usuario cambio expediente: </label>
-                    <input class="form-control" name="usuario_cambio_expediente" type="text" />
+                    <input class="form-control" name="usuario_cambio_expediente" type="text" required/>
+                </div>
+                <div class="grupo-input">
+                    <label>Genero: </label>
+                    <input class="form-control" type="text" name="id_genero"/>
+                </div>
+                <div class="grupo-input">
+                    <label>Genero: </label>
+                    <input class="form-control" type="text" name="id_genero"/>
+                    <select class="form-select" name="id_genero">
+                        <option selected>Seleccionar</option>
+                        <c:forEach var="generos" items = "${Generos}" varStatus= "status">
+                            <option value="${generos.idGenero}">${generos.desGenero}</option>
+                        </c:forEach>
+                    </select>
                 </div>
                 <div class="grupo-input">
                     <label>Institucion: </label>
                     <select class="form-select" name="id_institucion">
                         <option selected>Seleccionar</option>
-                        <c:forEach var="instituciones" items = "${Intituciones}" varStatus= "status">
+                        <c:forEach var="instituciones" items = "${Instituciones}" varStatus= "status">
                             <option value="${instituciones.idInstitucion}">${instituciones.desInstitucion}</option>
                         </c:forEach>
                     </select>

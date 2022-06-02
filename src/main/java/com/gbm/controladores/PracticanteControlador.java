@@ -64,29 +64,34 @@ public class PracticanteControlador extends HttpServlet{
                 break;
             case "leer":
                 leerTablas(request, response);
+                break;
+            case "verificar":
+                verificarCedula(request, response);
+                break;
         }
     }
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         String accion = request.getParameter("accion");
-        RequestDispatcher dispatcher;
         
         switch (accion) {
             case "crear":
                 crearPracticante(request, response);
                 break;
-            
+            case "verificar":
+                verificarCedula(request, response);
+                break;
         }
     }
     
     private void crearPracticante(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         
         int cod_usuario = Integer.parseInt(request.getParameter("cod_usuario"));
-        String nombre_usuario = request.getParameter("nom_usuario");
-        String cedula_usuario = request.getParameter("ced_usuario");
-        String fecha_nacimiento = request.getParameter("fecha_nacimiento");
-        String foto_usuario = request.getParameter("foto_usuario");
+//        String nombre_usuario = request.getParameter("nom_usuario");
+//        String cedula_usuario = request.getParameter("ced_usuario");
+//        String fecha_nacimiento = request.getParameter("fecha_nacimiento");
+//        String foto_usuario = request.getParameter("foto_usuario");
         String codigo_generacion = request.getParameter("cod_generacion");
         String fecha_ingreso = request.getParameter("fec_ingreso");
         String duracion_practica = request.getParameter("dur_practica");
@@ -105,42 +110,34 @@ public class PracticanteControlador extends HttpServlet{
         int id_practica = Integer.parseInt(request.getParameter("id_practica"));
         int id_estado = Integer.parseInt(request.getParameter("id_estado"));
         
-        user = usuarioFacade.buscarUsuarioId(cod_usuario);
-        gen = generoFacade.find(id_genero);
-        inst = institucionFacade.find(id_institucion);
-        carr = carreraFacade.find(id_carrera);
-        espec = especialidadFacade.find(id_especialidad);
-        prac = tipo_practicaFacade.find(id_practica);
-        estad = estadoFacade.find(id_estado);
-        rol = rolFacade.find(1);
         
         BcsUsuario u = new BcsUsuario();
-        u.setCodUsuario(user.getCodUsuario());
+        u.setCodUsuario(cod_usuario);
         
         BcsGenero g = new BcsGenero();
-        g.setIdGenero(gen.getIdGenero());
+        g.setIdGenero(id_genero);
         
         CprInstituciones i = new CprInstituciones();
-        i.setIdInstitucion(inst.getIdInstitucion());
+        i.setIdInstitucion(id_institucion);
         
         CprCarreras c = new CprCarreras();
-        c.setIdCarrera(carr.getIdCarrera());
+        c.setIdCarrera(id_carrera);
         
         CprEspecialidades e = new CprEspecialidades();
-        e.setIdEspecialidad(espec.getIdEspecialidad());
+        e.setIdEspecialidad(id_especialidad);
         
         CprTipoPracticas t = new CprTipoPracticas();
-        t.setIdPractica(prac.getIdPractica());
+        t.setIdPractica(id_practica);
         
         BcsEstados est = new BcsEstados();
-        est.setIdEstado(estad.getIdEstado());
+        est.setIdEstado(id_estado);
         
         BcsRoles roles = new BcsRoles();
-        roles.setIdRol(rol.getIdRol());
+        roles.setIdRol(1);
         
         CprPracticantes practicante = new CprPracticantes();
         
-        practicante.setCodUsuarioPract(u.getCodUsuario());
+        practicante.setCodUsuarioPract(cod_usuario);
         practicante.setCodGeneracion(codigo_generacion);
         practicante.setFecIngreso(fecha_ingreso);
         practicante.setDurPractica(duracion_practica);
@@ -160,29 +157,29 @@ public class PracticanteControlador extends HttpServlet{
         practicante.setIdEstado(est);
         practicante.setIndBorrado("false");
         
-        crearUsuario(u.getCodUsuario(), nombre_usuario, cedula_usuario, fecha_nacimiento, foto_usuario, roles);
+//        crearUsuario(u.getCodUsuario(), nombre_usuario, cedula_usuario, fecha_nacimiento, foto_usuario, roles);
         
         practicanteFacade.create(practicante);
         RequestDispatcher dispatcher = request.getRequestDispatcher("vistas/practicante/listarPracticantes.jsp");
         dispatcher.forward(request, response);
     }
     
-    private void crearUsuario(Integer cod_usuario ,String nombre, String cedula, String fecha_nacimiento, String foto_usuario, BcsRoles roles){
-        
-        BcsUsuario usuario = new BcsUsuario();
-        usuario.setCodUsuario(cod_usuario);
-        usuario.setNomUsuario(nombre);
-        usuario.setCedUsuario(cedula);
-        usuario.setFecNacimiento(fecha_nacimiento);
-        usuario.setFotoUsuario(foto_usuario);
-        usuario.setDirFisica(" ");
-        usuario.setEmiCoorporativo(" ");
-        usuario.setEmiPersonal(" ");
-        usuario.setPswUsuario(" ");
-        usuario.setIdRol(roles);
-        
-        usuarioFacade.edit(usuario);
-    }
+//    private void crearUsuario(Integer cod_usuario ,String nombre, String cedula, String fecha_nacimiento, String foto_usuario, BcsRoles roles){
+//        
+//        BcsUsuario usuario = new BcsUsuario();
+//        usuario.setCodUsuario(cod_usuario);
+//        usuario.setNomUsuario(nombre);
+//        usuario.setCedUsuario(cedula);
+//        usuario.setFecNacimiento(fecha_nacimiento);
+//        usuario.setFotoUsuario(foto_usuario);
+//        usuario.setDirFisica(" ");
+//        usuario.setEmiCoorporativo(" ");
+//        usuario.setEmiPersonal(" ");
+//        usuario.setPswUsuario(" ");
+//        usuario.setIdRol(roles);
+//        
+//        usuarioFacade.edit(usuario);
+//    }
     
     public void leerTablas(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         List<CprInstituciones> instituciones = institucionFacade.findAll();
@@ -190,13 +187,45 @@ public class PracticanteControlador extends HttpServlet{
         List<CprEspecialidades> especialidades = especialidadFacade.findAll();
         List<CprTipoPracticas> tipo_practica = tipo_practicaFacade.findAll();
         List<BcsEstados> estados = estadoFacade.findAll();
+        List<BcsGenero> generos = generoFacade.findAll();
         
         request.setAttribute("Intituciones", instituciones);
         request.setAttribute("Carreras", carreras);
         request.setAttribute("Especialidades", especialidades);
         request.setAttribute("Tipo_practica", tipo_practica);
         request.setAttribute("Estados", estados);
+        request.setAttribute("Generos", generos);
         
         request.getRequestDispatcher("vistas/practicante/crearPracticante.jsp").forward(request, response);
+    }
+    
+    public void verificarCedula(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
+        
+        String cedula_usuario = request.getParameter("ced_usuario");
+
+        List<CprInstituciones> instituciones = institucionFacade.findAll();
+        List<CprCarreras> carreras = carreraFacade.findAll();
+        List<CprEspecialidades> especialidades = especialidadFacade.findAll();
+        List<CprTipoPracticas> tipo_practica = tipo_practicaFacade.findAll();
+        List<BcsEstados> estados = estadoFacade.findAll();
+        List<BcsGenero> generos = generoFacade.findAll();
+        
+            user = usuarioFacade.buscarPorCc(cedula_usuario);
+       
+        
+        if(user != null){
+            request.setAttribute("Instituciones", instituciones);
+            request.setAttribute("Carreras", carreras);
+            request.setAttribute("Especialidades", especialidades);
+            request.setAttribute("Tipo_practica", tipo_practica);
+            request.setAttribute("Estados", estados);
+            request.setAttribute("Usuario", user);
+            request.setAttribute("cod_usuario", user.getCodUsuario());
+            request.setAttribute("Generos", generos);
+            
+            request.getRequestDispatcher("vistas/practicante/crearPracticante.jsp").forward(request, response);
+        }else{
+            
+        }
     }
 }
