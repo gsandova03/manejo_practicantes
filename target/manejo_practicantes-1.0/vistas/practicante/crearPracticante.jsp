@@ -97,11 +97,6 @@
                 </div>
                 <div class="grupo-input">
                     <label>Genero: </label>
-                    <input class="form-control" type="text" name="id_genero"/>
-                </div>
-                <div class="grupo-input">
-                    <label>Genero: </label>
-                    <input class="form-control" type="text" name="id_genero"/>
                     <select class="form-select" name="id_genero">
                         <option selected>Seleccionar</option>
                         <c:forEach var="generos" items = "${Generos}" varStatus= "status">

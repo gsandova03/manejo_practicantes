@@ -189,7 +189,7 @@ public class PracticanteControlador extends HttpServlet{
         List<BcsEstados> estados = estadoFacade.findAll();
         List<BcsGenero> generos = generoFacade.findAll();
         
-        request.setAttribute("Intituciones", instituciones);
+        request.setAttribute("Instituciones", instituciones);
         request.setAttribute("Carreras", carreras);
         request.setAttribute("Especialidades", especialidades);
         request.setAttribute("Tipo_practica", tipo_practica);
