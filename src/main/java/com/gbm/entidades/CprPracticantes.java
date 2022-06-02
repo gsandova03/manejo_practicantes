@@ -294,6 +294,8 @@ public class CprPracticantes implements Serializable {
     public void setIdTipoPractica(CprTipoPracticas idTipoPractica) {
         this.idTipoPractica = idTipoPractica;
     }
+    
+    
 
     @Override
     public int hashCode() {
