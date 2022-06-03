@@ -12,13 +12,14 @@
         <title>Manejo practicantes</title>
     </head>
    
-    <body>
-      
+    <body>      
         <h1>Manejo practicantes</h1>
         <br/>
         <a href="${pageContext.request.contextPath}/vistas/login/registro_usuario.jsp">Registrar usuario</a><br/>
         <br/>
-        <a href="${pageContext.request.contextPath}/vistas/login/login.jsp">Login</a>
+        <a href="${pageContext.request.contextPath}/BscUsuarioControlador?accion=read">Lista de usuarios</a>
+        <br/>
+        <a href="${pageContext.request.contextPath}/vistas/login/log2.jsp">Login</a>
         <br/>
         <a href="${pageContext.request.contextPath}/Practicante?accion=listar">listar practicante</a>
         <br/>
@@ -94,6 +95,6 @@
             <br/>
             <button type="submit">Enviar formulario</button>
         </form>
-        <a href="${pageContext.request.contextPath}/RecupContrasena/Rcontrasena.jsp">Olvide mi cotra</a>
+        <a href="${pageContext.request.contextPath}/vistas/RecupContrasena/Rcontrasena">Recordar Contraseña</a>
     </body>
 </html>

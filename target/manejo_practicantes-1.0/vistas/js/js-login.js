@@ -28,4 +28,13 @@ function deshabilitaRetroceso() {
         window.location.hash = "";
     }
 }
+function usuarioE(){
+    let mensajeUsuario = document.getElementById('usuarioE');
+    
+    if(mensajeUsuario.value !== ""){
+        mensajeUsuario.classList.add("mensaje-error");
+    }else{
+        alert("No se pudo");
+    }
+}
 

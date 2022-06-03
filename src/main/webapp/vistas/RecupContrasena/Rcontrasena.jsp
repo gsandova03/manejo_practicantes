@@ -15,6 +15,10 @@
         <title>JSP Page</title>
     </head>
     <body>
+
+
+
+
         <form action="${pageContext.request.contextPath}/RecordarContrase_a" method="POST">
             <div style="display: grid;width: 100%;justify-content: center;">
             <div class="mb-3">
@@ -22,11 +26,8 @@
                 <input name="usuario" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Correo Corporativo" tyle="text-align: center">
                 
             </div>
-            <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Contraseña" style="text-align: center">
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+                
+                <button type="submit" class="btn btn-primary" name="MimeMessage">Submit</button>
             </<div>
                 <p>${CampoVacio}</p>
         </form>

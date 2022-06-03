@@ -43,6 +43,8 @@ public class BcsLoginControlador extends HttpServlet {
             sesion.setAttribute("Rol", usuariol.getIdRol());
             response.sendRedirect("vistas/home/dashboard.jsp");
    
+        }else{
+            response.sendRedirect("vistas/login/login.jsp");
         }
 
     }

@@ -13,5 +13,23 @@
     </head>
     <body>         
         <h1>Inicio de Session</h1>
+        <button id="TbnPrueba">Presiona Aqui!</button>
     </body>
 </html>
+
+<script src="js/js-login.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="../js/js-login.js"></script>       
+
+<script type="text/javascript">
+    
+        $(document).ready(function() {
+           
+            document.getElementById("TbnPrueba").addEventListener('click', function() {
+
+                alert("Esto funciona invesil");
+
+              });
+        });
+        
+    </script>

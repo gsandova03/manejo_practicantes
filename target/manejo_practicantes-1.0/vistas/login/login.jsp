@@ -16,11 +16,11 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
-        <script src="../js/js-login.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
         <link rel="stylesheet" href="../css/index-login.css">
     </head>
     <body>
-        
+       
         <div class="container-login">
             <div class="box-login">
                 <div class="box-logo">
@@ -47,5 +47,24 @@
             </div>
         </div>
         <script src="js/js-login.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="../js/js-login.js"></script>        
     </body>
+    <script type="text/javascript">
+    
+        $(document).ready(function() {
+            function disableBack() {
+                window.history.forward();
+            }
+            window.onload = disableBack();
+            
+            window.onpageshow = function(e) {
+                if (e.persisted){
+                    disableBack();
+                }
+            }
+            
+        });
+        
+    </script>
 </html>

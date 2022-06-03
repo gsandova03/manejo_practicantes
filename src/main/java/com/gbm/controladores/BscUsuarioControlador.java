@@ -1,4 +1,3 @@
-
 package com.gbm.controladores;
 
 import com.gbm.dao.BcsRolesFacade;
@@ -6,8 +5,7 @@ import com.gbm.dao.BcsUsuarioFacade;
 import com.gbm.entidades.BcsRoles;
 import com.gbm.entidades.BcsUsuario;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.SQLException;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,10 +22,25 @@ public class BscUsuarioControlador extends HttpServlet {
     BcsRolesFacade bcsRolesFacade;
 
     private BcsUsuario exiteUsuari = null;
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        String accion = request.getParameter("accion");
+
+        switch (accion) {
+            case "insert":
+                this.insetar(request, response);
+                break;
+            case "update":
+                this.update(request, response);
+                break;
+        }
+    }
+
+    private void insetar(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         String nombreUsuario = request.getParameter("nom_usuario");
         String cedUsuario = request.getParameter("ced_usuario");
         String fechNacimiento = request.getParameter("fec_nacimiento");
@@ -63,14 +76,82 @@ public class BscUsuarioControlador extends HttpServlet {
             ex.getMessage();
         }
         if (this.exiteUsuari != null) {
-            request.setAttribute("UsuarioExistente", "Este usuario ya existe en nuestra base de datos");
+            request.setAttribute("UsuarioExistente", "Este usuario ya existe en nuestra base de datos<i class='bi bi-exclamation-octagon'>");
+            request.setAttribute("mensajeerror", "mensaje-error");
             request.getRequestDispatcher("vistas/login/registro_usuario.jsp").forward(request, response);
         } else {
             bcsUsuario.create(usuario);
-            request.setAttribute("UsuarioNuevo", "Usuario creado satifactoriamente");
+            request.setAttribute("UsuarioNuevo", "Usuario creado satifactoriamente<i class='bi bi-person-check'></i>");
+            request.setAttribute("mensajecreado", "mensaje-creado");
             request.getRequestDispatcher("vistas/login/registro_usuario.jsp").forward(request, response);
         }
+    }
+    
+    private void update(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        BcsUsuario usuarioActualizar = new BcsUsuario();
+        BcsRoles rol = new BcsRoles();
+        
+        usuarioActualizar.setCodUsuario(Integer.parseInt(request.getParameter("cod_usuario")));
+        usuarioActualizar.setNomUsuario(request.getParameter("nom_usuario"));
+        usuarioActualizar.setCedUsuario(request.getParameter("ced_usuario"));
+        usuarioActualizar.setFecNacimiento(request.getParameter("fec_nacimiento"));
+        usuarioActualizar.setDirFisica(request.getParameter("dir_fisica"));
+        usuarioActualizar.setEmiCoorporativo(request.getParameter("emi_corporativo"));
+        usuarioActualizar.setEmiPersonal(request.getParameter("emi_persoanl"));
+        usuarioActualizar.setPswUsuario(request.getParameter("pass_usuario"));
+        
+        
+        int idRol = Integer.parseInt(request.getParameter("rol_usuario"));
+
+        
+        BcsRoles r = bcsRolesFacade.find(idRol);
+        
+        rol.setIdRol(r.getIdRol());
+        rol.setNomRol(r.getNomRol());
+        
+        usuarioActualizar.setIdRol(rol);
+        bcsUsuario.edit(usuarioActualizar);
+        
+        response.sendRedirect("index.jsp");
+        
+    }
+    
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        String accion = request.getParameter("accion");
+
+        switch (accion) {
+            case "read":
+                this.read(request, response);
+            case "select":
+                this.seleccionar(request, response);
+                break;
+        }
+    }
+
+    private void read(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        List<BcsUsuario> listaUsuario = bcsUsuario.findAll();
+        request.setAttribute("ListaUsuarios", listaUsuario);
+        request.getRequestDispatcher("vistas/login/listaUsuarios.jsp").forward(request, response);
+    }
+
+    private void seleccionar(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        int id = Integer.parseInt(request.getParameter("idUsuario"));
+
+        BcsUsuario usuarioBuscado = bcsUsuario.find(id);
+
+        request.setAttribute("usuarioEncontrado", usuarioBuscado);
+
+        request.getRequestDispatcher("vistas/login/actualizarUsuario.jsp").forward(request, response);
 
     }
-}
 
+}

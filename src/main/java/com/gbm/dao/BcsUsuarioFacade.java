@@ -37,4 +37,6 @@ public class BcsUsuarioFacade extends AbstractFacade<BcsUsuario> {
                 .setParameter("emiCoorporativo", cr)
                 .getSingleResult();
     }
+    
+    
 }
