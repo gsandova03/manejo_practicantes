@@ -12,7 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <link href="${pageContext.request.contextPath}/estilosPracticante.css" type="text/css" rel="stylesheet">
-        <title>Crear practicante</title>
+        <title>Practicantes</title>
     </head>
     <body>
         <div class="formulario-modal">
@@ -21,53 +21,42 @@
                     <label>Cedula: </label>
                     <input class="form-control" type="text" name="ced_usuario"/>
                 </div>
-                <button class="btn btn-warning" type="submit"> Verificar cedula</button>
-            </form>
-            
-            <form action="${pageContext.request.contextPath}/Practicante?accion=crear" method="post">
+                <a class="btn btn-warning"> Verificar cedula</a>
                 <div class="grupo-input">
                     <label>Nombre: </label>
-                    <input class="form-control" value="${Usuario.nomUsuario}" type="text" name="nom_usuario" readonly/>
-                </div>
-                <div class="grupo-input" hidden>
-                    <label>cod: </label>
-                    <input class="form-control" value="${Usuario.codUsuario}" type="text" name="cod_usuario"/>
-                </div>
-                <div class="grupo-input">
-                    <label>Cedula: </label>
-                    <input class="form-control" value="${Usuario.cedUsuario}" type="text" name="ced_usuario" readonly/>
+                    <input class="form-control" value="" type="text" name="nom_usuario" readonly/>
                 </div>
                 <div class="grupo-input">
                     <label>Fecha nacimiento: </label>
-                    <input class="form-control" value="${Usuario.fecNacimiento}" type="date" name="fecha_nacimiento" readonly/>
+                    <input class="form-control" type="date" name="fecha_nacimiento" readonly/>
                 </div>
                 <div class="grupo-input">
                     <label>Foto: </label>
-                    <input class="form-control" value="${Usuario.fotoUsuario}" type="file" name="foto_usuario" readonly/>
+                    <input class="form-control" type="file" name="foto_usuario" readonly/>
                 </div>
                 <div class="grupo-input">
                     <label>Codigo generacion: </label>
-                    <input class="form-control" type="text" name="cod_generacion" required/>
+                    <input class="form-control" type="text" name="cod_generacion"/>
                 </div>
                 <div class="grupo-input">
                     <label>Fecha ingreso: </label>
-                    <input class="form-control" type="date" name="fec_ingreso" required/>
+                    <input class="form-control" type="date" name="fec_ingreso"/>
                 </div>
                 <div class="grupo-input">
                     <label>Duracion practica: </label>
-                    <input class="form-control" type="text" name="dur_practica" required/>
+                    <input class="form-control" type="text" name="dur_practica"/>
                 </div>
                 <div class="grupo-input">
                     <label>Lider administrativo: </label>
-                    <input class="form-control" type="text" name="ldr_administrativo" required/>
+                    <input class="form-control" type="text" name="ldr_administrativo"/>
                 </div>
                 <div class="grupo-input">
                     <label>Lider entrenamiento: </label>
-                    <input class="form-control" type="text" name="ldr_entrenamiento" required/>
+                    <input class="form-control" type="text" name="ldr_entrenamiento"/>
                 </div>
                 <div class="grupo-input">
                     <label>Lider funcional: </label>
-                    <input class="form-control" type="text" name="ldr_funcional" required/>
+                    <input class="form-control" type="text" name="ldr_funcional"/>
                 </div>
                 <div class="form-floating">
                     <textarea class="form-control" placeholder="ingrese un comentario" 
@@ -89,14 +78,15 @@
                 </div>
                 <div class="grupo-input">
                     <label>Fecha actualizacion expediente: </label>
-                    <input class="form-control" name="fec_actualizacion_expediente" type="date" required/>
+                    <input class="form-control" name="fec_actualizacion_expediente" type="date" />
                 </div>
                 <div class="grupo-input">
                     <label>Usuario cambio expediente: </label>
-                    <input class="form-control" name="usuario_cambio_expediente" type="text" required/>
+                    <input class="form-control" name="usuario_cambio_expediente" type="text" />
                 </div>
                 <div class="grupo-input">
                     <label>Genero: </label>
+                    <input class="form-control" type="text" name="id_genero"/>
                     <select class="form-select" name="id_genero">
                         <option selected>Seleccionar</option>
                         <c:forEach var="generos" items = "${Generos}" varStatus= "status">
@@ -108,7 +98,7 @@
                     <label>Institucion: </label>
                     <select class="form-select" name="id_institucion">
                         <option selected>Seleccionar</option>
-                        <c:forEach var="instituciones" items = "${Instituciones}" varStatus= "status">
+                        <c:forEach var="instituciones" items = "${Intituciones}" varStatus= "status">
                             <option value="${instituciones.idInstitucion}">${instituciones.desInstitucion}</option>
                         </c:forEach>
                     </select>

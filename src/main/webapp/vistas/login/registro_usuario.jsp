@@ -10,7 +10,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
         <link rel="stylesheet" href="recursos/estilo.css"/>
-        <title>JSP Page</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <title>Registro usuario</title>
     </head>
     <body>
         
@@ -44,7 +45,7 @@
                 <p>${UsuarioExistente}</p>
                 <p>${UsuarioNuevo}</p>
             </div>
-                <a href="${pageContext.request.contextPath}/login.jsp">Login</a>
+                <a href="${pageContext.request.contextPath}/vistas/login/login.jsp">Login</a>
     </body>
 </html>
 
