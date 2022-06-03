@@ -18,8 +18,8 @@
         <br/>
         <a href="${pageContext.request.contextPath}/vistas/login/login.jsp">Login</a>
         <br/>
-        <a href="${pageContext.request.contextPath}/vistas/practicante/listarPracticantes.jsp">listar practicante</a>
+        <a href="${pageContext.request.contextPath}/Practicante?accion=listar">listar practicante</a>
         <br/>
-        <a href="${pageContext.request.contextPath}/vistas/practicante/crearPracticante.jsp">Crear practicante</a>
+        <a href="${pageContext.request.contextPath}/vistas/matenimiento/index.jsp">Tablas mantenimiento</a>
     </body>
 </html>

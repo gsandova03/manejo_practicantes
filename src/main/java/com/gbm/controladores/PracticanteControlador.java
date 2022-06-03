@@ -7,6 +7,7 @@ import com.gbm.entidades.BcsGenero;
 import com.gbm.entidades.BcsRoles;
 import com.gbm.entidades.BcsUsuario;
 import com.gbm.entidades.CprCarreras;
+import com.gbm.entidades.CprCiclos;
 import com.gbm.entidades.CprEspecialidades;
 import com.gbm.entidades.CprInstituciones;
 import com.gbm.entidades.CprPracticantes;
@@ -68,6 +69,12 @@ public class PracticanteControlador extends HttpServlet{
             case "verificar":
                 verificarCedula(request, response);
                 break;
+            case "listar":
+                listarPracticantes(request, response);
+                break;
+            case "actualizar":
+                actualizarPracticante(request, response);
+                break;
         }
     }
     
@@ -81,6 +88,12 @@ public class PracticanteControlador extends HttpServlet{
                 break;
             case "verificar":
                 verificarCedula(request, response);
+                break;
+            case "listar":
+                listarPracticantes(request, response);
+                break;
+            case "actualizar":
+                actualizarPracticanteBD(request, response);
                 break;
         }
     }
@@ -224,8 +237,111 @@ public class PracticanteControlador extends HttpServlet{
             request.setAttribute("Generos", generos);
             
             request.getRequestDispatcher("vistas/practicante/crearPracticante.jsp").forward(request, response);
-        }else{
-            
         }
+    }
+    
+    private void listarPracticantes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        List<CprPracticantes> practicante = practicanteFacade.findAll();
+        request.setAttribute("listaUsuario", practicante);
+        request.getRequestDispatcher("vistas/practicante/listarPracticantes.jsp").forward(request, response);
+
+    }
+    
+    private void actualizarPracticante(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String id = request.getParameter("id");
+        
+        List<CprInstituciones> instituciones = institucionFacade.findAll();
+        List<CprCarreras> carreras = carreraFacade.findAll();
+        List<CprEspecialidades> especialidades = especialidadFacade.findAll();
+        List<CprTipoPracticas> tipo_practica = tipo_practicaFacade.findAll();
+        List<BcsEstados> estados = estadoFacade.findAll();
+        List<BcsGenero> generos = generoFacade.findAll();
+        
+            user = usuarioFacade.buscarPorCc(id);
+            
+        if(user != null){
+            request.setAttribute("Instituciones", instituciones);
+            request.setAttribute("Carreras", carreras);
+            request.setAttribute("Especialidades", especialidades);
+            request.setAttribute("Tipo_practica", tipo_practica);
+            request.setAttribute("Estados", estados);
+            request.setAttribute("Usuario", user);
+            request.setAttribute("cod_usuario", user.getCodUsuario());
+            request.setAttribute("Generos", generos);
+            
+            request.getRequestDispatcher("vistas/practicante/editarPracticante.jsp").forward(request, response);
+        }
+    }
+    
+    private void actualizarPracticanteBD(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int cod_usuario = Integer.parseInt(request.getParameter("cod_usuario"));
+        String codigo_generacion = request.getParameter("cod_generacion");
+        String fecha_ingreso = request.getParameter("fec_ingreso");
+        String duracion_practica = request.getParameter("dur_practica");
+        String lider_administrativo = request.getParameter("ldr_administrativo");
+        String lider_entrenamiento = request.getParameter("ldr_entrenamiento");
+        String lider_funcional = request.getParameter("ldr_funcional");
+        String cantidad_materias_pendientes = request.getParameter("can_materias_pendientes");
+        String descripcion_materias_pendientes = request.getParameter("des_materias_pendientes");
+        String revision_materias_pendientes = request.getParameter("rev_materias_pendientes");
+        String fecha_actualizacion_expediente = request.getParameter("fec_actualizacion_expediente");
+        String usuario_cambio_expediente = request.getParameter("usuario_cambio_expediente");
+        int id_genero = Integer.parseInt(request.getParameter("id_genero"));
+        int id_institucion = Integer.parseInt(request.getParameter("id_institucion"));
+        int id_carrera = Integer.parseInt(request.getParameter("id_carrera"));
+        int id_especialidad = Integer.parseInt(request.getParameter("id_especialidad"));
+        int id_practica = Integer.parseInt(request.getParameter("id_practica"));
+        int id_estado = Integer.parseInt(request.getParameter("id_estado"));
+        
+        
+        BcsUsuario u = new BcsUsuario();
+        u.setCodUsuario(cod_usuario);
+        
+        BcsGenero g = new BcsGenero();
+        g.setIdGenero(id_genero);
+        
+        CprInstituciones i = new CprInstituciones();
+        i.setIdInstitucion(id_institucion);
+        
+        CprCarreras c = new CprCarreras();
+        c.setIdCarrera(id_carrera);
+        
+        CprEspecialidades e = new CprEspecialidades();
+        e.setIdEspecialidad(id_especialidad);
+        
+        CprTipoPracticas t = new CprTipoPracticas();
+        t.setIdPractica(id_practica);
+        
+        BcsEstados est = new BcsEstados();
+        est.setIdEstado(id_estado);
+        
+        
+        CprPracticantes practicante = new CprPracticantes();
+        
+        practicante.setCodUsuarioPract(cod_usuario);
+        practicante.setCodGeneracion(codigo_generacion);
+        practicante.setFecIngreso(fecha_ingreso);
+        practicante.setDurPractica(duracion_practica);
+        practicante.setLdrAdministrativo(lider_administrativo);
+        practicante.setLdrEntrenamiento(lider_entrenamiento);
+        practicante.setLdrFuncional(lider_funcional);
+        practicante.setCanMateriasPendientes(cantidad_materias_pendientes);
+        practicante.setDesMateriasPendientes(descripcion_materias_pendientes);
+        practicante.setRevMateriasPendientes(revision_materias_pendientes);
+        practicante.setFecActualizacionExpediente(fecha_actualizacion_expediente);
+        practicante.setUsiuarioCambioExpediente(usuario_cambio_expediente);
+        practicante.setIdGenero(g);
+        practicante.setIdInstitucion(i);
+        practicante.setIdCarrera(c);
+        practicante.setIdEspecialidad(e);
+        practicante.setIdTipoPractica(t);
+        practicante.setIdEstado(est);
+        practicante.setIndBorrado("false");
+        
+        
+        practicanteFacade.edit(practicante);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("vistas/practicante/listarPracticantes.jsp");
+        dispatcher.forward(request, response);
     }
 }

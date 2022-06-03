@@ -1,50 +1,50 @@
-C:\Java\JAVA\Avanzado\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\dao\CprValoracionPracticantesFacade.java
-C:\Java\JAVA\Avanzado\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\entidades\CprComentarios.java
-C:\Java\JAVA\Avanzado\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\controladores\BcsLoginControlador.java
-C:\Java\JAVA\Avanzado\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\entidades\BcsUsuario.java
-C:\Java\JAVA\Avanzado\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\entidades\CprValoracionPracticantes.java
-C:\Java\JAVA\Avanzado\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\dao\CprPracticantesFacade.java
-C:\Java\JAVA\Avanzado\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\entidades\BcsGenero.java
-C:\Java\JAVA\Avanzado\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\dao\CprHistContenidoPracticanteFacade.java
-C:\Java\JAVA\Avanzado\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\dao\CprTipoPracticasFacade.java
-C:\Java\JAVA\Avanzado\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\controladores\controladorEsp.java
-C:\Java\JAVA\Avanzado\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\dao\BcsEstadosFacade.java
-C:\Java\JAVA\Avanzado\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\controladores\CprContenidoControlador.java
-C:\Java\JAVA\Avanzado\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\dao\CprEspecialidadesFacade.java
-C:\Java\JAVA\Avanzado\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\controladores\controladorInst.java
-C:\Java\JAVA\Avanzado\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\dao\CprInstitucionesFacade.java
-C:\Java\JAVA\Avanzado\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\controladores\BscUsuarioControlador.java
-C:\Java\JAVA\Avanzado\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\entidades\BcsEstados.java
-C:\Java\JAVA\Avanzado\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\dao\CprComentariosFacade.java
-C:\Java\JAVA\Avanzado\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\controladores\controladorEstado.java
-C:\Java\JAVA\Avanzado\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\dao\BcsUsuarioFacade.java
-C:\Java\JAVA\Avanzado\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\entidades\BscLogin.java
-C:\Java\JAVA\Avanzado\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\controladores\PracticanteControlador.java
-C:\Java\JAVA\Avanzado\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\entidades\CprContenido.java
-C:\Java\JAVA\Avanzado\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\dao\BcsRolesFacade.java
-C:\Java\JAVA\Avanzado\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\entidades\BcsRoles.java
-C:\Java\JAVA\Avanzado\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\dao\BcsGeneroFacade.java
-C:\Java\JAVA\Avanzado\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\dao\CprContenidoFacade.java
-C:\Java\JAVA\Avanzado\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\dao\AbstractFacade.java
-C:\Java\JAVA\Avanzado\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\entidades\CprCarreras.java
-C:\Java\JAVA\Avanzado\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\dao\CprValoracionesFacade.java
-C:\Java\JAVA\Avanzado\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\controladores\controladorRol.java
-C:\Java\JAVA\Avanzado\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\controladores\CprHistContPracticanteControlador.java
-C:\Java\JAVA\Avanzado\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\controladores\controladorGenero.java
-C:\Java\JAVA\Avanzado\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\dao\CprCarrerasFacade.java
-C:\Java\JAVA\Avanzado\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\entidades\CprCiclos.java
-C:\Java\JAVA\Avanzado\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\entidades\CprEspecialidades.java
-C:\Java\JAVA\Avanzado\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\dao\BscLoginFacade.java
-C:\Java\JAVA\Avanzado\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\controladores\controladorTipopracticas.java
-C:\Java\JAVA\Avanzado\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\dao\CprCiclosFacade.java
-C:\Java\JAVA\Avanzado\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\entidades\BcsBitacora.java
-C:\Java\JAVA\Avanzado\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\entidades\CprInstituciones.java
-C:\Java\JAVA\Avanzado\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\dao\BcsBitacoraFacade.java
-C:\Java\JAVA\Avanzado\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\entidades\BscLoginPK.java
-C:\Java\JAVA\Avanzado\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\entidades\CprHistContenidoPracticantePK.java
-C:\Java\JAVA\Avanzado\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\entidades\CprPracticantes.java
-C:\Java\JAVA\Avanzado\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\entidades\CprValoracionPracticantesPK.java
-C:\Java\JAVA\Avanzado\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\entidades\CprTipoPracticas.java
-C:\Java\JAVA\Avanzado\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\entidades\CprHistContenidoPracticante.java
-C:\Java\JAVA\Avanzado\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\controladores\controladorCarr.java
-C:\Java\JAVA\Avanzado\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\entidades\CprValoraciones.java
+C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\entidades\CprInstituciones.java
+C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\entidades\BcsEstados.java
+C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\entidades\BscLoginPK.java
+C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\dao\CprInstitucionesFacade.java
+C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\entidades\CprCarreras.java
+C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\dao\AbstractFacade.java
+C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\dao\CprEspecialidadesFacade.java
+C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\controladores\PracticanteControlador.java
+C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\dao\BcsGeneroFacade.java
+C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\controladores\BscUsuarioControlador.java
+C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\entidades\CprEspecialidades.java
+C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\controladores\controladorEsp.java
+C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\dao\BcsBitacoraFacade.java
+C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\controladores\CprHistContPracticanteControlador.java
+C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\controladores\controladorCarr.java
+C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\entidades\BscLogin.java
+C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\entidades\CprHistContenidoPracticantePK.java
+C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\entidades\CprContenido.java
+C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\entidades\CprValoraciones.java
+C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\controladores\BcsLoginControlador.java
+C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\dao\CprComentariosFacade.java
+C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\entidades\BcsRoles.java
+C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\dao\CprCarrerasFacade.java
+C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\entidades\CprCiclos.java
+C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\dao\CprPracticantesFacade.java
+C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\controladores\controladorGenero.java
+C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\entidades\BcsGenero.java
+C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\dao\CprHistContenidoPracticanteFacade.java
+C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\dao\BcsUsuarioFacade.java
+C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\dao\CprCiclosFacade.java
+C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\entidades\BcsUsuario.java
+C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\controladores\controladorRol.java
+C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\controladores\CprContenidoControlador.java
+C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\dao\BscLoginFacade.java
+C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\dao\BcsEstadosFacade.java
+C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\entidades\CprTipoPracticas.java
+C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\entidades\CprPracticantes.java
+C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\entidades\CprValoracionPracticantesPK.java
+C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\controladores\controladorInst.java
+C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\dao\CprContenidoFacade.java
+C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\controladores\controladorTipopracticas.java
+C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\dao\CprValoracionPracticantesFacade.java
+C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\entidades\BcsBitacora.java
+C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\entidades\CprValoracionPracticantes.java
+C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\dao\BcsRolesFacade.java
+C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\controladores\controladorEstado.java
+C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\entidades\CprComentarios.java
+C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\dao\CprTipoPracticasFacade.java
+C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\entidades\CprHistContenidoPracticante.java
+C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\dao\CprValoracionesFacade.java

@@ -10,7 +10,7 @@
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     </head>
     <body>
-        
+        <a class="btn btn-primary" href="${pageContext.request.contextPath}/index.jsp">Volver</a>
         <h1 style="text-align: center">Administracion de datos</h1>
         <br/>
         <div class="container d-flex flex-row justify-content-around flex-wrap gy-5 text-center">
