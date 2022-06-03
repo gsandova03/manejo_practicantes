@@ -13,6 +13,7 @@ com\gbm\controladores\BcsLoginControlador.class
 com\gbm\dao\CprHistContenidoPracticanteFacade.class
 com\gbm\entidades\CprHistContenidoPracticantePK.class
 com\gbm\entidades\BcsGenero.class
+com\gbm\controladores\RecordarContraseña.class
 com\gbm\controladores\CprContenidoControlador.class
 com\gbm\entidades\CprInstituciones.class
 com\gbm\dao\CprCiclosFacade.class

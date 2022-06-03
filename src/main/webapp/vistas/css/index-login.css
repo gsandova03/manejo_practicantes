@@ -1,0 +1,136 @@
+body{
+    background: url(../img/fondo.jpg) no-repeat center fixed;
+}
+
+/* registo de usuario*/
+.header {
+  color : #36A0FF; 
+  font-size : 27px ; 
+  padding : 10px ; 
+}
+
+.bigicon {
+ font-size: 35px ; 
+  color: #36A0FF; 
+}
+
+.container{
+  width: 75%;
+  padding-right: 0%;
+  padding-left: 0%;
+  margin-right: auto;
+  margin-left: auto;
+
+}
+.container-login{
+    width: 410px;
+    position: absolute;
+    top: 105px;
+    left: 34%;
+    border-radius: 6px;
+    box-shadow: 4px 4px 4px 4px rgb(234, 234, 234);
+}
+
+.container-login img {
+    width: 170px;
+    height: 150px;
+    border-radius: 100%;
+    position: relative;
+    top: 10px;
+    
+}
+.box-logo{
+    width: 170px;
+    height: 170px;
+    position: relative;
+    top: -80px;
+    left: 123px;
+    border-radius: 50%;
+    background: rgb(223, 223, 223);
+    object-fit: cover;
+}
+.box-user{
+    display: block;
+    margin-bottom: 20px;
+    width: 240px;
+    height: 35px;
+    border: 1px solid rgb(194, 194, 194);
+    margin-left: 83px;
+    border-radius: 6px;
+}
+.box-user::placeholder{
+    color: rgb(197, 197, 197);
+    font-style: italic;
+    padding-left: 10px;
+}
+.btn-iniciar-session{
+    width: 240px;
+    height: 35px;
+    border-radius: 6px;
+    background: rgba(0, 122, 0, 0.678);
+    color: white;
+    margin-top: 20px;
+    margin-left: 83px;
+    outline: none;
+    border: 0;
+}
+.btn-limpiar-campos{
+    width: 240px;
+    height: 35px;
+    border-radius: 6px;
+    background: red;
+    color: white;
+    margin-top: 5px;
+    margin-left: 83px;
+    margin-bottom: 20px;
+    outline: none;
+    border: 0;
+}
+.box-user i{
+    font-size: 20px;
+}
+.box-user button{
+    position: relative;
+    top: -31px;
+    left: 207px;
+    border: 0;
+    height: 35px;
+    border-radius: 6px;
+}
+#ocultar-password{
+    position: absolute;
+    top: 225px;
+    left: 291px;
+}
+.inputs{
+    border: 0;
+    outline: none;
+}
+.box-login a{
+    position: relative;
+    left: 130px;
+    margin-bottom: 40px;
+}
+#recordar-datos{
+    font-family: sans-serif;
+    margin-left: 90px;
+}
+.mensaje-usario-logeado{
+    position: relative;
+    top: -45px;
+    left: 82px;
+    /* left: 120px; */
+    text-align: center;
+    width: 240px;
+    height: 35px;
+    border-radius: 6px;
+    background: red;
+    color: white;
+    outline: none;
+    border: 0;
+}
+.mensaje-usario-logeado i{
+    font-size: 19px;
+    padding-left: 10px;
+    padding-top: 2px;
+}

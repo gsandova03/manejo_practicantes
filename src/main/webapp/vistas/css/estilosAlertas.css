@@ -1,0 +1,35 @@
+/*Mensaje de error y creado*/
+.mensaje-error{
+    width: 350px;
+    background: red;
+    height: 45px;
+    color: white;
+    margin-top: 80px;
+    text-align: center;
+    border-radius: 6px;
+    font-size: 19px;
+    font-family: sans-serif;
+    padding-top: 9px;
+}
+.mensaje-error i{
+    padding-left: 10px;
+    padding-top: 7px;
+    font-size: 20px;
+}
+.mensaje-creado{
+    width: 350px;
+    background: green;
+    color: white;
+    height: 45px;
+    margin-top: 80px;
+    text-align: center;
+    border-radius: 6px;
+    font-size: 19px;
+    font-family: sans-serif;
+    padding-top: 9px;
+}
+.mensaje-creado i{
+    padding-left: 10px;
+    padding-top: 7px;
+    font-size: 20px;
+}
