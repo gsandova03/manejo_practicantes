@@ -21,21 +21,21 @@
             <table class="table table-hover">
                 <thead>
                     <tr class="table-dark">
-                        <th>cod</th>
-                        <th>nombre</th>
-                        <th>fecha ingreso</th>
-                        <th>institucion</th>
-                        <th>Editar</th>
+                        <th>Codigo</th>
+                        <th>Nombre</th>
+                        <th>Fecha ingreso</th>
+                        <th>Institucion</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     <c:forEach var="usuario" items="${listaUsuario}" varStatus="status">
                         <tr>
-                            <td class="table-secondary">${usuario.bcsUsuario.codUsuario}</td>
+                            <td class="table-secondary">${usuario.codUsuarioPract}</td>
                             <td class="table-light">${usuario.bcsUsuario.nomUsuario}</td>
                             <td class="table-light">${usuario.fecIngreso}</td>
                             <td class="table-light">${usuario.idInstitucion.desInstitucion}</td>
-                            <td class="table-light"><a class="btn btn-warning" href="${pageContext.request.contextPath}/Practicante?accion=actualizar&id=${usuario.bcsUsuario.cedUsuario}">Editiar</a></td>
+                            <td class="table-light"><a class="btn btn-warning" href="${pageContext.request.contextPath}/Practicante?accion=actualizar&id=${usuario.bcsUsuario.cedUsuario}">Editar</a></td>
                         </tr>
                     </c:forEach>
                 </tbody>

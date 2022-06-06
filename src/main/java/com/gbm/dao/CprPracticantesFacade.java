@@ -22,4 +22,10 @@ public class CprPracticantesFacade extends AbstractFacade<CprPracticantes> {
         super(CprPracticantes.class);
     }
     
+    
+    public CprPracticantes buscarPorCodigo(Integer cod){
+        return (CprPracticantes) em.createNamedQuery("CprPracticantes.findByCodUsuarioPract")
+                .setParameter("codUsuarioPract", cod)
+                .getSingleResult();
+    }
 }

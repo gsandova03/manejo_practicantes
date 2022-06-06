@@ -241,7 +241,8 @@ public class PracticanteControlador extends HttpServlet{
     }
     
     private void listarPracticantes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        
+        
         List<CprPracticantes> practicante = practicanteFacade.findAll();
         request.setAttribute("listaUsuario", practicante);
         request.getRequestDispatcher("vistas/practicante/listarPracticantes.jsp").forward(request, response);
@@ -259,7 +260,7 @@ public class PracticanteControlador extends HttpServlet{
         List<BcsGenero> generos = generoFacade.findAll();
         
             user = usuarioFacade.buscarPorCc(id);
-            
+            pract = practicanteFacade.buscarPorCodigo(user.getCodUsuario());
         if(user != null){
             request.setAttribute("Instituciones", instituciones);
             request.setAttribute("Carreras", carreras);
@@ -267,6 +268,7 @@ public class PracticanteControlador extends HttpServlet{
             request.setAttribute("Tipo_practica", tipo_practica);
             request.setAttribute("Estados", estados);
             request.setAttribute("Usuario", user);
+            request.setAttribute("Practicante", pract);
             request.setAttribute("cod_usuario", user.getCodUsuario());
             request.setAttribute("Generos", generos);
             
@@ -341,7 +343,7 @@ public class PracticanteControlador extends HttpServlet{
         
         
         practicanteFacade.edit(practicante);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("vistas/practicante/listarPracticantes.jsp");
-        dispatcher.forward(request, response);
+        
+        request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 }

@@ -4,9 +4,9 @@
 }
 
 .formulario-modal {
-    width: 500px;
+    width: 1000px;
     margin: 10vh auto;
-    background-color: #ABCCFD;
+    background-color: #fff;
     padding: 5%;
     border-radius: 5px;
     box-shadow: -6px 5px 26px -6px rgba(0,0,0,0.46);
