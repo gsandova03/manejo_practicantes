@@ -23,9 +23,11 @@ C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_pr
 C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\entidades\BcsRoles.java
 C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\dao\CprCarrerasFacade.java
 C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\entidades\CprCiclos.java
+C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\controladores\controladorCiclos.java
 C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\dao\CprPracticantesFacade.java
 C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\controladores\controladorGenero.java
 C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\entidades\BcsGenero.java
+C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\controladores\controladorValoraciones.java
 C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\dao\CprHistContenidoPracticanteFacade.java
 C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\dao\BcsUsuarioFacade.java
 C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\dao\CprCiclosFacade.java
