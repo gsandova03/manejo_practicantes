@@ -34,6 +34,7 @@ com\gbm\controladores\PracticanteControlador.class
 com\gbm\entidades\BscLoginPK.class
 com\gbm\controladores\controladorCarr.class
 com\gbm\entidades\CprComentarios.class
+com\gbm\controladores\controladorValoracionPracticante.class
 com\gbm\dao\CprValoracionPracticantesFacade.class
 com\gbm\entidades\BcsEstados.class
 com\gbm\entidades\BcsBitacora.class

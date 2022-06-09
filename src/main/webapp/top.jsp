@@ -29,7 +29,7 @@
             </a>
             <ul class="nav-links">
                 <li>
-                    <a href="${pageContext.request.contextPath}/vistas/home/dashboard.jsp">
+                    <a href="${pageContext.request.contextPath}/Valoraciones?accion=listar">
                         <i class='bx bx-grid-alt'></i>
                         <span class="link_name">Dashboard</span>
                     </a>

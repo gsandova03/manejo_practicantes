@@ -20,7 +20,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "CprValoracionPracticantes.findAll", query = "SELECT c FROM CprValoracionPracticantes c"),
     @NamedQuery(name = "CprValoracionPracticantes.findByIdCicloVal", query = "SELECT c FROM CprValoracionPracticantes c WHERE c.cprValoracionPracticantesPK.idCicloVal = :idCicloVal"),
     @NamedQuery(name = "CprValoracionPracticantes.findByIdValoracion", query = "SELECT c FROM CprValoracionPracticantes c WHERE c.cprValoracionPracticantesPK.idValoracion = :idValoracion"),
-    @NamedQuery(name = "CprValoracionPracticantes.findByCodUsuario", query = "SELECT c FROM CprValoracionPracticantes c WHERE c.cprValoracionPracticantesPK.codUsuario = :codUsuario")})
+    @NamedQuery(name = "CprValoracionPracticantes.findByCodUsuario", query = "SELECT c FROM CprValoracionPracticantes c WHERE c.cprValoracionPracticantesPK.codUsuario = :codUsuario"),
+    @NamedQuery(name = "CprValoracionPracticantes.contardorValoracion", query = "SELECT c FROM CprValoracionPracticantes c WHERE c.cprCiclos.idCiclo = :idCiclo AND c.cprValoraciones.idValoracion = :idValoracion")
+    })
 public class CprValoracionPracticantes implements Serializable {
 
     private static final long serialVersionUID = 1L;
