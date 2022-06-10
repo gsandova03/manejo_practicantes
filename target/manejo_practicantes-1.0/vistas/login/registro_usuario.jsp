@@ -1,9 +1,4 @@
-<%-- 
-    Document   : registroUsuario
-    Created on : 26 may 2022, 17:42:48
-    Author     : jfilot
---%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -90,12 +85,9 @@
 
 
                                 <select class="form-select" aria-label="Default select example" name="id_rol">
-                                    <option selected>Selecionar un rol</option>
-                                    <option value="">Rol..</option>
-                                    <option value="1">Practicante</option>
-                                    <option value="2">Administrador</option>
-                                    <option value="3">Lider</option>
-                                    <option value="4">Visualizador</option>
+                                    <c:forEach var="Roles" items="${roles}">
+                                        <option value="${Roles.idRol}">${Roles.nomRol}</option>
+                                    </c:forEach>
                                 </select><br>
 
                                 <div class="form-group">

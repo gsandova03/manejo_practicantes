@@ -12,6 +12,7 @@ import com.gbm.entidades.CprEspecialidades;
 import com.gbm.entidades.CprInstituciones;
 import com.gbm.entidades.CprPracticantes;
 import com.gbm.entidades.CprTipoPracticas;
+import com.gbm.entidades.CprValoraciones;
 import java.io.IOException;
 import java.util.List;
 import javax.ejb.EJB;
@@ -41,6 +42,11 @@ public class PracticanteControlador extends HttpServlet{
     private BcsEstadosFacade estadoFacade;
     @EJB
     private BcsRolesFacade rolFacade;
+    @EJB
+    private CprCiclosFacade cprCicloFacaed; 
+    @EJB 
+    private CprValoracionesFacade valoracionFacade;
+    
     
     private CprPracticantes pract;
     private BcsUsuario user;
@@ -74,6 +80,9 @@ public class PracticanteControlador extends HttpServlet{
                 break;
             case "actualizar":
                 actualizarPracticante(request, response);
+                break;
+            case "valorarPracticante":
+                this.valorarPracticante(request, response);
                 break;
         }
     }
@@ -346,4 +355,24 @@ public class PracticanteControlador extends HttpServlet{
         
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
+    
+    private void valorarPracticante(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    
+        int idPracticante = Integer.parseInt(request.getParameter("id"));
+        
+        CprPracticantes practicanteValorar  = practicanteFacade.find(idPracticante);
+        
+        List<CprCiclos> listaCiclo = cprCicloFacaed.findAll();
+        
+        List<CprValoraciones> listaValoracion = valoracionFacade.findAll();
+        
+        request.setAttribute("practicanteValorar", practicanteValorar);
+        request.setAttribute("listaCiclo", listaCiclo);
+        request.setAttribute("listaValoracion", listaValoracion);
+        
+        request.getRequestDispatcher("/vistas/practicante/insertarValoracionPrac.jsp").forward(request, response);
+        
+        
+    }
+    
 }

@@ -130,6 +130,9 @@ public class BscUsuarioControlador extends HttpServlet {
             case "select":
                 this.seleccionar(request, response);
                 break;
+            case "formInfo":
+                this.formInfo(request, response);
+                
         }
     }
 
@@ -152,6 +155,18 @@ public class BscUsuarioControlador extends HttpServlet {
 
         request.getRequestDispatcher("vistas/login/actualizarUsuario.jsp").forward(request, response);
 
+    }
+    
+    //Cambios
+    
+    private void formInfo(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        List<BcsRoles> roles = bcsRolesFacade.findAll();
+        
+        request.setAttribute("roles", roles);
+
+        request.getRequestDispatcher("vistas/login/registro_usuario.jsp").forward(request, response);
     }
 
 }

@@ -14,12 +14,16 @@
     <body>
         <h1>Manejo practicantes</h1>
         <br/>
-        <a href="${pageContext.request.contextPath}/vistas/login/registro_usuario.jsp">Registrar usuario</a><br/>
+        <a href="${pageContext.request.contextPath}/BscUsuarioControlador?accion=formInfo">Registrar usuario</a><br/>
         <br/>
         <a href="${pageContext.request.contextPath}/vistas/login/login.jsp">Login</a>
         <br/>
         <a href="${pageContext.request.contextPath}/Practicante?accion=listar">listar practicante</a>
         <br/>
         <a href="${pageContext.request.contextPath}/vistas/matenimiento/index.jsp">Tablas mantenimiento</a>
+        <br/>
+        <a href="${pageContext.request.contextPath}/controladorValoracionPracticante?accion=read">Mostrar valoraciones de practicantes</a>
+        <br>
+        <a href="${pageContext.request.contextPath}/controladorComentarios?accion=read">Mostrar Comentarios</a>
     </body>
 </html>

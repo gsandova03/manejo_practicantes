@@ -25,7 +25,7 @@
                         <th>Nombre</th>
                         <th>Fecha ingreso</th>
                         <th>Institucion</th>
-                        <th>Acciones</th>
+                        <th style="text-align: center" colspan="4">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,6 +36,9 @@
                             <td class="table-light">${usuario.fecIngreso}</td>
                             <td class="table-light">${usuario.idInstitucion.desInstitucion}</td>
                             <td class="table-light"><a class="btn btn-warning" href="${pageContext.request.contextPath}/Practicante?accion=actualizar&id=${usuario.bcsUsuario.cedUsuario}">Editar</a></td>
+                            <td class="table-light"><a class="btn btn-warning" href="${pageContext.request.contextPath}/Practicante?accion=valorarPracticante&id=${usuario.codUsuarioPract}">Valorar Practicante</a></td>
+                            <td class="table-light"><a class="btn btn-warning" href="${pageContext.request.contextPath}/controladorComentarios?accion=select&id=${usuario.codUsuarioPract}">Crear Comentario</a></td>
+                            <td class="table-light"><a class="btn btn-warning" href="${pageContext.request.contextPath}/controladorComentarios?accion=selectComen&id=${usuario.codUsuarioPract}">Ver Comentario</a></td>
                         </tr>
                     </c:forEach>
                 </tbody>

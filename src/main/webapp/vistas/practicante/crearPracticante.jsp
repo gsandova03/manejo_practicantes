@@ -136,7 +136,7 @@
                     <select class="form-select" name="id_practica">
                         <option selected>Seleccionar</option>
                         <c:forEach var="practicas" items = "${Tipo_practica}" varStatus= "status">
-                            <option value="${practicas.idPractica}">${practicas.idPractica}</option>
+                            <option value="${practicas.idPractica}">${practicas.desPractica}</option>
                         </c:forEach>
                     </select>
                 </div>
