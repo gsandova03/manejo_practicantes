@@ -1,5 +1,5 @@
 <%@include file="../../../top.jsp" %>
-<h1>Actualizar el Estado</h1>
+<h3 class="text-center">Actualizar el Estado</h3>
 <br/>
 <form action="${pageContext.request.contextPath}/ControladorEstado?accion=update" method="post" name="formInsertarEstado"><!-- Formulario de insertar Estado --> 
     <div class="mb-1">

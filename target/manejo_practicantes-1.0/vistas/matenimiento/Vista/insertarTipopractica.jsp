@@ -1,6 +1,6 @@
 <%@include file="../../../top.jsp" %>
-<h1>Registrar el tipo de practica</h1>
-
+<h3 class="text-center">Registrar el tipo de practica</h3>
+<br>
 <form action="${pageContext.request.contextPath}/controladorTipoPracticas?accion=insert" method="post" name="formInsertarTipopractica"><!-- Formulario de insertar Tipo practicas -->
 
     <div class="mb-1">          

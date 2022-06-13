@@ -1,6 +1,6 @@
 <%@include file="../../top.jsp" %>
-<h1 style="text-align: center">Lista usuarios</h1><br>
-
+<h3 class="text-center">Lista usuarios</h3>
+<br>
 <table class="table table-hover table-responsive w-auto text-center">
     <thead class="table-dark">
         <tr>
@@ -14,7 +14,7 @@
             <th>Correo Personal</th>
             <th>Rol</th>
             <th>Actualizar</th>
-            <th>Elminar</th>
+            <th>Eliminar</th>
         </tr>
     </thead>
     <tbody>

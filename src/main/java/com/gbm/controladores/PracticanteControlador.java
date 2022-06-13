@@ -12,6 +12,7 @@ import com.gbm.entidades.CprEspecialidades;
 import com.gbm.entidades.CprInstituciones;
 import com.gbm.entidades.CprPracticantes;
 import com.gbm.entidades.CprTipoPracticas;
+import com.gbm.entidades.CprValoraciones;
 import java.io.IOException;
 import java.util.List;
 import javax.ejb.EJB;
@@ -41,16 +42,11 @@ public class PracticanteControlador extends HttpServlet{
     private BcsEstadosFacade estadoFacade;
     @EJB
     private BcsRolesFacade rolFacade;
+    @EJB
+    private CprCiclosFacade cprCicloFacaed; 
+    @EJB 
+    private CprValoracionesFacade valoracionFacade;
     
-    private CprPracticantes pract;
-    private BcsUsuario user;
-    private BcsGenero gen;
-    private CprInstituciones inst;
-    private CprCarreras carr;
-    private CprEspecialidades espec;
-    private CprTipoPracticas prac;
-    private BcsEstados estad;
-    private BcsRoles rol;
     HttpSession sesion;
     
     @Override
@@ -73,7 +69,7 @@ public class PracticanteControlador extends HttpServlet{
                 listarPracticantes(request, response);
                 break;
             case "actualizar":
-                actualizarPracticante(request, response);
+                llenarCamposFormulario(request, response);
                 break;
         }
     }
@@ -95,16 +91,15 @@ public class PracticanteControlador extends HttpServlet{
             case "actualizar":
                 actualizarPracticanteBD(request, response);
                 break;
+            case "valorarPracticante":
+                this.valorarPracticante(request, response);
+                break;
         }
     }
     
     private void crearPracticante(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         
         int cod_usuario = Integer.parseInt(request.getParameter("cod_usuario"));
-//        String nombre_usuario = request.getParameter("nom_usuario");
-//        String cedula_usuario = request.getParameter("ced_usuario");
-//        String fecha_nacimiento = request.getParameter("fecha_nacimiento");
-//        String foto_usuario = request.getParameter("foto_usuario");
         String codigo_generacion = request.getParameter("cod_generacion");
         String fecha_ingreso = request.getParameter("fec_ingreso");
         String duracion_practica = request.getParameter("dur_practica");
@@ -170,29 +165,11 @@ public class PracticanteControlador extends HttpServlet{
         practicante.setIdEstado(est);
         practicante.setIndBorrado("false");
         
-//        crearUsuario(u.getCodUsuario(), nombre_usuario, cedula_usuario, fecha_nacimiento, foto_usuario, roles);
         
         practicanteFacade.create(practicante);
         RequestDispatcher dispatcher = request.getRequestDispatcher("vistas/practicante/listarPracticantes.jsp");
         dispatcher.forward(request, response);
     }
-    
-//    private void crearUsuario(Integer cod_usuario ,String nombre, String cedula, String fecha_nacimiento, String foto_usuario, BcsRoles roles){
-//        
-//        BcsUsuario usuario = new BcsUsuario();
-//        usuario.setCodUsuario(cod_usuario);
-//        usuario.setNomUsuario(nombre);
-//        usuario.setCedUsuario(cedula);
-//        usuario.setFecNacimiento(fecha_nacimiento);
-//        usuario.setFotoUsuario(foto_usuario);
-//        usuario.setDirFisica(" ");
-//        usuario.setEmiCoorporativo(" ");
-//        usuario.setEmiPersonal(" ");
-//        usuario.setPswUsuario(" ");
-//        usuario.setIdRol(roles);
-//        
-//        usuarioFacade.edit(usuario);
-//    }
     
     public void leerTablas(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         List<CprInstituciones> instituciones = institucionFacade.findAll();
@@ -215,7 +192,7 @@ public class PracticanteControlador extends HttpServlet{
     public void verificarCedula(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
         
         String cedula_usuario = request.getParameter("ced_usuario");
-
+        BcsUsuario user;
         List<CprInstituciones> instituciones = institucionFacade.findAll();
         List<CprCarreras> carreras = carreraFacade.findAll();
         List<CprEspecialidades> especialidades = especialidadFacade.findAll();
@@ -249,9 +226,10 @@ public class PracticanteControlador extends HttpServlet{
 
     }
     
-    private void actualizarPracticante(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void llenarCamposFormulario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id = request.getParameter("id");
-        
+        BcsUsuario user;
+        CprPracticantes pract;
         List<CprInstituciones> instituciones = institucionFacade.findAll();
         List<CprCarreras> carreras = carreraFacade.findAll();
         List<CprEspecialidades> especialidades = especialidadFacade.findAll();
@@ -297,9 +275,6 @@ public class PracticanteControlador extends HttpServlet{
         int id_estado = Integer.parseInt(request.getParameter("id_estado"));
         
         
-        BcsUsuario u = new BcsUsuario();
-        u.setCodUsuario(cod_usuario);
-        
         BcsGenero g = new BcsGenero();
         g.setIdGenero(id_genero);
         
@@ -341,9 +316,29 @@ public class PracticanteControlador extends HttpServlet{
         practicante.setIdEstado(est);
         practicante.setIndBorrado("false");
         
-        
+        List<CprPracticantes> practicantes = practicanteFacade.findAll();
+        request.setAttribute("listaUsuario", practicantes);
+                            
         practicanteFacade.edit(practicante);
-        
-        request.getRequestDispatcher("index.jsp").forward(request, response);
+        request.getRequestDispatcher("vistas/practicante/listarPracticantes.jsp").forward(request, response);
+    }
+    
+    private void valorarPracticante(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        int idPracticante = Integer.parseInt(request.getParameter("id"));
+
+        CprPracticantes practicanteValorar  = practicanteFacade.find(idPracticante);
+
+        List<CprCiclos> listaCiclo = cprCicloFacaed.findAll();
+
+        List<CprValoraciones> listaValoracion = valoracionFacade.findAll();
+
+        request.setAttribute("practicanteValorar", practicanteValorar);
+        request.setAttribute("listaCiclo", listaCiclo);
+        request.setAttribute("listaValoracion", listaValoracion);
+
+        request.getRequestDispatcher("/vistas/practicante/insertarValoracionPrac.jsp").forward(request, response);
+
+
     }
 }

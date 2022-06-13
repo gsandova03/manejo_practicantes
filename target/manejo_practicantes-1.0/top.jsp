@@ -1,5 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+<%@page import="java.time.LocalDateTime"%>
+<%@page import="java.time.format.DateTimeFormatter"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -48,7 +50,7 @@
                     <ul class="sub-menu">
                         <li><a href="#" class="link_name">Usuario</a></li>
                         <li><a href="${pageContext.request.contextPath}/BscUsuarioControlador?accion=read">Listar Usuarios</a></li>
-                        <li><a href="${pageContext.request.contextPath}/vistas/login/registro_usuario.jsp">Agregar Usuario</a></li>
+                        <li><a href="${pageContext.request.contextPath}/BscUsuarioControlador?accion=formInfo">Agregar Usuario</a></li>
                     </ul>
                 </li>
                 <li>
@@ -63,6 +65,7 @@
                         <li><a href="#" class="link_name">Practicantes</a></li>
                         <li><a href="${pageContext.request.contextPath}/Practicante?accion=listar">Listar practicante</a></li>
                         <li><a href="${pageContext.request.contextPath}/Practicante?accion=leer">Agregar practicante</a></li>
+                        <li><a href="${pageContext.request.contextPath}/Valoraciones?accion=read">Mostrar valoraciones</a></li>
                     </ul>
                 </li>
                 <li>
@@ -87,7 +90,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="${pageContext.request.contextPath}/controladorComentarios?accion=read">
                         <i class='bx bx-comment'></i>
                         <span class="link_name">Comentarios</span>
                     </a>
@@ -109,7 +112,7 @@
                         <img src="${pageContext.request.contextPath}/vistas/img/usuario.jpg" alt="usuario">
                     </div>
                     <div class="name-job">
-                        <div class="profile_name personal-info">PEPE</div>
+                        <div class="profile_name personal-info">Gabriel Sandoval</div>
                         <div class="job personal-info">Aprendiz</div>
                     </div>
                     <i class='bx bx-log-out personal-info'></i>

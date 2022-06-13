@@ -1,6 +1,6 @@
 <%@include file="../../../top.jsp" %>
-<h1>Registrar la institucion</h1>
-
+<h3 class="text-center">Registrar la institucion</h3>
+<br>
 <form action="${pageContext.request.contextPath}/controladorInstitucion?accion=insert" method="post" name="formInsertarInstitucion"><!-- Formulario de insertar institucion -->
 
     <div class="mb-1">          

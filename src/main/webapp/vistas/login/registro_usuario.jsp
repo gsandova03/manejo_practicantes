@@ -1,7 +1,7 @@
 <%@include file="../../top.jsp" %>
 <form class="form-horizontal" action="${pageContext.request.contextPath}/BscUsuarioControlador?accion=insert" name="form1" method="POST">
     <fieldset>
-        <legend class="text-center header">Registro de Usuario</legend>
+        <h3 class="text-center header">Registro de Usuario</h3>
         <div class="form-group">
             <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-user bigicon"></i></span>
             <div class="col">
@@ -64,19 +64,14 @@
 
 
         <select class="form-select" aria-label="Default select example" name="id_rol">
-            <option selected>Selecionar un rol</option>
-            <option value="">Rol..</option>
-            <option value="1">Practicante</option>
-            <option value="2">Administrador</option>
-            <option value="3">Lider</option>
-            <option value="4">Visualizador</option>
-        </select><br>
+            <c:forEach var="Roles" items="${roles}">
+                <option value="${Roles.idRol}">${Roles.nomRol}</option>
+            </c:forEach>
+        </select>
+        <br>
 
-        <div class="form-group">
-            <div class="col-md-12 text-center">
-                <button type="submit" name="guardar" value="Guardar" class="btn btn-primary btn-lg" onclick="usuarioE()">Guardar</button>
-            </div>
-        </div>
+        <button type="submit" class="btn btn-primary" onclick="usuarioE()">Actualizar</button>
+
     </fieldset>
 </form>
 <%@include file="../../bottom.jsp" %>

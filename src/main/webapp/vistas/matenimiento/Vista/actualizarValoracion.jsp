@@ -1,5 +1,5 @@
 <%@include file="../../../top.jsp" %>
-<h1>Actualizar la valoracion</h1>
+<h3 class="text-center">Actualizar la valoracion</h3>
 <br/>
 <form action="${pageContext.request.contextPath}/controladorValoraciones?accion=update" method="post" name="formInsertarTipopra"><!-- Formulario de insertar Tipo practicas --> 
     <div class="mb-1">

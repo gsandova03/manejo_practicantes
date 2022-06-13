@@ -1,5 +1,5 @@
 <%@include file="../../../top.jsp" %>
-<h1>Actualizar la Institucion</h1>
+<h3 class="text-center">Actualizar la Institucion</h3>
 <br/>
 <form action="${pageContext.request.contextPath}/ControladorRol?accion=update" method="post" name="formInsertarRol"><!-- Formulario de insertar Rol --> 
     <div class="mb-1">

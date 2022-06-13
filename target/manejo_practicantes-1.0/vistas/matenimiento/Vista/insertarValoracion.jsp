@@ -1,6 +1,6 @@
 <%@include file="../../../top.jsp" %>
-<h1>Registrar la Valoración</h1>
-
+<h3 class="text-center">Registrar la Valoración</h3>
+<br>
 <form action="${pageContext.request.contextPath}/controladorValoraciones?accion=insert" method="post" name="formInsertarTipopractica"><!-- Formulario de insertar Tipo practicas -->
 
 

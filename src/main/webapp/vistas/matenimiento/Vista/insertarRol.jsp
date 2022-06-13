@@ -1,6 +1,6 @@
 <%@include file="../../../top.jsp" %>
-<h1>Registrar Rol</h1>
-
+<h3 class="text-center">Registrar Rol</h3>
+<br>
 <form action="${pageContext.request.contextPath}/ControladorRol?accion=insert" method="POST" name="formInsertarRol"><!-- Formulario de insertar rol -->
 
     <div class="mb-1">          

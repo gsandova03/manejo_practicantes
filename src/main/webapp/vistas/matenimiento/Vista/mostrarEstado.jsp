@@ -1,6 +1,7 @@
 <%@include file="../../../top.jsp" %>
-<h2 style="text-align: center">Mostrar Estados</h2>
-<table class="table table-hover table-bordered" style="width: 80% !important;">
+<h3 style="text-align: center">Mostrar Estados</h3>
+<br>
+<table class="table table-hover table-bordered">
     <thead style="background-color: #0a58ca; color: #fff" >
         <tr>
             <th>#</th>

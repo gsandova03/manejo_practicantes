@@ -1,6 +1,6 @@
 <%@include file="../../../top.jsp" %>
-<h1>Registrar Estado</h1>
-
+<h3 class="text-center">Registrar Estado</h3>
+<br>
 <form action="${pageContext.request.contextPath}/ControladorEstado?accion=insert" method="post" name="formInsertarIns"><!-- Formulario de insertar Estado -->
 
     <div class="mb-1">          

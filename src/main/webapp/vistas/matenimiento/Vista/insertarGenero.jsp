@@ -1,6 +1,6 @@
 <%@include file="../../../top.jsp" %>
-<h1>Registrar Genero</h1>
-
+<h3 class="text-center">Registrar Genero</h3>
+<br>
 <form action="${pageContext.request.contextPath}/controladorGenero?accion=insert" method="post" name="formInsertaGenero"><!-- Formulario de insertar Genero -->
     <div class="mb-1">          
         <label for="exampleFormControlTextarea1" class="form-label">Descripcion</label>

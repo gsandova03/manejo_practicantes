@@ -1,5 +1,5 @@
 <%@include file="../../top.jsp" %>
-<h1 style="text-align: center">Administracion de datos</h1>
+<h3 class="text-center">Administracion de datos</h3>
 <br/>
 <ul class="list-group list-group-flush">
     <li class="list-group-item d-flex justify-content-between">

@@ -55,23 +55,19 @@
             <label>Lider funcional: </label>
             <input class="form-control" type="text" name="ldr_funcional" required/>
         </div>
-        <div class="form-floating">
-            <textarea class="form-control" placeholder="ingrese un comentario" 
-                      id="textoFlotante1" style="height: 100px" name="can_materias_pendientes">
-            </textarea>
+        <div class="grupo-input">
             <label for="textoFlotante1">Cantidad de materias pendientes</label>
+            <input class="form-control" type="number" id="textoFlotante1" name="can_materias_pendientes"/>
         </div>
-        <div class="form-floating">
-            <textarea class="form-control" name="des_materias_pendientes"
-                      id="textoFlotante2" style="height: 100px" placeholder="ingrese un comentario">
-            </textarea>
+        <div class="grupo-input">
             <label for="textoFlotante2">Descripcion de materias pendientes: </label>
+            <input class="form-control" type="text" name="des_materias_pendientes"
+                   id="textoFlotante2" style="height: 100px" placeholder="ingrese un comentario"/>
         </div>
-        <div class="form-floating">
-            <textarea class="form-control" name="rev_materias_pendientes"
-                      id="textoFlotante3" style="height: 100px" placeholder="ingrese un comentario">
-            </textarea>
+        <div class="grupo-input">
             <label for="textoFlotante3">Revision de materias pendientes: </label>
+            <input class="form-control" type="text" name="rev_materias_pendientes"
+                      id="textoFlotante3" style="height: 100px" placeholder="ingrese un comentario"/>
         </div>
         <div class="grupo-input">
             <label>Fecha actualizacion expediente: </label>
@@ -122,7 +118,7 @@
             <select class="form-select" name="id_practica">
                 <option selected>Seleccionar</option>
                 <c:forEach var="practicas" items = "${Tipo_practica}" varStatus= "status">
-                    <option value="${practicas.idPractica}">${practicas.idPractica}</option>
+                    <option value="${practicas.idPractica}">${practicas.desPractica}</option>
                 </c:forEach>
             </select>
         </div>
@@ -137,6 +133,7 @@
         </div>
         <br/>
         <button class="btn btn-primary" type="submit">Crear practicante</button>
+        <a class="btn btn-danger" href="${pageContext.request.contextPath}/Practicante?accion=listar">Cancelar</a>
     </form>
 </div>
 <%@include file="../../bottom.jsp" %>

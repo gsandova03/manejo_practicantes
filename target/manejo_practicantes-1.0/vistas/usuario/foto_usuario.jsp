@@ -1,8 +1,3 @@
-<%-- 
-    Document   : foto
-    Created on : 27 may 2022, 9:13:18
-    Author     : jfilot
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

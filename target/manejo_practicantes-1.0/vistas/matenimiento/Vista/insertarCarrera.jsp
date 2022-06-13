@@ -1,6 +1,6 @@
 <%@include file="../../../top.jsp" %>
-<h1>Registrar Carrera</h1>
-
+<h3 class="text-center">Registrar Carrera</h3>
+<br>
 <form action="${pageContext.request.contextPath}/controladorCarrera?accion=insert" method="post" name="formInsertarCarrera"><!-- Formulario de insertar Carrerqa -->
 
     <div class="mb-1">          

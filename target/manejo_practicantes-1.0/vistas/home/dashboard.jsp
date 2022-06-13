@@ -128,15 +128,15 @@
                 <div class="contenedor-graficas">
                     <div class="row">
                         <div class="grafica col-md-12">
-                            <h3 class="text-center" style="color: #11101d">Desempeño ciclo 1</h3>
+                            <h3 class="text-center" style="color: #11101d">Valoraciones ciclo 1</h3>
                             <canvas id="pastel1" style="max-width: 700px"></canvas>
                         </div>
                         <div class="grafica col-md-12">
-                            <h3 class="text-center" style="color: #11101d">Desempeño ciclo 2</h3>
+                            <h3 class="text-center" style="color: #11101d">Valoraciones ciclo 2</h3>
                             <canvas id="pastel2" style="max-width: 700px"></canvas>
                         </div>
                         <div class="row">
-                            <h3 class="text-center" style="color: #11101d">Desempeño ciclo 3</h3>
+                            <h3 class="text-center" style="color: #11101d">Valoraciones ciclo 3</h3>
                             <div class="grafica col-md-12">
                                 <canvas id="pastel3" style="max-width: 700px"></canvas>
                             </div>

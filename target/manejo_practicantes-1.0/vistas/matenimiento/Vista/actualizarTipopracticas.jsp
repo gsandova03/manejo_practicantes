@@ -1,5 +1,5 @@
 <%@include file="../../../top.jsp" %>
-<h1>Actualizar la Institucion</h1>
+<h3 class="text-center">Actualizar la Institucion</h3>
 <br/>
 <form action="${pageContext.request.contextPath}/controladorTipoPracticas?accion=update" method="post" name="formInsertarTipopra"><!-- Formulario de insertar Tipo practicas --> 
     <div class="mb-1">

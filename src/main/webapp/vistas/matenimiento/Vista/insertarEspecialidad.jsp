@@ -1,5 +1,6 @@
 <%@include file="../../../top.jsp" %>
-<h1>Registrar Especialidad</h1>
+<h3 class="text-center">Registrar Especialidad</h3>
+<br>
 <form action="${pageContext.request.contextPath}/controladorEspecialidad?accion=insert" method="post" name="formInsertarEspcialidad"><!-- Formulario de insertar Especialidad -->
 
     <div class="mb-1">

@@ -22,6 +22,7 @@ com\gbm\dao\CprCiclosFacade.class
 com\gbm\entidades\CprEspecialidades.class
 com\gbm\dao\CprPracticantesFacade.class
 com\gbm\entidades\CprValoracionPracticantes.class
+com\gbm\controladores\cprValPracticantes.class
 com\gbm\entidades\CprTipoPracticas.class
 com\gbm\entidades\BscLogin.class
 com\gbm\dao\CprComentariosFacade.class
@@ -33,6 +34,7 @@ com\gbm\controladores\controladorTipopracticas.class
 com\gbm\controladores\PracticanteControlador.class
 com\gbm\entidades\BscLoginPK.class
 com\gbm\controladores\controladorCarr.class
+com\gbm\controladores\controladorComentarios.class
 com\gbm\entidades\CprComentarios.class
 com\gbm\controladores\controladorValoracionPracticante.class
 com\gbm\dao\CprValoracionPracticantesFacade.class
@@ -46,6 +48,7 @@ com\gbm\dao\CprCarrerasFacade.class
 com\gbm\dao\BcsRolesFacade.class
 com\gbm\dao\BscLoginFacade.class
 com\gbm\controladores\controladorEstado.class
+com\gbm\controladores\AbstractFacade.class
 com\gbm\dao\AbstractFacade.class
 com\gbm\dao\BcsUsuarioFacade.class
 com\gbm\entidades\BcsRoles.class

@@ -1,5 +1,5 @@
 <%@include file="../../../top.jsp" %>
-<h1>Actualizar el Ciclo</h1>
+<h3 class="text-center">Actualizar el Ciclo</h3>
 <br/>
 <form action="${pageContext.request.contextPath}/controladorCiclos?accion=update" method="post" name="formInsertarCiclo"><!-- Formulario de insertar Ciclo --> 
     <div class="mb-1">

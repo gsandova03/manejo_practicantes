@@ -1,5 +1,6 @@
 <%@include file="../../../top.jsp" %>
-<h1>Actualizar la Especialidad</h1>
+<h3 class="text-center">Actualizar la Especialidad</h3>
+<br>
 <form action="${pageContext.request.contextPath}/controladorEspecialidad?accion=update" method="post" name="formInsertarEspcialidad"><!-- Formulario de insertar Especialidad -->
     <div class="mb-1">
         <label for="exampleFormControlInput1" class="form-label">Id Especialidad</label> 
