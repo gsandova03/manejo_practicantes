@@ -1,7 +1,4 @@
 <%@include file="../../top.jsp" %>
-
-
-
 <form action="${pageContext.request.contextPath}/controladorBitacoraUsu?accion=buscar" method="POST" style="margin-bottom: 50px">
     <div class="input-group">
         <select class="form-select" id="inputGroupSelect04" aria-label="Elige tipo de consulta" name="buscarTipo">

@@ -24,7 +24,7 @@ public class BcsUsuarioFacade extends AbstractFacade<BcsUsuario> {
     
     public BcsUsuario buscarUsuarioId(int id){
         return (BcsUsuario) em.createNamedQuery("BcsUsuario.findByCodUsuario").setParameter("codUsuario", id).getSingleResult();
-    }
+}
     
     public BcsUsuario buscarPorCc(String cc){
         return (BcsUsuario) em.createNamedQuery("BcsUsuario.findByCedUsuario")

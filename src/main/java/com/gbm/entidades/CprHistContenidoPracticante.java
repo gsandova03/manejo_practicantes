@@ -1,4 +1,7 @@
-
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package com.gbm.entidades;
 
 import java.io.Serializable;
@@ -12,29 +15,31 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
-
+/**
+ *
+ * @author gsandoval
+ */
 @Entity
 @Table(name = "cpr_hist_contenido_practicante", catalog = "mydb", schema = "")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "CprHistContenidoPracticante.findAll", query = "SELECT c FROM CprHistContenidoPracticante c"),
     @NamedQuery(name = "CprHistContenidoPracticante.findByIdCicloHist", query = "SELECT c FROM CprHistContenidoPracticante c WHERE c.cprHistContenidoPracticantePK.idCicloHist = :idCicloHist"),
-    @NamedQuery(name = "CprHistContenidoPracticante.findByIdContenido", query = "SELECT c FROM CprHistContenidoPracticante c WHERE c.cprHistContenidoPracticantePK.idContenido = :idContenido"),
     @NamedQuery(name = "CprHistContenidoPracticante.findByCodUsuarioHist", query = "SELECT c FROM CprHistContenidoPracticante c WHERE c.cprHistContenidoPracticantePK.codUsuarioHist = :codUsuarioHist")})
 public class CprHistContenidoPracticante implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected CprHistContenidoPracticantePK cprHistContenidoPracticantePK;
-    @JoinColumn(name = "cod_usuario_hist", referencedColumnName = "cod_usuario", nullable = false, insertable = false, updatable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private BcsUsuario bcsUsuario;
     @JoinColumn(name = "id_ciclo_hist", referencedColumnName = "id_ciclo", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private CprCiclos cprCiclos;
-    @JoinColumn(name = "id_contenido", referencedColumnName = "id_contenido", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "id_contenido", referencedColumnName = "id_contenido", nullable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private CprContenido cprContenido;
+    private CprContenido idContenido;
+    @JoinColumn(name = "cod_usuario_hist", referencedColumnName = "cod_usuario_pract", nullable = false, insertable = false, updatable = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private CprPracticantes cprPracticantes;
 
     public CprHistContenidoPracticante() {
     }
@@ -43,8 +48,8 @@ public class CprHistContenidoPracticante implements Serializable {
         this.cprHistContenidoPracticantePK = cprHistContenidoPracticantePK;
     }
 
-    public CprHistContenidoPracticante(int idCicloHist, int idContenido, int codUsuarioHist) {
-        this.cprHistContenidoPracticantePK = new CprHistContenidoPracticantePK(idCicloHist, idContenido, codUsuarioHist);
+    public CprHistContenidoPracticante(int idCicloHist, int codUsuarioHist) {
+        this.cprHistContenidoPracticantePK = new CprHistContenidoPracticantePK(idCicloHist, codUsuarioHist);
     }
 
     public CprHistContenidoPracticantePK getCprHistContenidoPracticantePK() {
@@ -55,14 +60,6 @@ public class CprHistContenidoPracticante implements Serializable {
         this.cprHistContenidoPracticantePK = cprHistContenidoPracticantePK;
     }
 
-    public BcsUsuario getBcsUsuario() {
-        return bcsUsuario;
-    }
-
-    public void setBcsUsuario(BcsUsuario bcsUsuario) {
-        this.bcsUsuario = bcsUsuario;
-    }
-
     public CprCiclos getCprCiclos() {
         return cprCiclos;
     }
@@ -71,12 +68,20 @@ public class CprHistContenidoPracticante implements Serializable {
         this.cprCiclos = cprCiclos;
     }
 
-    public CprContenido getCprContenido() {
-        return cprContenido;
+    public CprContenido getIdContenido() {
+        return idContenido;
     }
 
-    public void setCprContenido(CprContenido cprContenido) {
-        this.cprContenido = cprContenido;
+    public void setIdContenido(CprContenido idContenido) {
+        this.idContenido = idContenido;
+    }
+
+    public CprPracticantes getCprPracticantes() {
+        return cprPracticantes;
+    }
+
+    public void setCprPracticantes(CprPracticantes cprPracticantes) {
+        this.cprPracticantes = cprPracticantes;
     }
 
     @Override

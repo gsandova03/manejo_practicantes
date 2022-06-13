@@ -1,4 +1,7 @@
-
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package com.gbm.entidades;
 
 import java.io.Serializable;
@@ -21,7 +24,10 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-
+/**
+ *
+ * @author gsandoval
+ */
 @Entity
 @Table(name = "cpr_practicantes", catalog = "mydb", schema = "")
 @XmlRootElement
@@ -109,6 +115,8 @@ public class CprPracticantes implements Serializable {
     @JoinColumn(name = "id_tipo_practica", referencedColumnName = "id_practica", nullable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private CprTipoPracticas idTipoPractica;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cprPracticantes", fetch = FetchType.LAZY)
+    private List<CprHistContenidoPracticante> cprHistContenidoPracticanteList;
 
     public CprPracticantes() {
     }
@@ -294,8 +302,15 @@ public class CprPracticantes implements Serializable {
     public void setIdTipoPractica(CprTipoPracticas idTipoPractica) {
         this.idTipoPractica = idTipoPractica;
     }
-    
-    
+
+    @XmlTransient
+    public List<CprHistContenidoPracticante> getCprHistContenidoPracticanteList() {
+        return cprHistContenidoPracticanteList;
+    }
+
+    public void setCprHistContenidoPracticanteList(List<CprHistContenidoPracticante> cprHistContenidoPracticanteList) {
+        this.cprHistContenidoPracticanteList = cprHistContenidoPracticanteList;
+    }
 
     @Override
     public int hashCode() {

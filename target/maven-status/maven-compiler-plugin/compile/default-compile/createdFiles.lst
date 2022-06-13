@@ -39,6 +39,7 @@ com\gbm\entidades\CprComentarios.class
 com\gbm\controladores\controladorValoracionPracticante.class
 com\gbm\dao\CprValoracionPracticantesFacade.class
 com\gbm\entidades\BcsEstados.class
+com\gbm\controladores\controladorBitacoraUsu.class
 com\gbm\entidades\BcsBitacora.class
 com\gbm\dao\CprContenidoFacade.class
 com\gbm\dao\BcsBitacoraFacade.class
@@ -48,7 +49,6 @@ com\gbm\dao\CprCarrerasFacade.class
 com\gbm\dao\BcsRolesFacade.class
 com\gbm\dao\BscLoginFacade.class
 com\gbm\controladores\controladorEstado.class
-com\gbm\controladores\AbstractFacade.class
 com\gbm\dao\AbstractFacade.class
 com\gbm\dao\BcsUsuarioFacade.class
 com\gbm\entidades\BcsRoles.class

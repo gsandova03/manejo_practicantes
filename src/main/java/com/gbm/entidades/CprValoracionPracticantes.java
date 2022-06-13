@@ -1,4 +1,7 @@
-
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package com.gbm.entidades;
 
 import java.io.Serializable;
@@ -12,17 +15,17 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
-
+/**
+ *
+ * @author gsandoval
+ */
 @Entity
 @Table(name = "cpr_valoracion_practicantes", catalog = "mydb", schema = "")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "CprValoracionPracticantes.findAll", query = "SELECT c FROM CprValoracionPracticantes c"),
     @NamedQuery(name = "CprValoracionPracticantes.findByIdCicloVal", query = "SELECT c FROM CprValoracionPracticantes c WHERE c.cprValoracionPracticantesPK.idCicloVal = :idCicloVal"),
-    @NamedQuery(name = "CprValoracionPracticantes.findByIdValoracion", query = "SELECT c FROM CprValoracionPracticantes c WHERE c.cprValoracionPracticantesPK.idValoracion = :idValoracion"),
-    @NamedQuery(name = "CprValoracionPracticantes.findByCodUsuario", query = "SELECT c FROM CprValoracionPracticantes c WHERE c.cprValoracionPracticantesPK.codUsuario = :codUsuario"),
-    @NamedQuery(name = "CprValoracionPracticantes.contardorValoracion", query = "SELECT c FROM CprValoracionPracticantes c WHERE c.cprCiclos.idCiclo = :idCiclo AND c.cprValoraciones.idValoracion = :idValoracion")
-    })
+    @NamedQuery(name = "CprValoracionPracticantes.findByCodUsuario", query = "SELECT c FROM CprValoracionPracticantes c WHERE c.cprValoracionPracticantesPK.codUsuario = :codUsuario")})
 public class CprValoracionPracticantes implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -34,9 +37,9 @@ public class CprValoracionPracticantes implements Serializable {
     @JoinColumn(name = "cod_usuario", referencedColumnName = "cod_usuario_pract", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private CprPracticantes cprPracticantes;
-    @JoinColumn(name = "id_valoracion", referencedColumnName = "id_valoracion", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "id_valoracion", referencedColumnName = "id_valoracion", nullable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private CprValoraciones cprValoraciones;
+    private CprValoraciones idValoracion;
 
     public CprValoracionPracticantes() {
     }
@@ -45,8 +48,8 @@ public class CprValoracionPracticantes implements Serializable {
         this.cprValoracionPracticantesPK = cprValoracionPracticantesPK;
     }
 
-    public CprValoracionPracticantes(int idCicloVal, String idValoracion, int codUsuario) {
-        this.cprValoracionPracticantesPK = new CprValoracionPracticantesPK(idCicloVal, idValoracion, codUsuario);
+    public CprValoracionPracticantes(int idCicloVal, int codUsuario) {
+        this.cprValoracionPracticantesPK = new CprValoracionPracticantesPK(idCicloVal, codUsuario);
     }
 
     public CprValoracionPracticantesPK getCprValoracionPracticantesPK() {
@@ -73,12 +76,12 @@ public class CprValoracionPracticantes implements Serializable {
         this.cprPracticantes = cprPracticantes;
     }
 
-    public CprValoraciones getCprValoraciones() {
-        return cprValoraciones;
+    public CprValoraciones getIdValoracion() {
+        return idValoracion;
     }
 
-    public void setCprValoraciones(CprValoraciones cprValoraciones) {
-        this.cprValoraciones = cprValoraciones;
+    public void setIdValoracion(CprValoraciones idValoracion) {
+        this.idValoracion = idValoracion;
     }
 
     @Override

@@ -1,4 +1,7 @@
-
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package com.gbm.entidades;
 
 import java.io.Serializable;
@@ -7,7 +10,10 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
 
-
+/**
+ *
+ * @author gsandoval
+ */
 @Embeddable
 public class BscLoginPK implements Serializable {
 

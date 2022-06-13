@@ -21,13 +21,13 @@ public class CprValoracionPracticantesFacade extends AbstractFacade<CprValoracio
     public CprValoracionPracticantesFacade() {
         super(CprValoracionPracticantes.class);
     }
-
+    
     public List<CprValoracionPracticantes> obtenerCantidadValoracion(int ciclo, String valoracion) {
         return (List<CprValoracionPracticantes>) em.createNamedQuery("CprValoracionPracticantes.contardorValoracion")
                 .setParameter("idCiclo", ciclo)
                 .setParameter("idValoracion", valoracion)
                 .getResultList();
-    }
+}
     
 //    public CprValoracionPracticantes obtenerCantidadValoracion() {
 //        return (CprValoracionPracticantes) em.createNamedQuery("CprValoracionPracticantes.findAll");

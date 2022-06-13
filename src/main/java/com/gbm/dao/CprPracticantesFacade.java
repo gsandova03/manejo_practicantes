@@ -1,4 +1,3 @@
-
 package com.gbm.dao;
 
 import com.gbm.entidades.CprPracticantes;
@@ -21,9 +20,8 @@ public class CprPracticantesFacade extends AbstractFacade<CprPracticantes> {
     public CprPracticantesFacade() {
         super(CprPracticantes.class);
     }
-    
-    
-    public CprPracticantes buscarPorCodigo(Integer cod){
+
+    public CprPracticantes buscarPorCodigo(Integer cod) {
         return (CprPracticantes) em.createNamedQuery("CprPracticantes.findByCodUsuarioPract")
                 .setParameter("codUsuarioPract", cod)
                 .getSingleResult();

@@ -1,4 +1,7 @@
-
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package com.gbm.entidades;
 
 import java.io.Serializable;
@@ -7,7 +10,10 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
 
-
+/**
+ *
+ * @author gsandoval
+ */
 @Embeddable
 public class CprHistContenidoPracticantePK implements Serializable {
 
@@ -17,19 +23,14 @@ public class CprHistContenidoPracticantePK implements Serializable {
     private int idCicloHist;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "id_contenido", nullable = false)
-    private int idContenido;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "cod_usuario_hist", nullable = false)
     private int codUsuarioHist;
 
     public CprHistContenidoPracticantePK() {
     }
 
-    public CprHistContenidoPracticantePK(int idCicloHist, int idContenido, int codUsuarioHist) {
+    public CprHistContenidoPracticantePK(int idCicloHist, int codUsuarioHist) {
         this.idCicloHist = idCicloHist;
-        this.idContenido = idContenido;
         this.codUsuarioHist = codUsuarioHist;
     }
 
@@ -39,14 +40,6 @@ public class CprHistContenidoPracticantePK implements Serializable {
 
     public void setIdCicloHist(int idCicloHist) {
         this.idCicloHist = idCicloHist;
-    }
-
-    public int getIdContenido() {
-        return idContenido;
-    }
-
-    public void setIdContenido(int idContenido) {
-        this.idContenido = idContenido;
     }
 
     public int getCodUsuarioHist() {
@@ -61,7 +54,6 @@ public class CprHistContenidoPracticantePK implements Serializable {
     public int hashCode() {
         int hash = 0;
         hash += (int) idCicloHist;
-        hash += (int) idContenido;
         hash += (int) codUsuarioHist;
         return hash;
     }
@@ -76,9 +68,6 @@ public class CprHistContenidoPracticantePK implements Serializable {
         if (this.idCicloHist != other.idCicloHist) {
             return false;
         }
-        if (this.idContenido != other.idContenido) {
-            return false;
-        }
         if (this.codUsuarioHist != other.codUsuarioHist) {
             return false;
         }
@@ -87,7 +76,7 @@ public class CprHistContenidoPracticantePK implements Serializable {
 
     @Override
     public String toString() {
-        return "com.gbm.entidades.CprHistContenidoPracticantePK[ idCicloHist=" + idCicloHist + ", idContenido=" + idContenido + ", codUsuarioHist=" + codUsuarioHist + " ]";
+        return "com.gbm.entidades.CprHistContenidoPracticantePK[ idCicloHist=" + idCicloHist + ", codUsuarioHist=" + codUsuarioHist + " ]";
     }
     
 }

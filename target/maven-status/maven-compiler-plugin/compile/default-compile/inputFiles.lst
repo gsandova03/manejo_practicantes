@@ -9,6 +9,7 @@ C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_pr
 C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\controladores\PracticanteControlador.java
 C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\dao\BcsGeneroFacade.java
 C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\controladores\BscUsuarioControlador.java
+C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\controladores\controladorBitacoraUsu.java
 C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\entidades\CprEspecialidades.java
 C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\controladores\controladorEsp.java
 C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\dao\BcsBitacoraFacade.java
@@ -53,5 +54,4 @@ C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_pr
 C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\entidades\CprComentarios.java
 C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\dao\CprTipoPracticasFacade.java
 C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\entidades\CprHistContenidoPracticante.java
-C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\controladores\AbstractFacade.java
 C:\Users\gsandoval\OneDrive - GBM Corporacion\Desktop\Proyectos - java\manejo_practicantes\manejo_practicantes\src\main\java\com\gbm\dao\CprValoracionesFacade.java

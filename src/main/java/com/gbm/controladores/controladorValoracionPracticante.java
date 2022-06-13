@@ -58,13 +58,13 @@ public class controladorValoracionPracticante extends HttpServlet {
 
         String accion = request.getParameter("accion");
 
-        switch (accion) {
-            case "insert":
-                this.insert(request, response);
-                break;
-            case "update":
-                this.update(request, response);
-        }
+//        switch (accion) {
+//            case "insert":
+//                this.insert(request, response);
+//                break;
+//            case "update":
+//                this.update(request, response);
+//        }
     }
 
     //Metodos GET
@@ -142,71 +142,71 @@ public class controladorValoracionPracticante extends HttpServlet {
     }
 
     // Metodos POST
-    private void insert(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-        int idPracticante = Integer.parseInt(request.getParameter("idPracticante"));
-        int idCiclo = Integer.parseInt(request.getParameter("idCiclo"));
-        String idValoracion = request.getParameter("idValoracion");
-
-        CprValoracionPracticantesPK objInsert = new CprValoracionPracticantesPK();
-
-        objInsert.setCodUsuario(idPracticante);
-
-        objInsert.setIdCicloVal(idCiclo);
-
-        objInsert.setIdValoracion(idValoracion);
-
-        List<CprValoracionPracticantes> listaValoraciones = cprValorPracticante.findAll();
-
-        boolean repetido = false;
-
-        for (CprValoracionPracticantes listaValoracion : listaValoraciones) {
-
-            int idPracticanteList = listaValoracion.getCprPracticantes().getCodUsuarioPract();
-
-            if (idPracticanteList == idPracticante) {
-                int idCicloList = listaValoracion.getCprCiclos().getIdCiclo();
-                if (idCicloList == idCiclo) {
-                    repetido = true;
-                }
-            }
-
-        }
-
-        if (repetido == false) {
-            CprValoracionPracticantes insert = new CprValoracionPracticantes(objInsert.getIdCicloVal(), objInsert.getIdValoracion(), objInsert.getCodUsuario());
-            cprValorPracticante.create(insert);
-            request.setAttribute("tituloMensaje", "Registro exitoso");
-            request.setAttribute("cuerpoMensaje", "Se ha añadido el registro de forma correcta");
-            request.setAttribute("urlMensaje", "/index.jsp");
-            request.getRequestDispatcher("/vistas/practicante/mensaje.jsp").forward(request, response);
-        } else {
-            request.setAttribute("tituloMensaje", "Valoracion por ciclo");
-            request.setAttribute("cuerpoMensaje", "Solo puedes añadir una valoración por ciclo");
-            request.setAttribute("urlMensaje", "/index.jsp");
-            request.getRequestDispatcher("/vistas/practicante/mensaje.jsp").forward(request, response);
-        }
-    }
-
-    private void update(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-        int codPracticante = Integer.parseInt(request.getParameter("idPracticante"));
-        int idCiclo = Integer.parseInt(request.getParameter("idCiclo"));
-        String idValoracion = request.getParameter("idValoracion");
-
-        CprValoracionPracticantesPK objUpate = new CprValoracionPracticantesPK();
-
-        objUpate.setCodUsuario(codPracticante);
-        objUpate.setIdCicloVal(idCiclo);
-        objUpate.setIdValoracion(idValoracion);
-
-        CprValoracionPracticantes valoracionPraticanteUp = new CprValoracionPracticantes(idCiclo, idValoracion, codPracticante);
-
-        cprValorPracticante.edit(valoracionPraticanteUp);
-
-        request.getRequestDispatcher("/index.jsp").forward(request, response);
-
-    }
+//    private void insert(HttpServletRequest request, HttpServletResponse response)
+//            throws ServletException, IOException {
+//
+//        int idPracticante = Integer.parseInt(request.getParameter("idPracticante"));
+//        int idCiclo = Integer.parseInt(request.getParameter("idCiclo"));
+//        String idValoracion = request.getParameter("idValoracion");
+//
+//        CprValoracionPracticantesPK objInsert = new CprValoracionPracticantesPK();
+//
+//        objInsert.setCodUsuario(idPracticante);
+//
+//        objInsert.setIdCicloVal(idCiclo);
+//
+//        
+//
+//        List<CprValoracionPracticantes> listaValoraciones = cprValorPracticante.findAll();
+//
+//        boolean repetido = false;
+//
+//        for (CprValoracionPracticantes listaValoracion : listaValoraciones) {
+//
+//            int idPracticanteList = listaValoracion.getCprPracticantes().getCodUsuarioPract();
+//
+//            if (idPracticanteList == idPracticante) {
+//                int idCicloList = listaValoracion.getCprCiclos().getIdCiclo();
+//                if (idCicloList == idCiclo) {
+//                    repetido = true;
+//                }
+//            }
+//
+//        }
+//
+//        if (repetido == false) {
+//            CprValoracionPracticantes insert = new CprValoracionPracticantes(objInsert.getIdCicloVal(), objInsert.getIdValoracion(), objInsert.getCodUsuario());
+//            cprValorPracticante.create(insert);
+//            request.setAttribute("tituloMensaje", "Registro exitoso");
+//            request.setAttribute("cuerpoMensaje", "Se ha añadido el registro de forma correcta");
+//            request.setAttribute("urlMensaje", "/index.jsp");
+//            request.getRequestDispatcher("/vistas/practicante/mensaje.jsp").forward(request, response);
+//        } else {
+//            request.setAttribute("tituloMensaje", "Valoracion por ciclo");
+//            request.setAttribute("cuerpoMensaje", "Solo puedes añadir una valoración por ciclo");
+//            request.setAttribute("urlMensaje", "/index.jsp");
+//            request.getRequestDispatcher("/vistas/practicante/mensaje.jsp").forward(request, response);
+//        }
+//    }
+//
+//    private void update(HttpServletRequest request, HttpServletResponse response)
+//            throws ServletException, IOException {
+//
+//        int codPracticante = Integer.parseInt(request.getParameter("idPracticante"));
+//        int idCiclo = Integer.parseInt(request.getParameter("idCiclo"));
+//        String idValoracion = request.getParameter("idValoracion");
+//
+//        CprValoracionPracticantesPK objUpate = new CprValoracionPracticantesPK();
+//
+//        objUpate.setCodUsuario(codPracticante);
+//        objUpate.setIdCicloVal(idCiclo);
+//        objUpate.setIdValoracion(idValoracion);
+//
+//        CprValoracionPracticantes valoracionPraticanteUp = new CprValoracionPracticantes(idCiclo, idValoracion, codPracticante);
+//
+//        cprValorPracticante.edit(valoracionPraticanteUp);
+//
+//        request.getRequestDispatcher("/index.jsp").forward(request, response);
+//
+//    }
 }
