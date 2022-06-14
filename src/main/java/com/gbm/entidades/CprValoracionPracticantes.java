@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.gbm.entidades;
 
 import java.io.Serializable;
@@ -15,17 +12,15 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
-/**
- *
- * @author gsandoval
- */
+
 @Entity
 @Table(name = "cpr_valoracion_practicantes", catalog = "mydb", schema = "")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "CprValoracionPracticantes.findAll", query = "SELECT c FROM CprValoracionPracticantes c"),
     @NamedQuery(name = "CprValoracionPracticantes.findByIdCicloVal", query = "SELECT c FROM CprValoracionPracticantes c WHERE c.cprValoracionPracticantesPK.idCicloVal = :idCicloVal"),
-    @NamedQuery(name = "CprValoracionPracticantes.findByCodUsuario", query = "SELECT c FROM CprValoracionPracticantes c WHERE c.cprValoracionPracticantesPK.codUsuario = :codUsuario")})
+    @NamedQuery(name = "CprValoracionPracticantes.findByCodUsuario", query = "SELECT c FROM CprValoracionPracticantes c WHERE c.cprValoracionPracticantesPK.codUsuario = :codUsuario"),
+    @NamedQuery(name = "CprValoracionPracticantes.contadorValoracion", query = "SELECT c FROM CprValoracionPracticantes c WHERE c.cprCiclos.idCiclo = :idCiclo AND c.idValoracion.idValoracion = :idValoracion")})
 public class CprValoracionPracticantes implements Serializable {
 
     private static final long serialVersionUID = 1L;

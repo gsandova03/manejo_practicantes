@@ -23,7 +23,7 @@ public class CprValoracionPracticantesFacade extends AbstractFacade<CprValoracio
     }
     
     public List<CprValoracionPracticantes> obtenerCantidadValoracion(int ciclo, String valoracion) {
-        return (List<CprValoracionPracticantes>) em.createNamedQuery("CprValoracionPracticantes.contardorValoracion")
+        return (List<CprValoracionPracticantes>) em.createNamedQuery("CprValoracionPracticantes.contadorValoracion")
                 .setParameter("idCiclo", ciclo)
                 .setParameter("idValoracion", valoracion)
                 .getResultList();
