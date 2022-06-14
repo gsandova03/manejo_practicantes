@@ -41,6 +41,7 @@ com\gbm\dao\CprValoracionPracticantesFacade.class
 com\gbm\entidades\BcsEstados.class
 com\gbm\controladores\controladorBitacoraUsu.class
 com\gbm\entidades\BcsBitacora.class
+com\gbm\controladores\controladorHistPracticante.class
 com\gbm\dao\CprContenidoFacade.class
 com\gbm\dao\BcsBitacoraFacade.class
 com\gbm\dao\CprValoracionesFacade.class
