@@ -1,10 +1,14 @@
 package com.gbm.controladores;
 
+import com.gbm.dao.BcsBitacoraFacade;
 import com.gbm.dao.BcsRolesFacade;
 import com.gbm.dao.BcsUsuarioFacade;
+import com.gbm.entidades.BcsBitacora;
 import com.gbm.entidades.BcsRoles;
 import com.gbm.entidades.BcsUsuario;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -15,6 +19,16 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(name = "BscUsuarioControlador", urlPatterns = {"/BscUsuarioControlador"})
 public class BscUsuarioControlador extends HttpServlet {
+
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm");
+    String fecha = dtf.format(LocalDateTime.now());
+    BcsBitacora bitacora = new BcsBitacora();
+
+    @EJB
+    BcsBitacoraFacade bitacoraFacade;
+
+    @EJB
+    BcsUsuarioFacade usuarioR;
 
     @EJB
     BcsUsuarioFacade bcsUsuario;
@@ -81,18 +95,30 @@ public class BscUsuarioControlador extends HttpServlet {
             request.getRequestDispatcher("vistas/login/registro_usuario.jsp").forward(request, response);
         } else {
             bcsUsuario.create(usuario);
+
+            //Bitacora
+            BcsUsuario usuarioRegistrado = usuarioR.find(1);
+
+            bitacora.setCodUsuario(usuarioRegistrado);
+            bitacora.setFecBitacora(fecha);
+            bitacora.setTioTransaccion("CREATE");
+
+            bitacora.setDesTransaccion("EL usuario " + usuarioRegistrado.getNomUsuario() + ", creó un registro en la tabla 'Usuarios'");
+
+            bitacoraFacade.create(bitacora);
+
             request.setAttribute("UsuarioNuevo", "Usuario creado satifactoriamente<i class='bi bi-person-check'></i>");
             request.setAttribute("mensajecreado", "mensaje-creado");
             request.getRequestDispatcher("vistas/login/registro_usuario.jsp").forward(request, response);
         }
     }
-    
+
     private void update(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         BcsUsuario usuarioActualizar = new BcsUsuario();
         BcsRoles rol = new BcsRoles();
-        
+
         usuarioActualizar.setCodUsuario(Integer.parseInt(request.getParameter("cod_usuario")));
         usuarioActualizar.setNomUsuario(request.getParameter("nom_usuario"));
         usuarioActualizar.setCedUsuario(request.getParameter("ced_usuario"));
@@ -101,23 +127,31 @@ public class BscUsuarioControlador extends HttpServlet {
         usuarioActualizar.setEmiCoorporativo(request.getParameter("emi_corporativo"));
         usuarioActualizar.setEmiPersonal(request.getParameter("emi_persoanl"));
         usuarioActualizar.setPswUsuario(request.getParameter("pass_usuario"));
-        
-        
+
         int idRol = Integer.parseInt(request.getParameter("rol_usuario"));
 
-        
         BcsRoles r = bcsRolesFacade.find(idRol);
-        
+
         rol.setIdRol(r.getIdRol());
         rol.setNomRol(r.getNomRol());
-        
+
         usuarioActualizar.setIdRol(rol);
         bcsUsuario.edit(usuarioActualizar);
-        
+
+        //Bitacora
+        BcsUsuario usuarioRegistrado = usuarioR.find(1);
+
+        bitacora.setCodUsuario(usuarioRegistrado);
+        bitacora.setFecBitacora(fecha);
+        bitacora.setTioTransaccion("UPDATE");
+
+        bitacora.setDesTransaccion("EL usuario " + usuarioRegistrado.getNomUsuario() + ", actualizó un registro en la tabla 'Usuarios'");
+
+        bitacoraFacade.create(bitacora);
+
         response.sendRedirect("index.jsp");
-        
+
     }
-    
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -140,6 +174,18 @@ public class BscUsuarioControlador extends HttpServlet {
             throws ServletException, IOException {
 
         List<BcsUsuario> listaUsuario = bcsUsuario.findAll();
+        
+        //Bitacora
+        BcsUsuario usuarioRegistrado = usuarioR.find(1);
+
+        bitacora.setCodUsuario(usuarioRegistrado);
+        bitacora.setFecBitacora(fecha);
+        bitacora.setTioTransaccion("SELECT");
+
+        bitacora.setDesTransaccion("EL usuario " + usuarioRegistrado.getNomUsuario() + ", consultó en la tabla 'Usuarios'");
+
+        bitacoraFacade.create(bitacora);
+        
         request.setAttribute("ListaUsuarios", listaUsuario);
         request.getRequestDispatcher("vistas/login/listaUsuarios.jsp").forward(request, response);
     }
@@ -157,7 +203,7 @@ public class BscUsuarioControlador extends HttpServlet {
 
     }
 
-     private void formInfo(HttpServletRequest request, HttpServletResponse response)
+    private void formInfo(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         List<BcsRoles> roles = bcsRolesFacade.findAll();

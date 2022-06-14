@@ -1,8 +1,14 @@
 package com.gbm.controladores;
 
+import com.gbm.dao.BcsBitacoraFacade;
 import com.gbm.dao.BcsGeneroFacade;
+import com.gbm.dao.BcsUsuarioFacade;
+import com.gbm.entidades.BcsBitacora;
 import com.gbm.entidades.BcsGenero;
+import com.gbm.entidades.BcsUsuario;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -11,6 +17,16 @@ import javax.servlet.http.*;
 
 @WebServlet("/controladorGenero")
 public class controladorGenero extends HttpServlet {
+
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm");
+    String fecha = dtf.format(LocalDateTime.now());
+    BcsBitacora bitacora = new BcsBitacora();
+
+    @EJB
+    BcsBitacoraFacade bitacoraFacade;
+
+    @EJB
+    BcsUsuarioFacade usuario;
 
     @EJB
     BcsGeneroFacade bscGeneroQuery;
@@ -48,6 +64,19 @@ public class controladorGenero extends HttpServlet {
             BcsGenero objcBcsGenero = new BcsGenero();
             objcBcsGenero.setDesGenero(cadena);
             bscGeneroQuery.create(objcBcsGenero);
+            
+            //Bitacora
+            BcsUsuario usuarioRegistrado = usuario.find(1);
+
+            bitacora.setCodUsuario(usuarioRegistrado);
+            bitacora.setFecBitacora(fecha);
+            bitacora.setTioTransaccion("CREATE");
+
+            bitacora.setDesTransaccion("EL usuario " + usuarioRegistrado.getNomUsuario() + ", creó un registro en la tabla 'Genero'");
+
+            bitacoraFacade.create(bitacora);
+
+            
             request.setAttribute("tituloMensaje", "Registro exitoso");
             request.setAttribute("cuerpoMensaje", "Se ingreso el registro");
             request.setAttribute("urlMensaje", "/vistas/matenimiento/index.jsp");
@@ -68,6 +97,19 @@ public class controladorGenero extends HttpServlet {
             objUpdate.setIdGenero(Integer.parseInt(request.getParameter("idGenero")));
             objUpdate.setDesGenero(cadena);
             bscGeneroQuery.edit(objUpdate);
+            
+            //Bitacora
+            BcsUsuario usuarioRegistrado = usuario.find(1);
+
+            bitacora.setCodUsuario(usuarioRegistrado);
+            bitacora.setFecBitacora(fecha);
+            bitacora.setTioTransaccion("UPDATE");
+
+            bitacora.setDesTransaccion("EL usuario " + usuarioRegistrado.getNomUsuario() + ", actializó un registro en la tabla 'Genero'");
+
+            bitacoraFacade.create(bitacora);
+
+            
             request.setAttribute("tituloMensaje", "Registro exitoso");
             request.setAttribute("cuerpoMensaje", "Se actualizó el registro");
             request.setAttribute("urlMensaje", "/vistas/matenimiento/index.jsp");
@@ -108,9 +150,22 @@ public class controladorGenero extends HttpServlet {
             request.setAttribute("urlMensaje", "/vistas/matenimiento/index.jsp");
             request.getRequestDispatcher("/vistas/matenimiento/Vista/mensaje.jsp").forward(request, response);
         } else {
+            
+            //Bitacora
+            BcsUsuario usuarioRegistrado = usuario.find(1);
+
+            bitacora.setCodUsuario(usuarioRegistrado);
+            bitacora.setFecBitacora(fecha);
+            bitacora.setTioTransaccion("SELECT");
+
+            bitacora.setDesTransaccion("EL usuario " + usuarioRegistrado.getNomUsuario() + ", consultó en la tabla 'Genero'");
+
+            bitacoraFacade.create(bitacora);
+
+            
             request.setAttribute("listaGenero", listaGenero);
             request.getRequestDispatcher("/vistas/matenimiento/Vista/mostrarGenero.jsp").forward(request, response);
-        }  
+        }
     }
 
     private void selectId(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -124,6 +179,19 @@ public class controladorGenero extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("idGenero"));
         BcsGenero generoDelete = bscGeneroQuery.find(id);
         bscGeneroQuery.remove(generoDelete);
+        
+        //Bitacora
+            BcsUsuario usuarioRegistrado = usuario.find(1);
+
+            bitacora.setCodUsuario(usuarioRegistrado);
+            bitacora.setFecBitacora(fecha);
+            bitacora.setTioTransaccion("DELETE");
+
+            bitacora.setDesTransaccion("EL usuario " + usuarioRegistrado.getNomUsuario() + ", borró un registro en la tabla 'Genero'");
+
+            bitacoraFacade.create(bitacora);
+
+        
         request.setAttribute("tituloMensaje", "Eliminación exitosa");
         request.setAttribute("cuerpoMensaje", "Se eliminó el registro");
         request.setAttribute("urlMensaje", "/vistas/matenimiento/index.jsp");

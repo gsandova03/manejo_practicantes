@@ -1,8 +1,14 @@
 package com.gbm.controladores;
 
+import com.gbm.dao.BcsBitacoraFacade;
+import com.gbm.dao.BcsUsuarioFacade;
 import com.gbm.dao.CprEspecialidadesFacade;
+import com.gbm.entidades.BcsBitacora;
+import com.gbm.entidades.BcsUsuario;
 import com.gbm.entidades.CprEspecialidades;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -12,6 +18,16 @@ import javax.servlet.http.*;
 @WebServlet("/controladorEspecialidad")
 public class controladorEsp extends HttpServlet {
 
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm");
+    String fecha = dtf.format(LocalDateTime.now());
+    BcsBitacora bitacora = new BcsBitacora();
+    
+    @EJB
+    BcsBitacoraFacade bitacoraFacade;
+
+    @EJB
+    BcsUsuarioFacade usuario;
+    
     @EJB
     CprEspecialidadesFacade cprEsp;
 
@@ -47,6 +63,19 @@ public class controladorEsp extends HttpServlet {
             CprEspecialidades objCpresp = new CprEspecialidades();
             objCpresp.setDesEspecialidad(cadena);
             cprEsp.create(objCpresp);
+            
+            //Bitacora
+            BcsUsuario usuarioRegistrado = usuario.find(1);
+
+            bitacora.setCodUsuario(usuarioRegistrado);
+            bitacora.setFecBitacora(fecha);
+            bitacora.setTioTransaccion("CREATE");
+
+            bitacora.setDesTransaccion("EL usuario " + usuarioRegistrado.getNomUsuario() + ", creó un registro en la tabla 'Especialidades'");
+
+            bitacoraFacade.create(bitacora);
+
+            
             request.setAttribute("tituloMensaje", "Registro exitoso");
             request.setAttribute("cuerpoMensaje", "Se ingreso el registro");
             request.setAttribute("urlMensaje", "/vistas/matenimiento/index.jsp");
@@ -69,6 +98,19 @@ public class controladorEsp extends HttpServlet {
             objUpdate.setIdEspecialidad(Integer.parseInt(request.getParameter("idEspacialidad")));
             objUpdate.setDesEspecialidad(cadena);
             cprEsp.edit(objUpdate);
+            
+            //Bitacora
+            BcsUsuario usuarioRegistrado = usuario.find(1);
+
+            bitacora.setCodUsuario(usuarioRegistrado);
+            bitacora.setFecBitacora(fecha);
+            bitacora.setTioTransaccion("UPDATE");
+
+            bitacora.setDesTransaccion("EL usuario " + usuarioRegistrado.getNomUsuario() + ", realizó una actualizacion en la tabla 'Especialidades'");
+
+            bitacoraFacade.create(bitacora);
+
+            
             request.setAttribute("tituloMensaje", "Registro exitoso");
             request.setAttribute("cuerpoMensaje", "Se actualizó el registro");
             request.setAttribute("urlMensaje", "/vistas/matenimiento/index.jsp");
@@ -108,6 +150,19 @@ public class controladorEsp extends HttpServlet {
             request.setAttribute("urlMensaje", "/vistas/matenimiento/index.jsp");
             request.getRequestDispatcher("/vistas/matenimiento/Vista/mensaje.jsp").forward(request, response);
         } else {
+            
+            
+            //Bitacora
+            BcsUsuario usuarioRegistrado = usuario.find(1);
+
+            bitacora.setCodUsuario(usuarioRegistrado);
+            bitacora.setFecBitacora(fecha);
+            bitacora.setTioTransaccion("SELECT");
+
+            bitacora.setDesTransaccion("EL usuario " + usuarioRegistrado.getNomUsuario() + ", consultó en la tabla 'Especialidades'");
+
+            bitacoraFacade.create(bitacora);
+            
             request.setAttribute("Especialidades", Especialidades);
             request.getRequestDispatcher("/vistas/matenimiento/Vista/mostrarEspecialidad.jsp").forward(request, response);
         }
@@ -125,6 +180,18 @@ public class controladorEsp extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("idEspecialidad"));
         CprEspecialidades especialidadDelete = cprEsp.find(id);
         cprEsp.remove(especialidadDelete);
+        
+        //Bitacora
+            BcsUsuario usuarioRegistrado = usuario.find(1);
+
+            bitacora.setCodUsuario(usuarioRegistrado);
+            bitacora.setFecBitacora(fecha);
+            bitacora.setTioTransaccion("DELETE");
+
+            bitacora.setDesTransaccion("EL usuario " + usuarioRegistrado.getNomUsuario() + ", borró un registro en la tabla 'Especialidades'");
+
+            bitacoraFacade.create(bitacora);
+        
         request.setAttribute("tituloMensaje", "Eliminación exitosa");
         request.setAttribute("cuerpoMensaje", "Se eliminó el registro");
         request.setAttribute("urlMensaje", "/vistas/matenimiento/index.jsp");

@@ -1,12 +1,16 @@
 package com.gbm.controladores;
 
+import com.gbm.dao.BcsBitacoraFacade;
 import com.gbm.dao.BcsUsuarioFacade;
 import com.gbm.dao.CprComentariosFacade;
 import com.gbm.dao.CprPracticantesFacade;
+import com.gbm.entidades.BcsBitacora;
 import com.gbm.entidades.BcsUsuario;
 import com.gbm.entidades.CprComentarios;
 import com.gbm.entidades.CprPracticantes;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
@@ -18,6 +22,16 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(name = "controladorComentarios", urlPatterns = {"/controladorComentarios"})
 public class controladorComentarios extends HttpServlet {
+
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm");
+    String fecha = dtf.format(LocalDateTime.now());
+    BcsBitacora bitacora = new BcsBitacora();
+
+    @EJB
+    BcsBitacoraFacade bitacoraFacade;
+
+    @EJB
+    BcsUsuarioFacade usuario;
 
     @EJB
     CprPracticantesFacade cprPracticanteFacade;
@@ -67,6 +81,17 @@ public class controladorComentarios extends HttpServlet {
 
         request.setAttribute("comentarios", comentarios);
 
+        //Bitacora
+        BcsUsuario usuarioRegistrado = usuario.find(1);
+
+        bitacora.setCodUsuario(usuarioRegistrado);
+        bitacora.setFecBitacora(fecha);
+        bitacora.setTioTransaccion("SELECT");
+
+        bitacora.setDesTransaccion("EL usuario " + usuarioRegistrado.getNomUsuario() + ", consultó en la tabla 'Comentarios'");
+
+        bitacoraFacade.create(bitacora);
+
         request.getRequestDispatcher("vistas/practicante/mostrarComentarios.jsp").forward(request, response);
     }
 
@@ -77,6 +102,17 @@ public class controladorComentarios extends HttpServlet {
         CprComentarios comentarioABorrar = cprComentariosFacade.find(idComentario);
 
         cprComentariosFacade.remove(comentarioABorrar);
+        
+        //Bitacora
+        BcsUsuario usuarioRegistrado = usuario.find(1);
+
+        bitacora.setCodUsuario(usuarioRegistrado);
+        bitacora.setFecBitacora(fecha);
+        bitacora.setTioTransaccion("DELETE");
+
+        bitacora.setDesTransaccion("EL usuario " + usuarioRegistrado.getNomUsuario() + ", borró un registro en la tabla 'Comentarios'");
+
+        bitacoraFacade.create(bitacora);
 
         request.getRequestDispatcher("/index.jsp").forward(request, response);
 
@@ -93,8 +129,7 @@ public class controladorComentarios extends HttpServlet {
         if (comentarios.isEmpty()) {
             System.out.println("Lista vacia");
 
-        } 
-        else {
+        } else {
             for (CprComentarios comentario : comentarios) {
 
                 if (comentario.getCodUsuarioComentario().getBcsUsuario().getCodUsuario() == id) {
@@ -124,7 +159,7 @@ public class controladorComentarios extends HttpServlet {
 
         int idPracticante = Integer.parseInt(request.getParameter("idPracticante"));
 
-        BcsUsuario usuario = cprBcsUsuario.find(idPracticante);
+        BcsUsuario usuarioIn = cprBcsUsuario.find(idPracticante);
 
         CprPracticantes practicante = cprPracticanteFacade.find(idPracticante);
 
@@ -134,7 +169,7 @@ public class controladorComentarios extends HttpServlet {
 
         CprComentarios comentario = new CprComentarios();
 
-        comentario.setIdUsuarioCreaComentario(usuario);
+        comentario.setIdUsuarioCreaComentario(usuarioIn);
 
         comentario.setCodUsuarioComentario(practicante);
 
@@ -143,6 +178,18 @@ public class controladorComentarios extends HttpServlet {
         comentario.setFecComentario(Fecha);
 
         cprComentariosFacade.create(comentario);
+        
+        //Bitacora
+        BcsUsuario usuarioRegistrado = usuario.find(1);
+
+        bitacora.setCodUsuario(usuarioRegistrado);
+        bitacora.setFecBitacora(fecha);
+        bitacora.setTioTransaccion("CREATE");
+
+        bitacora.setDesTransaccion("EL usuario " + usuarioRegistrado.getNomUsuario() + ", creó un registro en la tabla 'Comentarios'");
+
+        bitacoraFacade.create(bitacora);
+
 
         request.getRequestDispatcher("/index.jsp").forward(request, response);
     }
