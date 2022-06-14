@@ -1,6 +1,6 @@
 <%@include file="../../top.jsp" %>
 
-<form action="${pageContext.request.contextPath}/controladorValoracionPracticante?accion=insert" method="post">
+<form action="${pageContext.request.contextPath}/Valoraciones?accion=insert" method="post">
     <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Id del practicante</label>
         <input type="text" name="idPracticante" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="${practicanteValorar.codUsuarioPract}" readonly>

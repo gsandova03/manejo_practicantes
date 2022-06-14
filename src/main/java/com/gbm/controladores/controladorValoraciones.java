@@ -1,8 +1,14 @@
 package com.gbm.controladores;
 
+import com.gbm.dao.BcsBitacoraFacade;
+import com.gbm.dao.BcsUsuarioFacade;
 import com.gbm.dao.CprValoracionesFacade;
+import com.gbm.entidades.BcsBitacora;
+import com.gbm.entidades.BcsUsuario;
 import com.gbm.entidades.CprValoraciones;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -11,6 +17,16 @@ import javax.servlet.http.*;
 
 @WebServlet("/controladorValoraciones")
 public class controladorValoraciones extends HttpServlet {
+
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm");
+    String fecha = dtf.format(LocalDateTime.now());
+    BcsBitacora bitacora = new BcsBitacora();
+
+    @EJB
+    BcsBitacoraFacade bitacoraFacade;
+
+    @EJB
+    BcsUsuarioFacade usuario;
 
     @EJB
     CprValoracionesFacade cprValoracionesQuery;
@@ -60,6 +76,18 @@ public class controladorValoraciones extends HttpServlet {
                 ValoracionInsert.setIdValoracion(idValoracion);
                 ValoracionInsert.setDesDescripcion(descValoracion);
                 cprValoracionesQuery.create(ValoracionInsert);
+
+                //Bitacora
+                BcsUsuario usuarioRegistrado = usuario.find(1);
+
+                bitacora.setCodUsuario(usuarioRegistrado);
+                bitacora.setFecBitacora(fecha);
+                bitacora.setTioTransaccion("CREATE");
+
+                bitacora.setDesTransaccion("EL usuario " + usuarioRegistrado.getNomUsuario() + ", creó un registro en la tabla 'Valoraciones'");
+
+                bitacoraFacade.create(bitacora);
+
                 request.setAttribute("tituloMensaje", "Registro exitoso");
                 request.setAttribute("cuerpoMensaje", "Se ingreso el registro");
                 request.setAttribute("urlMensaje", "/vistas/matenimiento/index.jsp");
@@ -82,6 +110,18 @@ public class controladorValoraciones extends HttpServlet {
             objUpdate.setIdValoracion(request.getParameter("idValoracion"));
             objUpdate.setDesDescripcion(cadena);
             cprValoracionesQuery.edit(objUpdate);
+
+            //Bitacora
+            BcsUsuario usuarioRegistrado = usuario.find(1);
+
+            bitacora.setCodUsuario(usuarioRegistrado);
+            bitacora.setFecBitacora(fecha);
+            bitacora.setTioTransaccion("UPDATE");
+
+            bitacora.setDesTransaccion("EL usuario " + usuarioRegistrado.getNomUsuario() + ", actualizó un registro en la tabla 'Valoraciones'");
+
+            bitacoraFacade.create(bitacora);
+
             request.setAttribute("tituloMensaje", "Registro exitoso");
             request.setAttribute("cuerpoMensaje", "Se actualizó el registro");
             request.setAttribute("urlMensaje", "/vistas/matenimiento/index.jsp");
@@ -122,6 +162,18 @@ public class controladorValoraciones extends HttpServlet {
             request.setAttribute("urlMensaje", "/vistas/matenimiento/index.jsp");
             request.getRequestDispatcher("/vistas/matenimiento/Vista/mensaje.jsp").forward(request, response);
         } else {
+
+            //Bitacora
+            BcsUsuario usuarioRegistrado = usuario.find(1);
+
+            bitacora.setCodUsuario(usuarioRegistrado);
+            bitacora.setFecBitacora(fecha);
+            bitacora.setTioTransaccion("SELECT");
+
+            bitacora.setDesTransaccion("EL usuario " + usuarioRegistrado.getNomUsuario() + ", consultó en la tabla 'Valoraciones'");
+
+            bitacoraFacade.create(bitacora);
+
             request.setAttribute("listaValoraciones", listaValoraciones);
             request.getRequestDispatcher("/vistas/matenimiento/Vista/mostrarValoracion.jsp").forward(request, response);
         }
@@ -138,6 +190,18 @@ public class controladorValoraciones extends HttpServlet {
         String id = request.getParameter("idValoracion");
         CprValoraciones valoracionDelete = cprValoracionesQuery.find(id);
         cprValoracionesQuery.remove(valoracionDelete);
+
+        //Bitacora
+        BcsUsuario usuarioRegistrado = usuario.find(1);
+
+        bitacora.setCodUsuario(usuarioRegistrado);
+        bitacora.setFecBitacora(fecha);
+        bitacora.setTioTransaccion("DELETE");
+
+        bitacora.setDesTransaccion("EL usuario " + usuarioRegistrado.getNomUsuario() + ", borró un registro en la tabla 'Valoraciones'");
+
+        bitacoraFacade.create(bitacora);
+
         request.setAttribute("tituloMensaje", "Eliminación exitosa");
         request.setAttribute("cuerpoMensaje", "Se eliminó el registro");
         request.setAttribute("urlMensaje", "/vistas/matenimiento/index.jsp");

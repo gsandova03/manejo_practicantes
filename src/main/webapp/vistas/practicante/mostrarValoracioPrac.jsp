@@ -19,7 +19,7 @@
                     <td>${status.count}</td>
                     <td>${ListaVar.getCprCiclos().getDesCiclo()}</td>
                     <td>${ListaVar.getCprPracticantes().getBcsUsuario().getNomUsuario()}</td>
-                    <td>${ListaVar.getCprValoraciones().getIdValoracion()}</td>
+                    <td>${ListaVar.getIdValoracion().getIdValoracion()}</td>
                     <td><a href="${pageContext.request.contextPath}/Valoraciones?accion=select&idPracticante=${ListaVar.getCprPracticantes().getCodUsuarioPract()}&idCiclo=${ListaVar.getCprCiclos().getIdCiclo()}" class="btn btn-warning">Actualizar</a></td>
                     <td><a href="${pageContext.request.contextPath}" class="btn btn-danger">Eliminar</a></td>
                 </tr>

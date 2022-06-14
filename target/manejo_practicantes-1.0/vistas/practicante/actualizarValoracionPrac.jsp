@@ -1,5 +1,5 @@
 <%@include file="../../top.jsp" %>
-<form action="${pageContext.request.contextPath}/controladorValoracionPracticante?accion=update" method="post">
+<form action="${pageContext.request.contextPath}/Valoraciones?accion=update" method="post">
     <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Id del practicante</label>
         <input type="text" name="idPracticante" class="form-control" id="exampleInputEmail1" value="${Practicante.getBcsUsuario().getCodUsuario()}" readonly>
