@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.AddressException;
@@ -58,7 +59,6 @@ public class RecordarContraseña extends HttpServlet {
                     String correo = this.usuarioB.getEmiCoorporativo();
                     String contra = this.usuarioB.getPswUsuario();
                     k.EnviarMensaje(correo, contra, this.usuarioB.getEmiPersonal());
-                    out.print("Se envio el correo");
                 } catch (MessagingException ex1) {
                     Logger.getLogger(RecordarContraseña.class.getName()).log(Level.SEVERE, null, ex1);
                 }
@@ -78,32 +78,60 @@ public class RecordarContraseña extends HttpServlet {
         // Esto es lo que va delante de @gmail.com en tu cuenta de correo. Es el remitente también.
         //Para la dirección nomcuenta@gmail.com
 
-        String remitenteD = "enriquefilot";
-        String contraCuentaD = "142079Filot*";
-        
-        Properties props = System.getProperties();
-        props.put("mail.smtp.host", "smtp.gmail.com");  //El servidor SMTP de Google
-        props.put("mail.smtp.user", remitenteD);
-        props.put("mail.smtp.clave", contraCuentaD);    //La clave de la cuenta
-        props.put("mail.smtp.auth", "true");    //Usar autenticación mediante usuario y clave
-        props.put("mail.smtp.starttls.enable", "true"); //Para conectar de manera segura al servidor SMTP
-        props.put("mail.smtp.port", "587"); //El puerto SMTP seguro de Google
+        String to = destino;
 
-        Session session = Session.getDefaultInstance(props);
-        MimeMessage message = new MimeMessage(session);
+        String from = correo;
+
+        String host = "localhost";
+        
+
+
+        final String username = correo;
+        final String password = contra;
+
+        System.out.println("TLSEmail Start");
+
+        Properties properties = System.getProperties();
+
+        properties.setProperty("mail.smtp.host", host);
+
+        properties.put("mail.smtp.port", 4848);
+
+        properties.put("mail.smtp.auth", "true");
+
+        properties.put("mail.smtp.socketFactory.class",
+                "javax.net.ssl.SSLSocketFactory");
+
+        Session session = Session.getDefaultInstance(properties,
+                new javax.mail.Authenticator() {
+
+            @Override
+            protected PasswordAuthentication
+                    getPasswordAuthentication() {
+                return new PasswordAuthentication("username",
+                        "password");
+            }
+        });
 
         try {
-            message.setFrom(new InternetAddress(remitenteD));
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(destino));   //Se podrían añadir varios de la misma manera
-            message.setSubject("Recuperar contrseña de control de practicantes");
-            message.setText("Usuario: " + correo);
-            message.setText("Contraseña: " + contra);
-            Transport transport = session.getTransport("smtp");
-            transport.connect("smtp.gmail.com", remitenteD, contraCuentaD);
-            transport.sendMessage(message, message.getAllRecipients());
-            transport.close();
-        } catch (Exception ex) {
-            ex.getMessage();
+            MimeMessage message = new MimeMessage(session);
+
+            // header field of the header.
+            message.setFrom(new InternetAddress(from));
+
+            message.addRecipient(Message.RecipientType.TO,
+                    new InternetAddress(to));
+            message.setSubject("subject");
+            message.setText("Hello, aas is sending email ");
+
+            // Send message
+            Transport.send(message);
+            System.out.println("Yo it has been sent..");
+        } catch (MessagingException mex) {
+            mex.printStackTrace(System.out);
         }
+
     }
+
 }
+

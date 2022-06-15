@@ -17,7 +17,6 @@ public class BcsLoginControlador extends HttpServlet {
     @EJB
     BcsUsuarioFacade usuario;
 
-    private BcsUsuario us;
     private BcsUsuario usuariol;
 
     @Override

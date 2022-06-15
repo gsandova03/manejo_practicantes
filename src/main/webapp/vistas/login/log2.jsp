@@ -50,7 +50,7 @@
                         <label><input type="checkbox" id="cbox1"> Recordarme</label>
                     </div>
                     <div class="col-12 olvidar">
-                        <a href="#">Olvidé mi contraseña</a>
+                        <a href="${pageContext.request.contextPath}/vistas/RecupContrasena/Rcontrasena.jsp">Olvidé mi contraseña</a>
                     </div>
                     <div <button type="button" id="ocultar-password" hidden onclick="ocultarPassword()"><i class="bi bi-eye-slash"></i></button>
                     </div>

@@ -11,6 +11,7 @@ com\gbm\controladores\BscUsuarioControlador.class
 com\gbm\entidades\CprValoracionPracticantesPK.class
 com\gbm\entidades\CprComentarios.class
 com\gbm\entidades\CprContenido.class
+com\gbm\controladores\RecordarContraseña$1.class
 com\gbm\dao\CprValoracionPracticantesFacade.class
 com\gbm\dao\CprEspecialidadesFacade.class
 com\gbm\entidades\BcsEstados.class
