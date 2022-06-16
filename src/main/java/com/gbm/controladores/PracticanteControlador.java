@@ -8,6 +8,7 @@ import com.gbm.entidades.BcsRoles;
 import com.gbm.entidades.BcsUsuario;
 import com.gbm.entidades.CprCarreras;
 import com.gbm.entidades.CprCiclos;
+import com.gbm.entidades.CprContenido;
 import com.gbm.entidades.CprEspecialidades;
 import com.gbm.entidades.CprInstituciones;
 import com.gbm.entidades.CprPracticantes;
@@ -58,6 +59,9 @@ public class PracticanteControlador extends HttpServlet {
     private CprCiclosFacade cprCicloFacaed;
     @EJB
     private CprValoracionesFacade valoracionFacade;
+    
+    @EJB
+    private CprContenidoFacade cprContenidoFacade; 
 
     
     
@@ -82,6 +86,9 @@ public class PracticanteControlador extends HttpServlet {
                 break;
             case "valorarPracticante":
                 this.valorarPracticante(request, response);
+                break;
+            case "realizarAsignacion":
+                this.realizarAsignacion(request, response);
                 break;
         }
     }
@@ -374,19 +381,42 @@ public class PracticanteControlador extends HttpServlet {
 
     private void valorarPracticante(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        int idPracticante = Integer.parseInt(request.getParameter("id"));
+        int idPracticante = Integer.parseInt(request.getParameter("idPract"));
+        
+        int idCiclo = Integer.parseInt(request.getParameter("idCiclo"));
 
         CprPracticantes practicanteValorar = practicanteFacade.find(idPracticante);
-
-        List<CprCiclos> listaCiclo = cprCicloFacaed.findAll();
+        
+        CprCiclos ciclo = cprCicloFacaed.find(idCiclo);
 
         List<CprValoraciones> listaValoracion = valoracionFacade.findAll();
 
         request.setAttribute("practicanteValorar", practicanteValorar);
-        request.setAttribute("listaCiclo", listaCiclo);
+        request.setAttribute("ciclo", ciclo);
         request.setAttribute("listaValoracion", listaValoracion);
 
         request.getRequestDispatcher("/vistas/practicante/insertarValoracionPrac.jsp").forward(request, response);
 
     }
+    
+    // VINCULO ASIGNACION
+    
+    private void realizarAsignacion(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
+        int idPracticante = Integer.parseInt(request.getParameter("id"));
+        
+        CprPracticantes practicante = practicanteFacade.find(idPracticante);
+        
+        List<CprContenido> contenidos = cprContenidoFacade.findAll();
+        
+        List<CprCiclos> ciclos = cprCicloFacaed.findAll();
+        
+        request.setAttribute("practicante", practicante);
+        request.setAttribute("contenidos", contenidos);
+        request.setAttribute("ciclos", ciclos);
+        
+        request.getRequestDispatcher("/vistas/practicante/insertarAsignacion.jsp").forward(request, response);
+        
+    }
+    
 }

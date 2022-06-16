@@ -141,7 +141,7 @@ public class controladorValoracionPracticante extends HttpServlet {
         request.getRequestDispatcher("vistas/home/dashboard.jsp").forward(request, response);
     }
 
-     //Metodos POST
+    //Metodos POST
     private void insert(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -150,41 +150,39 @@ public class controladorValoracionPracticante extends HttpServlet {
         String idValoracion = request.getParameter("idValoracion");
 
         CprValoraciones valoracion = cprValoraciones.find(idValoracion);
-        
-        CprValoracionPracticantes prueba = new CprValoracionPracticantes(idCiclo, idPracticante);
-        
-        prueba.setIdValoracion(valoracion);
-        
-        cprValorPracticante.create(prueba);
-        
-//        List<CprValoracionPracticantes> listaValoraciones = cprValorPracticante.findAll();
-//
-//        boolean repetido = false;
-//
-//        for (CprValoracionPracticantes listaValoracion : listaValoraciones) {
-//
-//            int idPracticanteList = listaValoracion.getCprPracticantes().getCodUsuarioPract();
-//
-//            if (idPracticanteList == idPracticante) {
-//                int idCicloList = listaValoracion.getCprCiclos().getIdCiclo();
-//                if (idCicloList == idCiclo) {
-//                    repetido = true;
-//                }
-//            }
-//
-//        }
-//
-//        if (repetido == false) {
+
+        CprValoracionPracticantes valoracionPracticante = new CprValoracionPracticantes(idCiclo, idPracticante);
+
+        valoracionPracticante.setIdValoracion(valoracion);
+
+        List<CprValoracionPracticantes> listaVarPra = cprValorPracticante.findAll();
+
+        boolean diferente = true;
+
+        for (CprValoracionPracticantes valoracionPractList : listaVarPra) {
+
+            if (valoracionPracticante.getCprValoracionPracticantesPK().getCodUsuario() == valoracionPractList.getCprValoracionPracticantesPK().getCodUsuario()) {
+                if (valoracionPracticante.getCprValoracionPracticantesPK().getIdCicloVal() == valoracionPractList.getCprValoracionPracticantesPK().getIdCicloVal()) {
+                    diferente = false;
+                }
+            }
+        }
+
+        if (diferente == true) {
+            cprValorPracticante.create(valoracionPracticante);
 //            request.setAttribute("tituloMensaje", "Registro exitoso");
 //            request.setAttribute("cuerpoMensaje", "Se ha añadido el registro de forma correcta");
-//            request.setAttribute("urlMensaje", "/index.jsp");
-//            request.getRequestDispatcher("/vistas/practicante/mensaje.jsp").forward(request, response);
-//        } else {
-//            request.setAttribute("tituloMensaje", "Valoracion por ciclo");
-//            request.setAttribute("cuerpoMensaje", "Solo puedes añadir una valoración por ciclo");
-//            request.setAttribute("urlMensaje", "/index.jsp");
-//            request.getRequestDispatcher("/vistas/practicante/mensaje.jsp").forward(request, response);
-//        }
+            
+            List<CprValoracionPracticantes> listaValoraciones = valoracionPracticanteFacade.findAll();
+            request.setAttribute("listaValoraciones", listaValoraciones);
+            request.getRequestDispatcher("/vistas/practicante/mostrarValoracioPrac.jsp").forward(request, response);
+        }
+        else{
+            request.setAttribute("tituloMensaje", "Error en el registro");
+            request.setAttribute("cuerpoMensaje", "No se puede valorar un mismo ciclo");
+            request.setAttribute("urlMensaje", "/index.jsp");
+            request.getRequestDispatcher("/vistas/practicante/mensaje.jsp").forward(request, response);
+        }
     }
 
     private void update(HttpServletRequest request, HttpServletResponse response)
@@ -193,11 +191,11 @@ public class controladorValoracionPracticante extends HttpServlet {
         int codPracticante = Integer.parseInt(request.getParameter("idPracticante"));
         int idCiclo = Integer.parseInt(request.getParameter("idCiclo"));
         String idValoracion = request.getParameter("idValoracion");
-        
+
         CprValoraciones valoracion = cprValoraciones.find(idValoracion);
 
         CprValoracionPracticantes valoracionPraticanteUp = new CprValoracionPracticantes(idCiclo, codPracticante);
-        
+
         valoracionPraticanteUp.setIdValoracion(valoracion);
 
         cprValorPracticante.edit(valoracionPraticanteUp);

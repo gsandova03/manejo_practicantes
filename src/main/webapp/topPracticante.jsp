@@ -32,7 +32,7 @@
             </a>
             <ul class="nav-links">
                 <li>
-                    <a href="${pageContext.request.contextPath}/vistas/home/dashboardPracticante.jsp">
+                    <a href="${pageContext.request.contextPath}/controladorDashboardPracticante?accion=mostarResumenGeneral">
                         <i class='bx bx-grid-alt'></i>
                         <span class="link_name">Dashboard</span>
                     </a>
@@ -41,7 +41,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="${pageContext.request.contextPath}/controladorDashboardPracticante?accion=verComentarios">
                         <i class='bx bx-comment'></i>
                         <span class="link_name">Comentarios</span>
                     </a>
@@ -50,12 +50,21 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="${pageContext.request.contextPath}/controladorDashboardPracticante?accion=editar">
                         <i class='bx bx-cog'></i>
                         <span class="link_name">Editar Perfil</span>
                     </a>
                     <ul class="sub-menu blank">
                         <li><a href="#" class="link_name">Editar Perfil</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="${pageContext.request.contextPath}/controladorDashboardPracticante?accion=mostrarAsignacion">
+                        <i class='bx bx-history'></i>
+                        <span class="link_name">Ver Asignación</span>
+                    </a>
+                    <ul class="sub-menu blank">
+                        <li><a href="#" class="link_name">Ver Asignación</a></li>
                     </ul>
                 </li>
                 <div class="profile-details">

@@ -31,7 +31,7 @@ public class CprHistContenidoPracticante implements Serializable {
     @JoinColumn(name = "id_contenido", referencedColumnName = "id_contenido", nullable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private CprContenido idContenido;
-    @JoinColumn(name = "cod_usuario_hist", referencedColumnName = "cod_usuario_pract", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "cod_pract_hist", referencedColumnName = "cod_usuario_pract", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private CprPracticantes cprPracticantes;
 

@@ -9,9 +9,7 @@
         <div class="mb-3">
             <label for="disabledSelect" class="form-label">Ciclos</label>
             <select id="disabledSelect" class="form-select" name="idCiclo" required>
-                <c:forEach var="ListaCiclo" items="${listaCiclo}">
-                    <option value="${ListaCiclo.idCiclo}">${ListaCiclo.desCiclo}</option>                            
-                </c:forEach>
+                <option value="${ciclo.idCiclo}" selected>${ciclo.desCiclo}</option>                            
             </select>
         </div>
         <div class="mb-3">

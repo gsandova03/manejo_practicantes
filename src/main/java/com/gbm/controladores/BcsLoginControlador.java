@@ -52,6 +52,7 @@ public class BcsLoginControlador extends HttpServlet {
         } else if(usuariol.getEmiCoorporativo().equals(usuariouser) && usuariol.getPswUsuario().equals(password)){
             sesion.setAttribute("Usuario", usuariol.getNomUsuario());
             sesion.setAttribute("Rol", usuariol.getIdRol().getNomRol());
+            sesion.setAttribute("Id", usuariol.getCodUsuario());
             
             if(usuariol.getIdRol().getIdRol() == 1 || usuariol.getIdRol().getIdRol() == 3){
                 response.sendRedirect("vistas/home/indexAdmin.jsp");
