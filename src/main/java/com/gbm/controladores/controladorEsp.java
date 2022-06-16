@@ -3,9 +3,11 @@ package com.gbm.controladores;
 import com.gbm.dao.BcsBitacoraFacade;
 import com.gbm.dao.BcsUsuarioFacade;
 import com.gbm.dao.CprEspecialidadesFacade;
+import com.gbm.dao.CprPracticantesFacade;
 import com.gbm.entidades.BcsBitacora;
 import com.gbm.entidades.BcsUsuario;
 import com.gbm.entidades.CprEspecialidades;
+import com.gbm.entidades.CprPracticantes;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -21,15 +23,20 @@ public class controladorEsp extends HttpServlet {
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm");
     String fecha = dtf.format(LocalDateTime.now());
     BcsBitacora bitacora = new BcsBitacora();
-    
+
     @EJB
     BcsBitacoraFacade bitacoraFacade;
 
     @EJB
     BcsUsuarioFacade usuario;
-    
+
     @EJB
     CprEspecialidadesFacade cprEsp;
+
+    @EJB
+    CprPracticantesFacade cprPracticanteFacade;
+
+    private List<CprEspecialidades> especialidades;
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -55,15 +62,14 @@ public class controladorEsp extends HttpServlet {
         String cadena = request.getParameter("descEspecialidad").trim();
 
         if (cadena.equals("")) {
-            request.setAttribute("tituloMensaje", "Error al registrar");
-            request.setAttribute("cuerpoMensaje", "La descripcion está vacia");
-            request.setAttribute("urlMensaje", "/vistas/matenimiento/Vista/insertarEspecialidad.jsp");
-            request.getRequestDispatcher("/vistas/matenimiento/Vista/mensaje.jsp").forward(request, response);
+            request.setAttribute("tipo", "error");
+            request.setAttribute("mensaje", "La descripcion está vacia");
+            request.getRequestDispatcher("/vistas/matenimiento/Vista/insertarEspecialidad.jsp").forward(request, response);
         } else {
             CprEspecialidades objCpresp = new CprEspecialidades();
             objCpresp.setDesEspecialidad(cadena);
             cprEsp.create(objCpresp);
-            
+
             //Bitacora
             BcsUsuario usuarioRegistrado = usuario.find(1);
 
@@ -75,11 +81,11 @@ public class controladorEsp extends HttpServlet {
 
             bitacoraFacade.create(bitacora);
 
-            
-            request.setAttribute("tituloMensaje", "Registro exitoso");
-            request.setAttribute("cuerpoMensaje", "Se ingreso el registro");
-            request.setAttribute("urlMensaje", "/vistas/matenimiento/index.jsp");
-            request.getRequestDispatcher("/vistas/matenimiento/Vista/mensaje.jsp").forward(request, response);
+            especialidades = cprEsp.findAll();
+            request.setAttribute("Especialidades", especialidades);
+            request.setAttribute("tipo", "success");
+            request.setAttribute("mensaje", "Se ingreso el registro");
+            request.getRequestDispatcher("/vistas/matenimiento/Vista/mostrarEspecialidad.jsp").forward(request, response);
         }
 
     }
@@ -87,18 +93,18 @@ public class controladorEsp extends HttpServlet {
     private void update(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
         String cadena = request.getParameter("descEspecialidad").trim();
-
         if (cadena.equals("")) {
-            request.setAttribute("tituloMensaje", "Error al registrar");
-            request.setAttribute("cuerpoMensaje", "La descripcion está vacia");
-            request.setAttribute("urlMensaje", "/vistas/matenimiento/index.jsp");
-            request.getRequestDispatcher("/vistas/matenimiento/Vista/mensaje.jsp").forward(request, response);
+            especialidades = cprEsp.findAll();
+            request.setAttribute("Especialidades", this.especialidades);
+            request.setAttribute("tipo", "error");
+            request.setAttribute("mensaje", "La descripcion está vacia");
+            request.getRequestDispatcher("/vistas/matenimiento/Vista/mostrarEspecialidad.jsp").forward(request, response);
         } else {
             CprEspecialidades objUpdate = new CprEspecialidades();
             objUpdate.setIdEspecialidad(Integer.parseInt(request.getParameter("idEspacialidad")));
             objUpdate.setDesEspecialidad(cadena);
             cprEsp.edit(objUpdate);
-            
+
             //Bitacora
             BcsUsuario usuarioRegistrado = usuario.find(1);
 
@@ -110,11 +116,11 @@ public class controladorEsp extends HttpServlet {
 
             bitacoraFacade.create(bitacora);
 
-            
-            request.setAttribute("tituloMensaje", "Registro exitoso");
-            request.setAttribute("cuerpoMensaje", "Se actualizó el registro");
-            request.setAttribute("urlMensaje", "/vistas/matenimiento/index.jsp");
-            request.getRequestDispatcher("/vistas/matenimiento/Vista/mensaje.jsp").forward(request, response);
+            especialidades = cprEsp.findAll();
+            request.setAttribute("Especialidades", this.especialidades);
+            request.setAttribute("tipo", "success");
+            request.setAttribute("mensaje", "Se actualizó el registro");
+            request.getRequestDispatcher("/vistas/matenimiento/Vista/mostrarEspecialidad.jsp").forward(request, response);
         }
     }
 
@@ -145,13 +151,11 @@ public class controladorEsp extends HttpServlet {
     private void read(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         List<CprEspecialidades> Especialidades = cprEsp.findAll();
         if (Especialidades.isEmpty()) {
-            request.setAttribute("tituloMensaje", "Registros nulo");
-            request.setAttribute("cuerpoMensaje", "No hay registro en tabla");
-            request.setAttribute("urlMensaje", "/vistas/matenimiento/index.jsp");
-            request.getRequestDispatcher("/vistas/matenimiento/Vista/mensaje.jsp").forward(request, response);
+            request.setAttribute("tipo", "info");
+            request.setAttribute("mensaje", "No hay registro en tabla");
+            request.getRequestDispatcher("/vistas/matenimiento/index.jsp").forward(request, response);
         } else {
-            
-            
+
             //Bitacora
             BcsUsuario usuarioRegistrado = usuario.find(1);
 
@@ -162,7 +166,7 @@ public class controladorEsp extends HttpServlet {
             bitacora.setDesTransaccion("EL usuario " + usuarioRegistrado.getNomUsuario() + ", consultó en la tabla 'Especialidades'");
 
             bitacoraFacade.create(bitacora);
-            
+
             request.setAttribute("Especialidades", Especialidades);
             request.getRequestDispatcher("/vistas/matenimiento/Vista/mostrarEspecialidad.jsp").forward(request, response);
         }
@@ -179,9 +183,20 @@ public class controladorEsp extends HttpServlet {
     private void delete(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         int id = Integer.parseInt(request.getParameter("idEspecialidad"));
         CprEspecialidades especialidadDelete = cprEsp.find(id);
-        cprEsp.remove(especialidadDelete);
+        List<CprPracticantes> practicantes = cprPracticanteFacade.findAll();
         
-        //Bitacora
+        boolean registrado = false;
+
+        for (CprPracticantes practicante : practicantes) {
+            if (practicante.getIdCarrera().getIdCarrera() == id) {
+                registrado = true;
+            }
+        }
+
+        if (registrado == false) {
+            cprEsp.remove(especialidadDelete);
+
+            //Bitacora
             BcsUsuario usuarioRegistrado = usuario.find(1);
 
             bitacora.setCodUsuario(usuarioRegistrado);
@@ -191,11 +206,15 @@ public class controladorEsp extends HttpServlet {
             bitacora.setDesTransaccion("EL usuario " + usuarioRegistrado.getNomUsuario() + ", borró un registro en la tabla 'Especialidades'");
 
             bitacoraFacade.create(bitacora);
-        
-        request.setAttribute("tituloMensaje", "Eliminación exitosa");
-        request.setAttribute("cuerpoMensaje", "Se eliminó el registro");
-        request.setAttribute("urlMensaje", "/vistas/matenimiento/index.jsp");
-        request.getRequestDispatcher("/vistas/matenimiento/Vista/mensaje.jsp").forward(request, response);
+
+            request.setAttribute("tipo", "success");
+            request.setAttribute("mensaje", "Se eliminó el registro");
+            request.getRequestDispatcher("/vistas/matenimiento/index.jsp").forward(request, response);
+        }else{
+            request.setAttribute("tipo", "error");
+            request.setAttribute("mensaje", "No se puede eliminar el registro");
+            request.getRequestDispatcher("/vistas/matenimiento/index.jsp").forward(request, response);
+        }
     }
 
 }

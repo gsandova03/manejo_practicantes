@@ -2,9 +2,11 @@ package com.gbm.controladores;
 
 import com.gbm.dao.BcsBitacoraFacade;
 import com.gbm.dao.BcsUsuarioFacade;
+import com.gbm.dao.CprPracticantesFacade;
 import com.gbm.dao.CprValoracionesFacade;
 import com.gbm.entidades.BcsBitacora;
 import com.gbm.entidades.BcsUsuario;
+import com.gbm.entidades.CprPracticantes;
 import com.gbm.entidades.CprValoraciones;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -30,6 +32,11 @@ public class controladorValoraciones extends HttpServlet {
 
     @EJB
     CprValoracionesFacade cprValoracionesQuery;
+
+    @EJB
+    CprPracticantesFacade cprPracticanteFacade;
+
+    private List<CprValoraciones> valoraciones;
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -58,19 +65,17 @@ public class controladorValoraciones extends HttpServlet {
         String descValoracion = request.getParameter("descValoracion").trim();
 
         if (idValoracion.equals("") || descValoracion.equals("")) {
-            request.setAttribute("tituloMensaje", "Error al registrar");
-            request.setAttribute("cuerpoMensaje", "Hay algun campo vacio");
-            request.setAttribute("urlMensaje", "/vistas/matenimiento/Vista/insertarValoracion.jsp");
-            request.getRequestDispatcher("/vistas/matenimiento/Vista/mensaje.jsp").forward(request, response);
+            request.setAttribute("tipo", "error");
+            request.setAttribute("mensaje", "Hay algun campo vacio");
+            request.getRequestDispatcher("/vistas/matenimiento/Vista/insertarValoracion.jsp").forward(request, response);
         } else {
 
             CprValoraciones buscarValoracion = cprValoracionesQuery.find(idValoracion);
 
             if (buscarValoracion != null) {
-                request.setAttribute("tituloMensaje", "registro existente");
-                request.setAttribute("cuerpoMensaje", "Ese registro ya esta en la base de datos");
-                request.setAttribute("urlMensaje", "/vistas/matenimiento/Vista/insertarValoracion.jsp");
-                request.getRequestDispatcher("/vistas/matenimiento/Vista/mensaje.jsp").forward(request, response);
+                request.setAttribute("tipo", "error");
+                request.setAttribute("mensaje", "Ese registro ya esta en la base de datos");
+                request.getRequestDispatcher("/vistas/matenimiento/Vista/insertarValoracion.jsp").forward(request, response);
             } else {
                 CprValoraciones ValoracionInsert = new CprValoraciones();
                 ValoracionInsert.setIdValoracion(idValoracion);
@@ -88,10 +93,11 @@ public class controladorValoraciones extends HttpServlet {
 
                 bitacoraFacade.create(bitacora);
 
-                request.setAttribute("tituloMensaje", "Registro exitoso");
-                request.setAttribute("cuerpoMensaje", "Se ingreso el registro");
-                request.setAttribute("urlMensaje", "/vistas/matenimiento/index.jsp");
-                request.getRequestDispatcher("/vistas/matenimiento/Vista/mensaje.jsp").forward(request, response);
+                valoraciones = cprValoracionesQuery.findAll();
+                request.setAttribute("listaValoraciones", valoraciones);
+                request.setAttribute("tipo", "success");
+                request.setAttribute("mensaje", "Se ingreso el registro");
+                request.getRequestDispatcher("/vistas/matenimiento/Vista/mostrarValoracion.jsp").forward(request, response);
             }
         }
     }
@@ -101,10 +107,11 @@ public class controladorValoraciones extends HttpServlet {
         String cadena = request.getParameter("descValoracion").trim();
 
         if (cadena.equals("")) {
-            request.setAttribute("tituloMensaje", "Error al registrar");
-            request.setAttribute("cuerpoMensaje", "La descripcion está vacia");
-            request.setAttribute("urlMensaje", "/vistas/matenimiento/index.jsp");
-            request.getRequestDispatcher("/vistas/matenimiento/Vista/mensaje.jsp").forward(request, response);
+            valoraciones = cprValoracionesQuery.findAll();
+            request.setAttribute("listaValoraciones", valoraciones);
+            request.setAttribute("tipo", "error");
+            request.setAttribute("mensaje", "La descripcion está vacia");
+            request.getRequestDispatcher("/vistas/matenimiento/Vista/mostrarValoracion.jsp").forward(request, response);
         } else {
             CprValoraciones objUpdate = new CprValoraciones();
             objUpdate.setIdValoracion(request.getParameter("idValoracion"));
@@ -122,10 +129,11 @@ public class controladorValoraciones extends HttpServlet {
 
             bitacoraFacade.create(bitacora);
 
-            request.setAttribute("tituloMensaje", "Registro exitoso");
-            request.setAttribute("cuerpoMensaje", "Se actualizó el registro");
-            request.setAttribute("urlMensaje", "/vistas/matenimiento/index.jsp");
-            request.getRequestDispatcher("/vistas/matenimiento/Vista/mensaje.jsp").forward(request, response);
+            valoraciones = cprValoracionesQuery.findAll();
+            request.setAttribute("listaValoraciones", valoraciones);
+            request.setAttribute("tipo", "success");
+            request.setAttribute("mensaje", "Se actualizó el registro");
+            request.getRequestDispatcher("/vistas/matenimiento/Vista/mostrarValoracion.jsp").forward(request, response);
         }
     }
 
@@ -157,10 +165,9 @@ public class controladorValoraciones extends HttpServlet {
     private void read(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         List<CprValoraciones> listaValoraciones = cprValoracionesQuery.findAll();
         if (listaValoraciones.isEmpty()) {
-            request.setAttribute("tituloMensaje", "Registros nulo");
-            request.setAttribute("cuerpoMensaje", "No hay registro en tabla");
-            request.setAttribute("urlMensaje", "/vistas/matenimiento/index.jsp");
-            request.getRequestDispatcher("/vistas/matenimiento/Vista/mensaje.jsp").forward(request, response);
+            request.setAttribute("tipo", "info");
+            request.setAttribute("mensaje", "No hay registro en tabla");
+            request.getRequestDispatcher("/vistas/matenimiento/index.jsp").forward(request, response);
         } else {
 
             //Bitacora
@@ -189,22 +196,38 @@ public class controladorValoraciones extends HttpServlet {
     private void delete(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String id = request.getParameter("idValoracion");
         CprValoraciones valoracionDelete = cprValoracionesQuery.find(id);
-        cprValoracionesQuery.remove(valoracionDelete);
 
-        //Bitacora
-        BcsUsuario usuarioRegistrado = usuario.find(1);
+        List<CprPracticantes> practicantes = cprPracticanteFacade.findAll();
+        boolean registrado = false;
 
-        bitacora.setCodUsuario(usuarioRegistrado);
-        bitacora.setFecBitacora(fecha);
-        bitacora.setTioTransaccion("DELETE");
+        for (CprPracticantes practicante : practicantes) {
+            if (practicante.getIdCarrera().getIdCarrera() == Integer.parseInt(id)) {
+                registrado = true;
+            }
+        }
 
-        bitacora.setDesTransaccion("EL usuario " + usuarioRegistrado.getNomUsuario() + ", borró un registro en la tabla 'Valoraciones'");
+        if (registrado == false) {
+            cprValoracionesQuery.remove(valoracionDelete);
 
-        bitacoraFacade.create(bitacora);
+            //Bitacora
+            BcsUsuario usuarioRegistrado = usuario.find(1);
 
-        request.setAttribute("tituloMensaje", "Eliminación exitosa");
-        request.setAttribute("cuerpoMensaje", "Se eliminó el registro");
-        request.setAttribute("urlMensaje", "/vistas/matenimiento/index.jsp");
-        request.getRequestDispatcher("/vistas/matenimiento/Vista/mensaje.jsp").forward(request, response);
+            bitacora.setCodUsuario(usuarioRegistrado);
+            bitacora.setFecBitacora(fecha);
+            bitacora.setTioTransaccion("DELETE");
+
+            bitacora.setDesTransaccion("EL usuario " + usuarioRegistrado.getNomUsuario() + ", borró un registro en la tabla 'Valoraciones'");
+
+            bitacoraFacade.create(bitacora);
+
+            request.setAttribute("tipo", "success");
+            request.setAttribute("mensaje", "Se eliminó el registro");
+            request.getRequestDispatcher("/vistas/matenimiento/index.jsp").forward(request, response);
+        } else {
+            request.setAttribute("tipo", "error");
+            request.setAttribute("mensaje", "No se puede eliminar el registro");
+            request.getRequestDispatcher("/vistas/matenimiento/index.jsp").forward(request, response);
+        }
+
     }
 }

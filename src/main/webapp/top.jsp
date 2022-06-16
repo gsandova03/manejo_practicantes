@@ -20,12 +20,13 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <title>Manejo Practicantes</title>
     </head>
 
     <body>
         <div class="sidebar">
-            <a class="logo-details" href="${pageContext.request.contextPath}/index.jsp">
+            <a class="logo-details" href="${pageContext.request.contextPath}/vistas/home/indexAdmin.jsp">
                 <img src="${pageContext.request.contextPath}/vistas/img/GBM7.png" alt="LOGOgbm">
                 <span class="logo_name"></span>
             </a>
@@ -87,6 +88,7 @@
                         <li><a href="${pageContext.request.contextPath}/ControladorRol?accion=read">Roles</a></li>
                         <li><a href="${pageContext.request.contextPath}/controladorTipoPracticas?accion=read">Tipo de practicas</a></li>
                         <li><a href="${pageContext.request.contextPath}/controladorValoraciones?accion=read">Valoraciones</a></li>
+                        <li><a href="${pageContext.request.contextPath}/controladorCont?accion=read">Contenido</a></li>
                     </ul>
                 </li>
                 <li>
@@ -112,10 +114,12 @@
                         <img src="${pageContext.request.contextPath}/vistas/img/usuario.jpg" alt="usuario">
                     </div>
                     <div class="name-job">
-                        <div class="profile_name personal-info">Gabriel Sandoval</div>
-                        <div class="job personal-info">Aprendiz</div>
+                        <div class="profile_name personal-info">${Usuario}</div>
+                        <div class="job personal-info">${Rol}</div>
                     </div>
-                    <i class='bx bx-log-out personal-info'></i>
+                    <a href="${pageContext.request.contextPath}/BcsLoginControlador">
+                        <i class='bx bx-log-out personal-info'></i>
+                    </a>
                 </div>
             </ul>
         </div>

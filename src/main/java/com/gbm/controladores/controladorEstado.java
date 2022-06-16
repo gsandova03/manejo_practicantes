@@ -3,9 +3,11 @@ package com.gbm.controladores;
 import com.gbm.dao.BcsBitacoraFacade;
 import com.gbm.dao.BcsEstadosFacade;
 import com.gbm.dao.BcsUsuarioFacade;
+import com.gbm.dao.CprPracticantesFacade;
 import com.gbm.entidades.BcsBitacora;
 import com.gbm.entidades.BcsEstados;
 import com.gbm.entidades.BcsUsuario;
+import com.gbm.entidades.CprPracticantes;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -30,6 +32,11 @@ public class controladorEstado extends HttpServlet {
 
     @EJB
     BcsEstadosFacade bcsEstadoQuery;
+
+    @EJB
+    CprPracticantesFacade cprPracticanteFacade;
+
+    private List<BcsEstados> estados;
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -56,10 +63,9 @@ public class controladorEstado extends HttpServlet {
         String cadena = request.getParameter("descEstado").trim();
 
         if (cadena.equals("")) {
-            request.setAttribute("tituloMensaje", "Error al registrar");
-            request.setAttribute("cuerpoMensaje", "La descripcion está vacia");
-            request.setAttribute("urlMensaje", "/vistas/matenimiento/Vista/insertarEstado.jsp");
-            request.getRequestDispatcher("/vistas/matenimiento/Vista/mensaje.jsp").forward(request, response);
+            request.setAttribute("tipo", "error");
+            request.setAttribute("mensaje", "La descripcion está vacia");
+            request.getRequestDispatcher("/vistas/matenimiento/Vista/insertarEstado.jsp").forward(request, response);
         } else {
             BcsEstados objEstado = new BcsEstados();
             objEstado.setDesEstados(cadena);
@@ -76,10 +82,11 @@ public class controladorEstado extends HttpServlet {
 
             bitacoraFacade.create(bitacora);
 
-            request.setAttribute("tituloMensaje", "Registro exitoso");
-            request.setAttribute("cuerpoMensaje", "Se ingreso el registro");
-            request.setAttribute("urlMensaje", "/vistas/matenimiento/index.jsp");
-            request.getRequestDispatcher("/vistas/matenimiento/Vista/mensaje.jsp").forward(request, response);
+            estados = bcsEstadoQuery.findAll();
+            request.setAttribute("listaEstado", estados);
+            request.setAttribute("tipo", "success");
+            request.setAttribute("mensaje", "Se ingreso el registro");
+            request.getRequestDispatcher("/vistas/matenimiento/Vista/mostrarEstado.jsp").forward(request, response);
         }
     }
 
@@ -88,10 +95,11 @@ public class controladorEstado extends HttpServlet {
         String cadena = request.getParameter("descEstado").trim();
 
         if (cadena.equals("")) {
-            request.setAttribute("tituloMensaje", "Error al registrar");
-            request.setAttribute("cuerpoMensaje", "La descripcion está vacia");
-            request.setAttribute("urlMensaje", "/vistas/matenimiento/index.jsp");
-            request.getRequestDispatcher("/vistas/matenimiento/Vista/mensaje.jsp").forward(request, response);
+            estados = bcsEstadoQuery.findAll();
+            request.setAttribute("listaEstado", estados);
+            request.setAttribute("tipo", "error");
+            request.setAttribute("mensaje", "La descripcion está vacia");
+            request.getRequestDispatcher("/vistas/matenimiento/Vista/mostrarEstado.jsp").forward(request, response);
         } else {
             BcsEstados objUpdate = new BcsEstados();
             objUpdate.setIdEstado(Integer.parseInt(request.getParameter("idEstado")));
@@ -109,10 +117,11 @@ public class controladorEstado extends HttpServlet {
 
             bitacoraFacade.create(bitacora);
 
-            request.setAttribute("tituloMensaje", "Registro exitoso");
-            request.setAttribute("cuerpoMensaje", "Se actualizó el registro");
-            request.setAttribute("urlMensaje", "/vistas/matenimiento/index.jsp");
-            request.getRequestDispatcher("/vistas/matenimiento/Vista/mensaje.jsp").forward(request, response);
+            estados = bcsEstadoQuery.findAll();
+            request.setAttribute("listaEstado", estados);
+            request.setAttribute("tipo", "success");
+            request.setAttribute("mensaje", "Se actualizó el registro");
+            request.getRequestDispatcher("/vistas/matenimiento/Vista/mostrarEstado.jsp").forward(request, response);
         }
     }
 
@@ -145,10 +154,9 @@ public class controladorEstado extends HttpServlet {
     private void read(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         List<BcsEstados> listaEstado = bcsEstadoQuery.findAll();
         if (listaEstado.isEmpty()) {
-            request.setAttribute("tituloMensaje", "Registros nulo");
-            request.setAttribute("cuerpoMensaje", "No hay registro en tabla");
-            request.setAttribute("urlMensaje", "/vistas/matenimiento/index.jsp");
-            request.getRequestDispatcher("/vistas/matenimiento/Vista/mensaje.jsp").forward(request, response);
+            request.setAttribute("tipo", "info");
+            request.setAttribute("mensaje", "No hay registro en tabla");
+            request.getRequestDispatcher("/vistas/matenimiento/index.jsp").forward(request, response);
         } else {
 
             //Bitacora
@@ -177,23 +185,40 @@ public class controladorEstado extends HttpServlet {
     private void delete(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         int id = Integer.parseInt(request.getParameter("idEstado"));
         BcsEstados estadoDelete = bcsEstadoQuery.find(id);
-        bcsEstadoQuery.remove(estadoDelete);
+        
+        List<CprPracticantes> practicantes = cprPracticanteFacade.findAll();
 
-        //Bitacora
-        BcsUsuario usuarioRegistrado = usuario.find(1);
+        boolean registrado = false;
 
-        bitacora.setCodUsuario(usuarioRegistrado);
-        bitacora.setFecBitacora(fecha);
-        bitacora.setTioTransaccion("DELETE");
+        for (CprPracticantes practicante : practicantes) {
+            if (practicante.getIdCarrera().getIdCarrera() == id) {
+                registrado = true;
+            }
+        }
 
-        bitacora.setDesTransaccion("EL usuario " + usuarioRegistrado.getNomUsuario() + ", borró un registro en la tabla 'Estado'");
+        if (registrado == false) {
+            bcsEstadoQuery.remove(estadoDelete);
 
-        bitacoraFacade.create(bitacora);
+            //Bitacora
+            BcsUsuario usuarioRegistrado = usuario.find(1);
 
-        request.setAttribute("tituloMensaje", "Eliminación exitosa");
-        request.setAttribute("cuerpoMensaje", "Se eliminó el registro");
-        request.setAttribute("urlMensaje", "/vistas/matenimiento/index.jsp");
-        request.getRequestDispatcher("/vistas/matenimiento/Vista/mensaje.jsp").forward(request, response);
+            bitacora.setCodUsuario(usuarioRegistrado);
+            bitacora.setFecBitacora(fecha);
+            bitacora.setTioTransaccion("DELETE");
+
+            bitacora.setDesTransaccion("EL usuario " + usuarioRegistrado.getNomUsuario() + ", borró un registro en la tabla 'Estado'");
+
+            bitacoraFacade.create(bitacora);
+
+            request.setAttribute("tipo", "success");
+            request.setAttribute("mensaje", "Se eliminó el registro");
+            request.getRequestDispatcher("/vistas/matenimiento/index.jsp").forward(request, response);
+        }else{
+            request.setAttribute("tipo", "error");
+            request.setAttribute("mensaje", "No se puede eliminar el registro");
+            request.getRequestDispatcher("/vistas/matenimiento/index.jsp").forward(request, response);
+        }
+
     }
 
 }

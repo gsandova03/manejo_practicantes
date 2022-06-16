@@ -3,9 +3,11 @@ package com.gbm.controladores;
 import com.gbm.dao.BcsBitacoraFacade;
 import com.gbm.dao.BcsUsuarioFacade;
 import com.gbm.dao.CprCarrerasFacade;
+import com.gbm.dao.CprPracticantesFacade;
 import com.gbm.entidades.BcsBitacora;
 import com.gbm.entidades.BcsUsuario;
 import com.gbm.entidades.CprCarreras;
+import com.gbm.entidades.CprPracticantes;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -30,6 +32,11 @@ public class controladorCarr extends HttpServlet {
 
     @EJB
     CprCarrerasFacade cprCarr;
+
+    @EJB
+    CprPracticantesFacade cprPracticanteFacade;
+
+    private List<CprCarreras> carreras;
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -57,11 +64,9 @@ public class controladorCarr extends HttpServlet {
         String cadena = request.getParameter("descCarrera").trim();
 
         if (cadena.equals("")) {
-            request.setAttribute("tituloMensaje", "Error al registrar");
-            request.setAttribute("cuerpoMensaje", "La descripcion está vacia");
-            request.setAttribute("urlMensaje", "/vistas/matenimiento/Vista/insertarCarrera.jsp");
-            request.getAttribute("carreraSelect");
-            request.getRequestDispatcher("/vistas/matenimiento/Vista/mensaje.jsp").forward(request, response);
+            request.setAttribute("tipo", "error");
+            request.setAttribute("mensaje", "La descripcion está vacia");
+            request.getRequestDispatcher("/vistas/matenimiento/Vista/insertarCarrera.jsp").forward(request, response);
         } else {
             objcprCarr.setDesCarrera(cadena);
             cprCarr.create(objcprCarr);
@@ -77,10 +82,11 @@ public class controladorCarr extends HttpServlet {
 
             bitacoraFacade.create(bitacora);
 
-            request.setAttribute("tituloMensaje", "Registro exitoso");
-            request.setAttribute("cuerpoMensaje", "Se ingreso el registro");
-            request.setAttribute("urlMensaje", "/vistas/matenimiento/index.jsp");
-            request.getRequestDispatcher("/vistas/matenimiento/Vista/mensaje.jsp").forward(request, response);
+            carreras = cprCarr.findAll();
+            request.setAttribute("Carreras", this.carreras);
+            request.setAttribute("tipo", "success");
+            request.setAttribute("mensaje", "Se ingreso el registro");
+            request.getRequestDispatcher("/vistas/matenimiento/Vista/mostrarCarrera.jsp").forward(request, response);
         }
 
     }
@@ -90,10 +96,11 @@ public class controladorCarr extends HttpServlet {
         String cadena = request.getParameter("descCarrera").trim();
 
         if (cadena.equals("")) {
-            request.setAttribute("tituloMensaje", "Error al registrar");
-            request.setAttribute("cuerpoMensaje", "La descripcion está vacia");
-            request.setAttribute("urlMensaje", "/vistas/matenimiento/index.jsp");
-            request.getRequestDispatcher("/vistas/matenimiento/Vista/mensaje.jsp").forward(request, response);
+            carreras = cprCarr.findAll();
+            request.setAttribute("Carreras", this.carreras);
+            request.setAttribute("tipo", "error");
+            request.setAttribute("mensaje", "La descripcion está vacia");
+            request.getRequestDispatcher("/vistas/matenimiento/Vista/mostrarCarrera.jsp").forward(request, response);
         } else {
             CprCarreras objUpdate = new CprCarreras();
             objUpdate.setIdCarrera(Integer.parseInt(request.getParameter("idCarrera")));
@@ -111,10 +118,11 @@ public class controladorCarr extends HttpServlet {
 
             bitacoraFacade.create(bitacora);
 
-            request.setAttribute("tituloMensaje", "Registro exitoso");
-            request.setAttribute("cuerpoMensaje", "Se actualizó el registro");
-            request.setAttribute("urlMensaje", "/vistas/matenimiento/index.jsp");
-            request.getRequestDispatcher("/vistas/matenimiento/Vista/mensaje.jsp").forward(request, response);
+            carreras = cprCarr.findAll();
+            request.setAttribute("Carreras", this.carreras);
+            request.setAttribute("tipo", "succes");
+            request.setAttribute("mensaje", "Se actualizó el registro");
+            request.getRequestDispatcher("/vistas/matenimiento/Vista/mostrarCarrera.jsp").forward(request, response);
         }
     }
 
@@ -144,12 +152,11 @@ public class controladorCarr extends HttpServlet {
 
     //METODOS SOBRE EL GET
     private void read(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        List<CprCarreras> carreras = cprCarr.findAll();
-        if (carreras.isEmpty()) {
-            request.setAttribute("tituloMensaje", "Registros nulo");
-            request.setAttribute("cuerpoMensaje", "No hay registro en tabla");
-            request.setAttribute("urlMensaje", "/vistas/matenimiento/index.jsp");
-            request.getRequestDispatcher("/vistas/matenimiento/Vista/mensaje.jsp").forward(request, response);
+        carreras = cprCarr.findAll();
+        if (this.carreras.isEmpty()) {
+            request.setAttribute("tipo", "info");
+            request.setAttribute("mensaje", "No hay registros en tabla");
+            request.getRequestDispatcher("/vistas/matenimiento/index.jsp").forward(request, response);
         } else {
 
             //Bitacora
@@ -163,7 +170,7 @@ public class controladorCarr extends HttpServlet {
 
             bitacoraFacade.create(bitacora);
 
-            request.setAttribute("Carreras", carreras);
+            request.setAttribute("Carreras", this.carreras);
             request.getRequestDispatcher("/vistas/matenimiento/Vista/mostrarCarrera.jsp").forward(request, response);
         }
 
@@ -178,24 +185,42 @@ public class controladorCarr extends HttpServlet {
 
     private void delete(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         int id = Integer.parseInt(request.getParameter("idCarrera"));
-        CprCarreras carroDelete = cprCarr.find(id);
-        cprCarr.remove(carroDelete);
+        List<CprPracticantes> practicantes = cprPracticanteFacade.findAll();
+        carreras = cprCarr.findAll();
+        
+        
+        boolean registrado = false;
 
-        //Bitacora
-        BcsUsuario usuarioRegistrado = usuario.find(1);
+        for (CprPracticantes practicante : practicantes) {
+            if (practicante.getIdCarrera().getIdCarrera() == id) {
+                registrado = true;
+            }
+        }
 
-        bitacora.setCodUsuario(usuarioRegistrado);
-        bitacora.setFecBitacora(fecha);
-        bitacora.setTioTransaccion("DELETE");
+        if (registrado == false) {
+            CprCarreras carroDelete = cprCarr.find(id);
+            cprCarr.remove(carroDelete);
 
-        bitacora.setDesTransaccion("EL usuario " + usuarioRegistrado.getNomUsuario() + ", borró un registro en la tabla 'Carreras'");
+            //Bitacora
+            BcsUsuario usuarioRegistrado = usuario.find(1);
 
-        bitacoraFacade.create(bitacora);
+            bitacora.setCodUsuario(usuarioRegistrado);
+            bitacora.setFecBitacora(fecha);
+            bitacora.setTioTransaccion("DELETE");
 
-        request.setAttribute("tituloMensaje", "Eliminación exitosa");
-        request.setAttribute("cuerpoMensaje", "Se eliminó el registro");
-        request.setAttribute("urlMensaje", "/vistas/matenimiento/index.jsp");
-        request.getRequestDispatcher("/vistas/matenimiento/Vista/mensaje.jsp").forward(request, response);
+            bitacora.setDesTransaccion("EL usuario " + usuarioRegistrado.getNomUsuario() + ", borró un registro en la tabla 'Carreras'");
+
+            bitacoraFacade.create(bitacora);
+            
+            request.setAttribute("tipo", "success");
+            request.setAttribute("mensaje", "Se eliminó el registro");
+            request.getRequestDispatcher("/vistas/matenimiento/index.jsp").forward(request, response);
+        }else{
+            request.setAttribute("tipo", "error");
+            request.setAttribute("mensaje", "No se puede eliminar el registro");
+            request.getRequestDispatcher("/vistas/matenimiento/index.jsp").forward(request, response);
+        }
+
     }
 
 }

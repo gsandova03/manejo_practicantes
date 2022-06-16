@@ -59,18 +59,15 @@ public class PracticanteControlador extends HttpServlet {
     @EJB
     private CprValoracionesFacade valoracionFacade;
 
+    
+    
     HttpSession sesion;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String accion = request.getParameter("accion");
-        RequestDispatcher dispatcher;
 
         switch (accion) {
-            case "crear":
-                dispatcher = request.getRequestDispatcher("vistas/practicante/crearPracticante.jsp");
-                dispatcher.forward(request, response);
-                break;
             case "leer":
                 leerTablas(request, response);
                 break;
@@ -151,9 +148,6 @@ public class PracticanteControlador extends HttpServlet {
         BcsEstados est = new BcsEstados();
         est.setIdEstado(id_estado);
 
-        BcsRoles roles = new BcsRoles();
-        roles.setIdRol(1);
-
         CprPracticantes practicante = new CprPracticantes();
 
         practicante.setCodUsuarioPract(cod_usuario);
@@ -188,9 +182,11 @@ public class PracticanteControlador extends HttpServlet {
         bitacora.setDesTransaccion("EL usuario " + usuarioRegistrado.getNomUsuario() + ", creó un registro en la tabla 'Practicante'");
 
         bitacoraFacade.create(bitacora);
-
-        RequestDispatcher dispatcher = request.getRequestDispatcher("vistas/practicante/listarPracticantes.jsp");
-        dispatcher.forward(request, response);
+        
+        request.setAttribute("tipo", "success");
+        request.setAttribute("mensaje", "Se creo el practicante");
+        request.getRequestDispatcher("vistas/practicante/listarPracticantes.jsp").forward(request, response);
+        
     }
 
     public void leerTablas(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -201,12 +197,15 @@ public class PracticanteControlador extends HttpServlet {
         List<BcsEstados> estados = estadoFacade.findAll();
         List<BcsGenero> generos = generoFacade.findAll();
 
+        BcsUsuario user = new BcsUsuario();
+
         request.setAttribute("Instituciones", instituciones);
         request.setAttribute("Carreras", carreras);
         request.setAttribute("Especialidades", especialidades);
         request.setAttribute("Tipo_practica", tipo_practica);
         request.setAttribute("Estados", estados);
         request.setAttribute("Generos", generos);
+        request.setAttribute("Usuario", user);
 
         request.getRequestDispatcher("vistas/practicante/crearPracticante.jsp").forward(request, response);
     }
@@ -224,16 +223,24 @@ public class PracticanteControlador extends HttpServlet {
 
         user = usuarioFacade.buscarPorCc(cedula_usuario);
 
-        if (user != null) {
-            request.setAttribute("Instituciones", instituciones);
-            request.setAttribute("Carreras", carreras);
-            request.setAttribute("Especialidades", especialidades);
-            request.setAttribute("Tipo_practica", tipo_practica);
-            request.setAttribute("Estados", estados);
-            request.setAttribute("Usuario", user);
-            request.setAttribute("cod_usuario", user.getCodUsuario());
-            request.setAttribute("Generos", generos);
+        request.setAttribute("Instituciones", instituciones);
+        request.setAttribute("Carreras", carreras);
+        request.setAttribute("Especialidades", especialidades);
+        request.setAttribute("Tipo_practica", tipo_practica);
+        request.setAttribute("Estados", estados);
+        request.setAttribute("Generos", generos);
 
+        if (user == null) {
+            user = new BcsUsuario();
+            request.setAttribute("mensaje", "No se encontro el usuario");
+            request.setAttribute("tipo", "error");
+            request.setAttribute("Usuario", user);
+            request.getRequestDispatcher("vistas/practicante/crearPracticante.jsp").forward(request, response);
+        } else if(user.getIdRol().getIdRol() == 1 || user.getIdRol().getIdRol() == 3){
+            user = new BcsUsuario();
+            request.setAttribute("mensaje", "No se puede crear practicante");
+            request.setAttribute("tipo", "error");
+            request.setAttribute("Usuario", user);
             request.getRequestDispatcher("vistas/practicante/crearPracticante.jsp").forward(request, response);
         }
     }
@@ -241,7 +248,7 @@ public class PracticanteControlador extends HttpServlet {
     private void listarPracticantes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         List<CprPracticantes> practicante = practicanteFacade.findAll();
-        
+
         //Bitacora
         BcsUsuario usuarioRegistrado = usuario.find(1);
 
@@ -253,7 +260,6 @@ public class PracticanteControlador extends HttpServlet {
 
         bitacoraFacade.create(bitacora);
 
-        
         request.setAttribute("listaUsuario", practicante);
         request.getRequestDispatcher("vistas/practicante/listarPracticantes.jsp").forward(request, response);
 
@@ -351,7 +357,7 @@ public class PracticanteControlador extends HttpServlet {
         request.setAttribute("listaUsuario", practicantes);
 
         practicanteFacade.edit(practicante);
-        
+
         //Bitacora
         BcsUsuario usuarioRegistrado = usuario.find(1);
 
@@ -363,7 +369,6 @@ public class PracticanteControlador extends HttpServlet {
 
         bitacoraFacade.create(bitacora);
 
-        
         request.getRequestDispatcher("vistas/practicante/listarPracticantes.jsp").forward(request, response);
     }
 

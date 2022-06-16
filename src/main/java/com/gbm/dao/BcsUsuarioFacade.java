@@ -27,14 +27,26 @@ public class BcsUsuarioFacade extends AbstractFacade<BcsUsuario> {
 }
     
     public BcsUsuario buscarPorCc(String cc){
-        return (BcsUsuario) em.createNamedQuery("BcsUsuario.findByCedUsuario")
+        BcsUsuario user;
+        try{
+            user = (BcsUsuario) em.createNamedQuery("BcsUsuario.findByCedUsuario")
                 .setParameter("cedUsuario", cc)
                 .getSingleResult();
+        }catch (Exception e){
+            return null;
+        }
+        return user;
     }
     
     public BcsUsuario buscarPorCorreoC(String cr){
-        return (BcsUsuario) em.createNamedQuery("BcsUsuario.findByEmiCoorporativo")
+        BcsUsuario user;
+        try{
+            user = (BcsUsuario) em.createNamedQuery("BcsUsuario.findByEmiCoorporativo")
                 .setParameter("emiCoorporativo", cr)
                 .getSingleResult();
+        }catch (Exception e){
+            return null;
+        }
+        return user;
     }
 }

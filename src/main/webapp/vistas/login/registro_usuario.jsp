@@ -70,7 +70,7 @@
         </select>
         <br>
 
-        <button type="submit" class="btn btn-primary" onclick="usuarioE()">Actualizar</button>
+        <button type="submit" class="btn btn-primary" onclick="usuarioE()">Registrar</button>
 
     </fieldset>
 </form>

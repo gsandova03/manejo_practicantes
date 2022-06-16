@@ -3,9 +3,11 @@ package com.gbm.controladores;
 import com.gbm.dao.BcsBitacoraFacade;
 import com.gbm.dao.BcsRolesFacade;
 import com.gbm.dao.BcsUsuarioFacade;
+import com.gbm.dao.CprPracticantesFacade;
 import com.gbm.entidades.BcsBitacora;
 import com.gbm.entidades.BcsRoles;
 import com.gbm.entidades.BcsUsuario;
+import com.gbm.entidades.CprPracticantes;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -30,6 +32,11 @@ public class controladorRol extends HttpServlet {
 
     @EJB
     BcsRolesFacade bscRolesQuery;
+
+    @EJB
+    CprPracticantesFacade cprPracticanteFacade;
+
+    private List<BcsRoles> roles;
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -56,10 +63,9 @@ public class controladorRol extends HttpServlet {
         String cadena = request.getParameter("descRol").trim();
 
         if (cadena.equals("")) {
-            request.setAttribute("tituloMensaje", "Error al registrar");
-            request.setAttribute("cuerpoMensaje", "La descripcion está vacia");
-            request.setAttribute("urlMensaje", "/vistas/matenimiento/Vista/insertarRol.jsp");
-            request.getRequestDispatcher("/vistas/matenimiento/Vista/mensaje.jsp").forward(request, response);
+            request.setAttribute("tipo", "error");
+            request.setAttribute("mensaje", "La descripcion está vacia");
+            request.getRequestDispatcher("/vistas/matenimiento/Vista/insertarRol.jsp").forward(request, response);
         } else {
             BcsRoles objRol = new BcsRoles();
             objRol.setNomRol(cadena);
@@ -76,10 +82,11 @@ public class controladorRol extends HttpServlet {
 
             bitacoraFacade.create(bitacora);
 
-            request.setAttribute("tituloMensaje", "Registro exitoso");
-            request.setAttribute("cuerpoMensaje", "Se ingreso el registro");
-            request.setAttribute("urlMensaje", "/vistas/matenimiento/index.jsp");
-            request.getRequestDispatcher("/vistas/matenimiento/Vista/mensaje.jsp").forward(request, response);
+            roles = bscRolesQuery.findAll();
+            request.setAttribute("listaRoles", roles);
+            request.setAttribute("tipo", "success");
+            request.setAttribute("mensaje", "Se ingreso el registro");
+            request.getRequestDispatcher("/vistas/matenimiento/Vista/mostrarRoles.jsp").forward(request, response);
         }
     }
 
@@ -88,10 +95,11 @@ public class controladorRol extends HttpServlet {
         String cadena = request.getParameter("descRol").trim();
 
         if (cadena.equals("")) {
-            request.setAttribute("tituloMensaje", "Error al registrar");
-            request.setAttribute("cuerpoMensaje", "La descripcion está vacia");
-            request.setAttribute("urlMensaje", "/vistas/matenimiento/index.jsp");
-            request.getRequestDispatcher("/vistas/matenimiento/Vista/mensaje.jsp").forward(request, response);
+            roles = bscRolesQuery.findAll();
+            request.setAttribute("listaRoles", roles);
+            request.setAttribute("tipo", "error");
+            request.setAttribute("mensaje", "La descripcion está vacia");
+            request.getRequestDispatcher("/vistas/matenimiento/Vista/mostrarRoles.jsp").forward(request, response);
         } else {
             BcsRoles objUpdate = new BcsRoles();
             objUpdate.setIdRol(Integer.parseInt(request.getParameter("idRol")));
@@ -109,10 +117,11 @@ public class controladorRol extends HttpServlet {
 
             bitacoraFacade.create(bitacora);
 
-            request.setAttribute("tituloMensaje", "Registro exitoso");
-            request.setAttribute("cuerpoMensaje", "Se actualizó el registro");
-            request.setAttribute("urlMensaje", "/vistas/matenimiento/index.jsp");
-            request.getRequestDispatcher("/vistas/matenimiento/Vista/mensaje.jsp").forward(request, response);
+            roles = bscRolesQuery.findAll();
+            request.setAttribute("listaRoles", roles);
+            request.setAttribute("tipo", "success");
+            request.setAttribute("mensaje", "Se actualizó el registro");
+            request.getRequestDispatcher("/vistas/matenimiento/Vista/mostrarRoles.jsp").forward(request, response);
         }
     }
 
@@ -147,10 +156,9 @@ public class controladorRol extends HttpServlet {
     private void read(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         List<BcsRoles> listaRoles = bscRolesQuery.findAll();
         if (listaRoles.isEmpty()) {
-            request.setAttribute("tituloMensaje", "Registros nulo");
-            request.setAttribute("cuerpoMensaje", "No hay registro en tabla");
-            request.setAttribute("urlMensaje", "/vistas/matenimiento/index.jsp");
-            request.getRequestDispatcher("/vistas/matenimiento/Vista/mensaje.jsp").forward(request, response);
+            request.setAttribute("tipo", "info");
+            request.setAttribute("mensaje", "No hay registro en tabla");
+            request.getRequestDispatcher("/vistas/matenimiento/index.jsp").forward(request, response);
         } else {
 
             //Bitacora
@@ -179,23 +187,39 @@ public class controladorRol extends HttpServlet {
     private void delete(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         int id = Integer.parseInt(request.getParameter("idRol"));
         BcsRoles roldDelete = bscRolesQuery.find(id);
-        bscRolesQuery.remove(roldDelete);
+        
+        List<CprPracticantes> practicantes = cprPracticanteFacade.findAll();
+        boolean registrado = false;
 
-        //Bitacora
-        BcsUsuario usuarioRegistrado = usuario.find(1);
+        for (CprPracticantes practicante : practicantes) {
+            if (practicante.getIdCarrera().getIdCarrera() == id) {
+                registrado = true;
+            }
+        }
 
-        bitacora.setCodUsuario(usuarioRegistrado);
-        bitacora.setFecBitacora(fecha);
-        bitacora.setTioTransaccion("DELETE");
+        if (registrado == false) {
+            bscRolesQuery.remove(roldDelete);
 
-        bitacora.setDesTransaccion("EL usuario " + usuarioRegistrado.getNomUsuario() + ", borró un registro en la tabla 'Rol'");
+            //Bitacora
+            BcsUsuario usuarioRegistrado = usuario.find(1);
 
-        bitacoraFacade.create(bitacora);
+            bitacora.setCodUsuario(usuarioRegistrado);
+            bitacora.setFecBitacora(fecha);
+            bitacora.setTioTransaccion("DELETE");
 
-        request.setAttribute("tituloMensaje", "Eliminación exitosa");
-        request.setAttribute("cuerpoMensaje", "Se eliminó el registro");
-        request.setAttribute("urlMensaje", "/vistas/matenimiento/index.jsp");
-        request.getRequestDispatcher("/vistas/matenimiento/Vista/mensaje.jsp").forward(request, response);
+            bitacora.setDesTransaccion("EL usuario " + usuarioRegistrado.getNomUsuario() + ", borró un registro en la tabla 'Rol'");
+
+            bitacoraFacade.create(bitacora);
+
+            request.setAttribute("tipo", "success");
+            request.setAttribute("mensaje", "Se eliminó el registro");
+            request.getRequestDispatcher("/vistas/matenimiento/index.jsp").forward(request, response);
+        } else {
+            request.setAttribute("tipo", "error");
+            request.setAttribute("mensaje", "No se puede eliminar el registro");
+            request.getRequestDispatcher("/vistas/matenimiento/index.jsp").forward(request, response);
+        }
+
     }
 
 }

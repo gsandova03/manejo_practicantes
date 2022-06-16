@@ -66,6 +66,7 @@
                         <li><a href="#" class="link_name">Practicantes</a></li>
                         <li><a href="${pageContext.request.contextPath}/Practicante?accion=listar">Listar practicante</a></li>
                         <li><a href="${pageContext.request.contextPath}/Practicante?accion=leer">Agregar practicante</a></li>
+                        <li><a href="${pageContext.request.contextPath}/Valoraciones?accion=read">Mostrar valoraciones</a></li>
                     </ul>
                 </li>
                 <li>
@@ -87,6 +88,7 @@
                         <li><a href="${pageContext.request.contextPath}/ControladorRol?accion=read">Roles</a></li>
                         <li><a href="${pageContext.request.contextPath}/controladorTipoPracticas?accion=read">Tipo de practicas</a></li>
                         <li><a href="${pageContext.request.contextPath}/controladorValoraciones?accion=read">Valoraciones</a></li>
+                        <li><a href="${pageContext.request.contextPath}/controladorCont?accion=read">Contenido</a></li>
                     </ul>
                 </li>
                 <li>
@@ -112,10 +114,12 @@
                         <img src="${pageContext.request.contextPath}/vistas/img/usuario.jpg" alt="usuario">
                     </div>
                     <div class="name-job">
-                        <div class="profile_name personal-info">PEPE</div>
-                        <div class="job personal-info">Aprendiz</div>
+                        <div class="profile_name personal-info">${Usuario}</div>
+                        <div class="job personal-info">${Rol}</div>
                     </div>
-                    <i class='bx bx-log-out personal-info'></i>
+                    <a href="${pageContext.request.contextPath}/BcsLoginControlador">
+                        <i class='bx bx-log-out personal-info'></i>
+                    </a>
                 </div>
             </ul>
         </div>

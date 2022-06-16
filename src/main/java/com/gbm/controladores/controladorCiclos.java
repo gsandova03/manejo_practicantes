@@ -3,9 +3,11 @@ package com.gbm.controladores;
 import com.gbm.dao.BcsBitacoraFacade;
 import com.gbm.dao.BcsUsuarioFacade;
 import com.gbm.dao.CprCiclosFacade;
+import com.gbm.dao.CprPracticantesFacade;
 import com.gbm.entidades.BcsBitacora;
 import com.gbm.entidades.BcsUsuario;
 import com.gbm.entidades.CprCiclos;
+import com.gbm.entidades.CprPracticantes;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -30,6 +32,11 @@ public class controladorCiclos extends HttpServlet {
 
     @EJB
     CprCiclosFacade cprCiclosQuery;
+
+    @EJB
+    CprPracticantesFacade cprPracticanteFacade;
+
+    private List<CprCiclos> ciclos;
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -58,10 +65,9 @@ public class controladorCiclos extends HttpServlet {
         String cadena = request.getParameter("descCiclos").trim();
 
         if (cadena.equals("")) {
-            request.setAttribute("tituloMensaje", "Error al registrar");
-            request.setAttribute("cuerpoMensaje", "La descripcion está vacia");
-            request.setAttribute("urlMensaje", "/vistas/matenimiento/Vista/insertarCiclos.jsp");
-            request.getRequestDispatcher("/vistas/matenimiento/Vista/mensaje.jsp").forward(request, response);
+            request.setAttribute("tipo", "error");
+            request.setAttribute("mensaje", "La descripcion está vacia");
+            request.getRequestDispatcher("/vistas/matenimiento/Vista/insertarCiclos.jsp").forward(request, response);
         } else {
             objCiclo.setDesCiclo(cadena);
             cprCiclosQuery.create(objCiclo);
@@ -77,10 +83,11 @@ public class controladorCiclos extends HttpServlet {
 
             bitacoraFacade.create(bitacora);
 
-            request.setAttribute("tituloMensaje", "Registro exitoso");
-            request.setAttribute("cuerpoMensaje", "Se ingreso el registro");
-            request.setAttribute("urlMensaje", "/vistas/matenimiento/index.jsp");
-            request.getRequestDispatcher("/vistas/matenimiento/Vista/mensaje.jsp").forward(request, response);
+            ciclos = cprCiclosQuery.findAll();
+            request.setAttribute("listaCiclos", this.ciclos);
+            request.setAttribute("tipo", "success");
+            request.setAttribute("mensaje", "Se ingreso el registro");
+            request.getRequestDispatcher("/vistas/matenimiento/Vista/mostrarCiclos.jsp").forward(request, response);
         }
 
     }
@@ -88,12 +95,13 @@ public class controladorCiclos extends HttpServlet {
     private void update(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
         String cadena = request.getParameter("descCiclo").trim();
-
+        
         if (cadena.equals("")) {
-            request.setAttribute("tituloMensaje", "Error al registrar");
-            request.setAttribute("cuerpoMensaje", "La descripcion está vacia");
-            request.setAttribute("urlMensaje", "/vistas/matenimiento/index.jsp");
-            request.getRequestDispatcher("/vistas/matenimiento/Vista/mensaje.jsp").forward(request, response);
+            ciclos = cprCiclosQuery.findAll();
+            request.setAttribute("listaCiclos", ciclos);
+            request.setAttribute("tipo", "error");
+            request.setAttribute("mensaje", "La descripcion está vacia");
+            request.getRequestDispatcher("/vistas/matenimiento/Vista/mostrarCiclos.jsp").forward(request, response);
         } else {
             CprCiclos objUpdate = new CprCiclos();
             objUpdate.setIdCiclo(Integer.parseInt(request.getParameter("idCiclo")));
@@ -111,10 +119,10 @@ public class controladorCiclos extends HttpServlet {
 
             bitacoraFacade.create(bitacora);
 
-            request.setAttribute("tituloMensaje", "Registro exitoso");
-            request.setAttribute("cuerpoMensaje", "Se actualizó el registro");
-            request.setAttribute("urlMensaje", "/vistas/matenimiento/index.jsp");
-            request.getRequestDispatcher("/vistas/matenimiento/Vista/mensaje.jsp").forward(request, response);
+            request.setAttribute("listaCiclos", this.ciclos);
+            request.setAttribute("tipo", "success");
+            request.setAttribute("mensaje", "Se actualizó el registro");
+            request.getRequestDispatcher("/vistas/matenimiento/Vista/mostrarCiclos.jsp").forward(request, response);
         }
     }
 
@@ -146,10 +154,9 @@ public class controladorCiclos extends HttpServlet {
     private void read(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         List<CprCiclos> listaCiclos = cprCiclosQuery.findAll();
         if (listaCiclos.isEmpty()) {
-            request.setAttribute("tituloMensaje", "Registros nulo");
-            request.setAttribute("cuerpoMensaje", "No hay registro en tabla");
-            request.setAttribute("urlMensaje", "/vistas/matenimiento/index.jsp");
-            request.getRequestDispatcher("/vistas/matenimiento/Vista/mensaje.jsp").forward(request, response);
+            request.setAttribute("tipo", "info");
+            request.setAttribute("mensaje", "No hay registros en tabla");
+            request.getRequestDispatcher("/vistas/matenimiento/index.jsp").forward(request, response);
         } else {
 
             //Bitacora
@@ -178,23 +185,40 @@ public class controladorCiclos extends HttpServlet {
     private void delete(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         int id = Integer.parseInt(request.getParameter("idCiclo"));
         CprCiclos ciclosDelete = cprCiclosQuery.find(id);
-        cprCiclosQuery.remove(ciclosDelete);
+        List<CprPracticantes> practicantes = cprPracticanteFacade.findAll();
+        
 
-        //Bitacora
-        BcsUsuario usuarioRegistrado = usuario.find(1);
+        boolean registrado = false;
 
-        bitacora.setCodUsuario(usuarioRegistrado);
-        bitacora.setFecBitacora(fecha);
-        bitacora.setTioTransaccion("DELETE");
+        for (CprPracticantes practicante : practicantes) {
+            if (practicante.getIdCarrera().getIdCarrera() == id) {
+                registrado = true;
+            }
+        }
 
-        bitacora.setDesTransaccion("EL usuario " + usuarioRegistrado.getNomUsuario() + ", borró un registro en la tabla 'Ciclos'");
+        if (registrado == false) {
+            cprCiclosQuery.remove(ciclosDelete);
 
-        bitacoraFacade.create(bitacora);
+            //Bitacora
+            BcsUsuario usuarioRegistrado = usuario.find(1);
 
-        request.setAttribute("tituloMensaje", "Eliminación exitosa");
-        request.setAttribute("cuerpoMensaje", "Se eliminó el registro");
-        request.setAttribute("urlMensaje", "/vistas/matenimiento/index.jsp");
-        request.getRequestDispatcher("/vistas/matenimiento/Vista/mensaje.jsp").forward(request, response);
+            bitacora.setCodUsuario(usuarioRegistrado);
+            bitacora.setFecBitacora(fecha);
+            bitacora.setTioTransaccion("DELETE");
+
+            bitacora.setDesTransaccion("EL usuario " + usuarioRegistrado.getNomUsuario() + ", borró un registro en la tabla 'Ciclos'");
+
+            bitacoraFacade.create(bitacora);
+
+            request.setAttribute("tipo", "success");
+            request.setAttribute("mensaje", "Se eliminó el registro");
+            request.getRequestDispatcher("/vistas/matenimiento/index.jsp").forward(request, response);
+        }else{
+            request.setAttribute("tipo", "error");
+            request.setAttribute("mensaje", "No se puede eliminar el registro");
+            request.getRequestDispatcher("/vistas/matenimiento/index.jsp").forward(request, response);
+        }
+
     }
 
 }

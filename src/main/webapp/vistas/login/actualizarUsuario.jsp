@@ -13,7 +13,6 @@
             </div>
         </div>
         <br/>
-
         <div class="form-group">
             <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-user bigicon"></i></span>
             <div class="col">
@@ -59,11 +58,6 @@
         
     </fieldset>
 </form>
-<div>
-    <p>${UsuarioExistente}</p>
-    <p>${UsuarioNuevo}</p>
-</div>
-<a href="${pageContext.request.contextPath}/vistas/login/login.jsp">Login</a>
 
 
 <%@include file="../../bottom.jsp" %>

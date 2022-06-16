@@ -1,6 +1,8 @@
 package com.gbm.controladores;
 
+import com.gbm.dao.BcsRolesFacade;
 import com.gbm.dao.BcsUsuarioFacade;
+import com.gbm.entidades.BcsRoles;
 import com.gbm.entidades.BcsUsuario;
 import java.io.IOException;
 import javax.ejb.EJB;
@@ -15,10 +17,13 @@ import javax.servlet.http.HttpSession;
 public class BcsLoginControlador extends HttpServlet {
 
     @EJB
-    BcsUsuarioFacade usuario;
-
-    private BcsUsuario us;
+    BcsUsuarioFacade usuarioFacade;
+    @EJB
+    BcsRolesFacade rolesFacade;
+    
+    
     private BcsUsuario usuariol;
+    private BcsRoles rol;
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -29,24 +34,42 @@ public class BcsLoginControlador extends HttpServlet {
 
         HttpSession sesion = request.getSession();
         //obtengo todo el usuario por el cooreo corporativo
-
-        try {
-            this.usuariol = usuario.buscarPorCorreoC(usuariouser);
-        } catch (Exception ex) {
-            ex.getMessage();
-        }
+        
+//        try {
+//            this.usuariol = usuarioFacade.buscarPorCorreoC(usuariouser);
+//            
+//        } catch (Exception ex) {
+//            ex.getMessage();
+//        }
+    
+        this.usuariol = usuarioFacade.buscarPorCorreoC(usuariouser);
+        
         //Ingreso el rol a la sesion para saber que rol tiene
         if (usuariol == null) {
-            sesion.setAttribute("ocultar", "<div class='mensaje-usario-logeado'><span>Usuario no existente <i class='bi bi-exclamation-octagon'></i></span></div>");
-            response.sendRedirect("vistas/login/login.jsp");
+            sesion.setAttribute("tipo", "error");
+            sesion.setAttribute("mensaje", "Usuario no existente");
+            response.sendRedirect("index.jsp");
         } else if(usuariol.getEmiCoorporativo().equals(usuariouser) && usuariol.getPswUsuario().equals(password)){
-            sesion.setAttribute("Rol", usuariol.getIdRol());
-            response.sendRedirect("vistas/home/dashboard.jsp");
-   
+            sesion.setAttribute("Usuario", usuariol.getNomUsuario());
+            sesion.setAttribute("Rol", usuariol.getIdRol().getNomRol());
+            
+            if(usuariol.getIdRol().getIdRol() == 1 || usuariol.getIdRol().getIdRol() == 3){
+                response.sendRedirect("vistas/home/indexAdmin.jsp");
+            }else if(usuariol.getIdRol().getIdRol() == 2){
+                response.sendRedirect("vistas/home/indexPracticante.jsp");
+            }
         }else{
-            response.sendRedirect("vistas/login/login.jsp");
+            response.sendRedirect("index.jsp");
         }
 
+    }
+    
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        HttpSession sesion = request.getSession();
+        
+        sesion.invalidate();
+        response.sendRedirect("index.jsp");
     }
 
 }

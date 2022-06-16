@@ -16,7 +16,20 @@
     sidebarBtn.addEventListener("click", () => {
         sidebar.classList.toggle("close");
     });
-
+    
+    alerta();
+    function alerta(){
+        var tipo = "${tipo}";
+        var mensaje = "${mensaje}";
+        if (tipo !== '' && tipo !== null){
+            Swal.fire({
+                icon: tipo,
+                title: mensaje,
+                timer:2000,
+                showConfirmButton: false
+            });
+        }
+    }
 
 </script>
 </body>

@@ -65,5 +65,12 @@
             <a href="${pageContext.request.contextPath}/controladorValoraciones?accion=read" class="btn btn-primary">Mostrar</a>
         </div>
     </li>
+    <li class="list-group-item d-flex justify-content-between">
+        <h5>Contenidos</h5>
+        <div>
+            <a href="Vista/insertarContenido.jsp" class="btn btn-primary">Registrar</a>
+            <a href="${pageContext.request.contextPath}/controladorCont?accion=read" class="btn btn-primary">Mostrar</a>
+        </div>
+    </li>
 </ul>
 <%@include file="../../bottom.jsp" %>

@@ -2,9 +2,11 @@ package com.gbm.controladores;
 
 import com.gbm.dao.BcsBitacoraFacade;
 import com.gbm.dao.BcsUsuarioFacade;
+import com.gbm.dao.CprPracticantesFacade;
 import com.gbm.dao.CprTipoPracticasFacade;
 import com.gbm.entidades.BcsBitacora;
 import com.gbm.entidades.BcsUsuario;
+import com.gbm.entidades.CprPracticantes;
 import com.gbm.entidades.CprTipoPracticas;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -31,6 +33,11 @@ public class controladorTipopracticas extends HttpServlet {
     @EJB
     CprTipoPracticasFacade cprTp;
 
+    @EJB
+    CprPracticantesFacade cprPracticanteFacade;
+
+    private List<CprTipoPracticas> tipoPracticas;
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
@@ -56,15 +63,14 @@ public class controladorTipopracticas extends HttpServlet {
         String cadena = request.getParameter("descTipoPracticas").trim();
 
         if (cadena.equals("")) {
-            request.setAttribute("tituloMensaje", "Error al registrar");
-            request.setAttribute("cuerpoMensaje", "La descripcion está vacia");
-            request.setAttribute("urlMensaje", "/vistas/matenimiento/Vista/insertarTipopractica.jsp");
-            request.getRequestDispatcher("/vistas/matenimiento/Vista/mensaje.jsp").forward(request, response);
+            request.setAttribute("tipo", "error");
+            request.setAttribute("mensaje", "La descripcion está vacia");
+            request.getRequestDispatcher("/vistas/matenimiento/Vista/insertarTipopractica.jsp").forward(request, response);
         } else {
             CprTipoPracticas tipoPracticaInsert = new CprTipoPracticas();
             tipoPracticaInsert.setDesPractica(cadena);
             cprTp.create(tipoPracticaInsert);
-            
+
             //Bitacora
             BcsUsuario usuarioRegistrado = usuario.find(1);
 
@@ -76,10 +82,11 @@ public class controladorTipopracticas extends HttpServlet {
 
             bitacoraFacade.create(bitacora);
 
-            request.setAttribute("tituloMensaje", "Registro exitoso");
-            request.setAttribute("cuerpoMensaje", "Se ingreso el registro");
-            request.setAttribute("urlMensaje", "/vistas/matenimiento/index.jsp");
-            request.getRequestDispatcher("/vistas/matenimiento/Vista/mensaje.jsp").forward(request, response);
+            tipoPracticas = cprTp.findAll();
+            request.setAttribute("listaPracticas", tipoPracticas);
+            request.setAttribute("tipo", "success");
+            request.setAttribute("mensaje", "Se ingreso el registro");
+            request.getRequestDispatcher("/vistas/matenimiento/Vista/mostrarTipopracticas.jsp").forward(request, response);
         }
     }
 
@@ -88,16 +95,17 @@ public class controladorTipopracticas extends HttpServlet {
         String cadena = request.getParameter("descTipoPracticas").trim();
 
         if (cadena.equals("")) {
-            request.setAttribute("tituloMensaje", "Error al registrar");
-            request.setAttribute("cuerpoMensaje", "La descripcion está vacia");
-            request.setAttribute("urlMensaje", "/vistas/matenimiento/index.jsp");
-            request.getRequestDispatcher("/vistas/matenimiento/Vista/mensaje.jsp").forward(request, response);
+            tipoPracticas = cprTp.findAll();
+            request.setAttribute("listaPracticas", tipoPracticas);
+            request.setAttribute("tipo", "error");
+            request.setAttribute("mensaje", "La descripcion está vacia");
+            request.getRequestDispatcher("/vistas/matenimiento/Vista/mostrarTipopracticas.jsp").forward(request, response);
         } else {
             CprTipoPracticas objUpdate = new CprTipoPracticas();
             objUpdate.setIdPractica(Integer.parseInt(request.getParameter("idTipoPracticas")));
             objUpdate.setDesPractica(cadena);
             cprTp.edit(objUpdate);
-            
+
             //Bitacora
             BcsUsuario usuarioRegistrado = usuario.find(1);
 
@@ -109,11 +117,11 @@ public class controladorTipopracticas extends HttpServlet {
 
             bitacoraFacade.create(bitacora);
 
-            
-            request.setAttribute("tituloMensaje", "Registro exitoso");
-            request.setAttribute("cuerpoMensaje", "Se actualizó el registro");
-            request.setAttribute("urlMensaje", "/vistas/matenimiento/index.jsp");
-            request.getRequestDispatcher("/vistas/matenimiento/Vista/mensaje.jsp").forward(request, response);
+            tipoPracticas = cprTp.findAll();
+            request.setAttribute("listaPracticas", tipoPracticas);
+            request.setAttribute("tipo", "success");
+            request.setAttribute("mensaje", "Se actualizó el registro");
+            request.getRequestDispatcher("/vistas/matenimiento/Vista/mostrarTipopracticas.jsp").forward(request, response);
         }
     }
 
@@ -145,12 +153,11 @@ public class controladorTipopracticas extends HttpServlet {
     private void read(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         List<CprTipoPracticas> listaPracticas = cprTp.findAll();
         if (listaPracticas.isEmpty()) {
-            request.setAttribute("tituloMensaje", "Registros nulo");
-            request.setAttribute("cuerpoMensaje", "No hay registro en tabla");
-            request.setAttribute("urlMensaje", "/vistas/matenimiento/index.jsp");
-            request.getRequestDispatcher("/vistas/matenimiento/Vista/mensaje.jsp").forward(request, response);
+            request.setAttribute("tipo", "info");
+            request.setAttribute("mensaje", "No hay registro en tabla");
+            request.getRequestDispatcher("/vistas/matenimiento/index.jsp").forward(request, response);
         } else {
-            
+
             //Bitacora
             BcsUsuario usuarioRegistrado = usuario.find(1);
 
@@ -162,7 +169,6 @@ public class controladorTipopracticas extends HttpServlet {
 
             bitacoraFacade.create(bitacora);
 
-            
             request.setAttribute("listaPracticas", listaPracticas);
             request.getRequestDispatcher("/vistas/matenimiento/Vista/mostrarTipopracticas.jsp").forward(request, response);
         }
@@ -178,9 +184,20 @@ public class controladorTipopracticas extends HttpServlet {
     private void delete(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         int id = Integer.parseInt(request.getParameter("idTipoPractica"));
         CprTipoPracticas tipoPracticaDelete = cprTp.find(id);
-        cprTp.remove(tipoPracticaDelete);
-        
-        //Bitacora
+
+        List<CprPracticantes> practicantes = cprPracticanteFacade.findAll();
+        boolean registrado = false;
+
+        for (CprPracticantes practicante : practicantes) {
+            if (practicante.getIdCarrera().getIdCarrera() == id) {
+                registrado = true;
+            }
+        }
+
+        if (registrado == false) {
+            cprTp.remove(tipoPracticaDelete);
+
+            //Bitacora
             BcsUsuario usuarioRegistrado = usuario.find(1);
 
             bitacora.setCodUsuario(usuarioRegistrado);
@@ -191,11 +208,15 @@ public class controladorTipopracticas extends HttpServlet {
 
             bitacoraFacade.create(bitacora);
 
-        
-        request.setAttribute("tituloMensaje", "Eliminación exitosa");
-        request.setAttribute("cuerpoMensaje", "Se eliminó el registro");
-        request.setAttribute("urlMensaje", "/vistas/matenimiento/index.jsp");
-        request.getRequestDispatcher("/vistas/matenimiento/Vista/mensaje.jsp").forward(request, response);
+            request.setAttribute("tipo", "success");
+            request.setAttribute("mensaje", "Se eliminó el registro");
+            request.getRequestDispatcher("/vistas/matenimiento/index.jsp").forward(request, response);
+        }else{
+            request.setAttribute("tipo", "error");
+            request.setAttribute("mensaje", "No se puede eliminar el registro");
+            request.getRequestDispatcher("/vistas/matenimiento/index.jsp").forward(request, response);
+        }
+
     }
 
 }

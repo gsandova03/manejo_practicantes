@@ -3,7 +3,7 @@
     <form action="${pageContext.request.contextPath}/Practicante?accion=verificar" method="post">
         <div class="grupo-input">
             <label>Cedula: </label>
-            <input class="form-control" type="text" name="ced_usuario"/>
+            <input class="form-control" type="number" name="ced_usuario"/>
         </div>
         <button class="btn btn-warning" type="submit"> Verificar cedula</button>
     </form>
@@ -67,7 +67,7 @@
         <div class="grupo-input">
             <label for="textoFlotante3">Revision de materias pendientes: </label>
             <input class="form-control" type="text" name="rev_materias_pendientes"
-                      id="textoFlotante3" style="height: 100px" placeholder="ingrese un comentario"/>
+                   id="textoFlotante3" style="height: 100px" placeholder="ingrese un comentario"/>
         </div>
         <div class="grupo-input">
             <label>Fecha actualizacion expediente: </label>
@@ -79,7 +79,7 @@
         </div>
         <div class="grupo-input">
             <label>Genero: </label>
-            <select class="form-select" name="id_genero">
+            <select class="form-select" name="id_genero" required>
                 <option selected>Seleccionar</option>
                 <c:forEach var="generos" items = "${Generos}" varStatus= "status">
                     <option value="${generos.idGenero}">${generos.desGenero}</option>
@@ -88,7 +88,7 @@
         </div>
         <div class="grupo-input">
             <label>Institucion: </label>
-            <select class="form-select" name="id_institucion">
+            <select class="form-select" name="id_institucion" required>
                 <option selected>Seleccionar</option>
                 <c:forEach var="instituciones" items = "${Instituciones}" varStatus= "status">
                     <option value="${instituciones.idInstitucion}">${instituciones.desInstitucion}</option>
@@ -97,7 +97,7 @@
         </div>
         <div class="grupo-input">
             <label>Carrera: </label>
-            <select class="form-select" name="id_carrera">
+            <select class="form-select" name="id_carrera" required>
                 <option selected>Seleccionar</option>
                 <c:forEach var="carreras" items = "${Carreras}" varStatus= "status">
                     <option value="${carreras.idCarrera}">${carreras.desCarrera}</option>
@@ -106,7 +106,7 @@
         </div>
         <div class="grupo-input">
             <label>Especialidad: </label>
-            <select class="form-select" name="id_especialidad">
+            <select class="form-select" name="id_especialidad" required>
                 <option selected>Seleccionar</option>
                 <c:forEach var="especialidades" items = "${Especialidades}" varStatus= "status">
                     <option value="${especialidades.idEspecialidad}">${especialidades.desEspecialidad}</option>
@@ -115,7 +115,7 @@
         </div>
         <div class="grupo-input">
             <label>Tipo practica: </label>
-            <select class="form-select" name="id_practica">
+            <select class="form-select" name="id_practica" required>
                 <option selected>Seleccionar</option>
                 <c:forEach var="practicas" items = "${Tipo_practica}" varStatus= "status">
                     <option value="${practicas.idPractica}">${practicas.desPractica}</option>
@@ -124,7 +124,7 @@
         </div>
         <div class="grupo-input">
             <label>Estado: </label>
-            <select class="form-select" name="id_estado">
+            <select class="form-select" name="id_estado" required>
                 <option selected>Seleccionar</option>
                 <c:forEach var="estados" items = "${Estados}" varStatus= "status">
                     <option value="${estados.idEstado}">${estados.desEstados}</option>

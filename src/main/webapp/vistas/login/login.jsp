@@ -37,14 +37,14 @@
                     <div>${ocultar}</div>
                     <form class="col-12" action="${pageContext.request.contextPath}/BcsLoginControlador" method="POST">
                         <div class="form-group" id="user-group">
-                            <input type="text" class="form-control" id="usuario" placeholder="Nombre de usuario" name="usuario"/>
+                            <input type="email" class="form-control" id="usuario" placeholder="Correo coorporativo" name="usuario"/>
                         </div>
                         <div class="form-group" id="contrasena-group">
                             <input type="password" id="password" class="form-control" placeholder="Contrasena" name="password"/>
                             <button type="button" id="ocultar-password" hidden onclick="ocultarPassword()"><i class="bi bi-eye-slash"></i></button>
                         </div>
                         <button type="submit"  value="Iniciar sessión" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i> Ingresar </button>
-                        <button type="button" class="btn-limpiar-campos" id="btn-limpiar" class="btn-limpiar-campos" onclick="limpiarCampos()"><i class="fas fa-recycle"></i>Cancelar</button>
+                        <button type="button" class="btn-limpiar-campos btn btn-danger" id="btn-limpiar" class="btn-limpiar-campos" onclick="limpiarCampos()"><i class="fas fa-recycle"></i>Cancelar</button>
                     </form>
                     <div class="Recordarme">
                         <label><input type="checkbox" id="cbox1"> Recordarme</label>
@@ -61,6 +61,7 @@
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <script src="../js/js-login.js"></script>  
     </body>
+    <%--
       <script type="text/javascript">
     
         $(document).ready(function() {
@@ -78,4 +79,5 @@
         });
         
     </script>
+    --%>
 </html>
