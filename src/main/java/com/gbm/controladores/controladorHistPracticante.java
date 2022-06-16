@@ -2,8 +2,10 @@ package com.gbm.controladores;
 
 import com.gbm.dao.CprContenidoFacade;
 import com.gbm.dao.CprHistContenidoPracticanteFacade;
+import com.gbm.dao.CprValoracionPracticantesFacade;
 import com.gbm.entidades.CprContenido;
 import com.gbm.entidades.CprHistContenidoPracticante;
+import com.gbm.entidades.CprValoracionPracticantes;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +22,9 @@ public class controladorHistPracticante extends HttpServlet {
 
     @EJB
     CprContenidoFacade cprContenido;
+    
+    @EJB
+    CprValoracionPracticantesFacade cprValorPract;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -48,7 +53,7 @@ public class controladorHistPracticante extends HttpServlet {
         } else {
             for (CprHistContenidoPracticante historico : historicos) {
 
-                if (historico.getCprPracticantes().getBcsUsuario().getCodUsuario() == idPracticante) {
+                if (historico.getCprHistContenidoPracticantePK().getCodUsuarioHist() == idPracticante) {
                     historicosPracticante.add(historico);
                 }
             }
@@ -102,7 +107,11 @@ public class controladorHistPracticante extends HttpServlet {
             request.setAttribute("tituloMensaje", "Registro exitoso");
             request.setAttribute("cuerpoMensaje", "Se ha añadido el registro de forma correcta");
             request.setAttribute("urlMensaje", "/index.jsp");
-            request.getRequestDispatcher("/vistas/practicante/mensaje.jsp").forward(request, response);
+            
+            List<CprHistContenidoPracticante> valoracionesHist = cprHistorico.findAll();
+            
+            request.setAttribute("historicosPracticante", valoracionesHist);
+            request.getRequestDispatcher("/vistas/practicante/mostrarAsignaciones.jsp").forward(request, response);
         } else {
             request.setAttribute("tituloMensaje", "Error en el registro");
             request.setAttribute("cuerpoMensaje", "No se puede asignar al mismo ciclo");

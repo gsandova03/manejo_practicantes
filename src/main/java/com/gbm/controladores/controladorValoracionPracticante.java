@@ -170,10 +170,12 @@ public class controladorValoracionPracticante extends HttpServlet {
 
         if (diferente == true) {
             cprValorPracticante.create(valoracionPracticante);
-            request.setAttribute("tituloMensaje", "Registro exitoso");
-            request.setAttribute("cuerpoMensaje", "Se ha añadido el registro de forma correcta");
-            request.setAttribute("urlMensaje", "/index.jsp");
-            request.getRequestDispatcher("/vistas/practicante/mensaje.jsp").forward(request, response);
+//            request.setAttribute("tituloMensaje", "Registro exitoso");
+//            request.setAttribute("cuerpoMensaje", "Se ha añadido el registro de forma correcta");
+            
+            List<CprValoracionPracticantes> listaValoraciones = valoracionPracticanteFacade.findAll();
+            request.setAttribute("listaValoraciones", listaValoraciones);
+            request.getRequestDispatcher("/vistas/practicante/mostrarValoracioPrac.jsp").forward(request, response);
         }
         else{
             request.setAttribute("tituloMensaje", "Error en el registro");

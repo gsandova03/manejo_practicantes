@@ -32,7 +32,7 @@
             </a>
             <ul class="nav-links">
                 <li>
-                    <a href="${pageContext.request.contextPath}/vistas/home/dashboardPracticante.jsp">
+                    <a href="${pageContext.request.contextPath}/controladorDashboardPracticante?accion=mostarResumenGeneral">
                         <i class='bx bx-grid-alt'></i>
                         <span class="link_name">Dashboard</span>
                     </a>
@@ -41,7 +41,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="${pageContext.request.contextPath}/controladorDashboardPracticante?accion=verComentarios">
                         <i class='bx bx-comment'></i>
                         <span class="link_name">Comentarios</span>
                     </a>
@@ -50,12 +50,21 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="${pageContext.request.contextPath}/controladorDashboardPracticante?accion=editar">
                         <i class='bx bx-cog'></i>
                         <span class="link_name">Editar Perfil</span>
                     </a>
                     <ul class="sub-menu blank">
-                        <li><a href="#" class="link_name">Editar Perfil</a></li>
+                        <li><a href="" class="link_name">Editar Perfil</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="${pageContext.request.contextPath}/controladorDashboardPracticante?accion=mostrarAsignacion">
+                        <i class='bx bx-history'></i>
+                        <span class="link_name">Ver Asignación</span>
+                    </a>
+                    <ul class="sub-menu blank">
+                        <li><a href="#" class="link_name">Ver Asignación</a></li>
                     </ul>
                 </li>
                 <div class="profile-details">
@@ -77,56 +86,22 @@
                 <i class='bx bx-menu'></i>
                 <span class="text">Control de practicantes</span>
             </div>
-            <div class="container-content">
-                <section class="container  zona1">
 
-                    <h1 style="color: #296dc0;"> Resumen de Ciclos </h1>
+            <div class="container-content">
+                <section class="container  zona1 mb-5">
+                    <h3 style="color: #296dc0;" class="mb-3 text-center"> Resumen de asignaciones</h3>
 
                     <div class="list-group">
-                        <div id="scroll" style="width:auto; height:200px; overflow: scroll;">
-                            <a href="#" class="list-group-item " aria-current="true">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1">Ciclo o asignación 1. </h5>
-                                    <small>Hace # días</small>
+                        <div id="scroll">
+                            <c:forEach var="contenido" items="${listaHistorialContenido}">
+                                <div class="list-group-item p-3" aria-current="true">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1">${contenido.getCprCiclos().getDesCiclo()}</h5>
+                                        <small class="text-muted">Hace # días</small>
+                                    </div>
+                                    <p class="mb-1">${contenido.getIdContenido().getDesContenido()}</p>
                                 </div>
-                                <p class="mb-1">Aquí va el nombre del ciclo o asignación.</p>
-                                <small>Aquí va una pequeña descripción del ciclo o asignación.</small>
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1">Ciclo o asignación 2.</h5>
-                                    <small class="text-muted">Hace # días</small>
-                                </div>
-                                <p class="mb-1">Aquí va el nombre del ciclo o asignación.</p>
-                                <small>Aquí va una pequeña descripción del ciclo o asignación.</small>
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1">Ciclo o asignación 3.</h5>
-                                    <small class="text-muted">Hace # días</small>
-                                </div>
-                                <p class="mb-1">Aquí va el nombre del ciclo o asignación.</p>
-                                <small>Aquí va una pequeña descripción del ciclo o asignación.</small>
-                            </a>
-
-                            <a href="#" class="list-group-item list-group-item-action">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1">Ciclo o asignación 4.</h5>
-                                    <small class="text-muted">Hace # días</small>
-                                </div>
-                                <p class="mb-1">Aquí va el nombre del ciclo o asignación.</p>
-                                <small>Aquí va una pequeña descripción del ciclo o asignación.</small>
-                            </a>
-
-                            <a href="#" class="list-group-item list-group-item-action">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1">Ciclo o asignación 5.</h5>
-                                    <small class="text-muted">Hace # días</small>
-                                </div>
-                                <p class="mb-1">Aquí va el nombre del ciclo o asignación.</p>
-                                <small>Aquí va una pequeña descripción del ciclo o asignación.</small>
-                            </a>
-
+                            </c:forEach>
                         </div>
                     </div>
 
@@ -142,58 +117,24 @@
 
 
 
-                <section class="container  zona1">
+                <section class="container  zona1 mb-5">
 
-                    <h1 style="color: #296dc0;"> Ultimas Novedades </h1>
+                    <h3 style="color: #296dc0;" class="mb-3 text-center"> Ultimos comentarios </h3>
 
                     <div class="list-group">
-                        <div id="scroll" style="width:auto; height:200px; overflow: scroll;">
-                            <a href="#" class="list-group-item " aria-current="true">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1">Comentario 1</h5>
-                                    <small>Hace # días.</small>
+                        <div id="scroll">
+                            <c:forEach var="comentario" items="${listaComentarios}" varStatus="status">
+                                <div class="list-group-item p-3" aria-current="true">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1">Comentario ${status.count}</h5>
+                                        <small>${comentario.getFecComentario()}</small>
+                                    </div>
+                                    <p class="mb-1">${comentario.getDesComentario()}</p>
+                                    <small>${comentario.getIdUsuarioCreaComentario().getNomUsuario()}</small>
                                 </div>
-                                <p class="mb-1">Aquí va un pequeño título del comentario.</p>
-                                <small>Aquí va el contenido del comentario.</small>
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1">Comentario 2</h5>
-                                    <small class="text-muted">Hace # días.</small>
-                                </div>
-                                <p class="mb-1">Aquí va un pequeño título del comentario.</p>
-                                <small>Aquí va el contenido del comentario.</small>
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1">Comentario 3</h5>
-                                    <small class="text-muted">Hace # días.</small>
-                                </div>
-                                <p class="mb-1">Aquí va un pequeño título del comentario.</p>
-                                <small>Aquí va el contenido del comentario.</small>
-                            </a>
-
-                            <a href="#" class="list-group-item list-group-item-action">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1">Comentario 4</h5>
-                                    <small class="text-muted">Hace # días.</small>
-                                </div>
-                                <p class="mb-1">Aquí va un pequeño título del comentario.</p>
-                                <small>Aquí va el contenido del comentario.</small>
-                            </a>
-
-                            <a href="#" class="list-group-item list-group-item-action">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1">Comentario 5</h5>
-                                    <small class="text-muted">Hace # días.</small>
-                                </div>
-                                <p class="mb-1">Aquí va un pequeño título del comentario.</p>
-                                <small>Aquí va el contenido del comentario.</small>
-                            </a>
-
+                            </c:forEach>
                         </div>
                     </div>
-
                 </section>
             </div>
         </section>
@@ -214,7 +155,7 @@
                 sidebar.classList.toggle("close");
             });
 
-            
+
 
             var data = {
                 labels: ['Week1', 'Week2', 'Week3', 'Week4', 'Week5', 'Week6'],

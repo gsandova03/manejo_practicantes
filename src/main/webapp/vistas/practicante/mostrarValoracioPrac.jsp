@@ -7,7 +7,7 @@
                 <th>#</th>
                 <th>Ciclo</th>
                 <th>Nombre practicante</th>
-                <th>Califacación</th>
+                <th>Calificación</th>
                 <th>Actualizar</th>
                 <th>Eliminar</th>
 

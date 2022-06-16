@@ -17,7 +17,7 @@ public class CprHistContenidoPracticantePK implements Serializable {
     private int idCicloHist;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "cod_usuario_hist", nullable = false)
+    @Column(name = "cod_pract_hist", nullable = false)
     private int codUsuarioHist;
 
     public CprHistContenidoPracticantePK() {
