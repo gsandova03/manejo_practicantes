@@ -11,7 +11,7 @@
                 <th>Fecha ingreso</th>
                 <th>Institucion</th>
                 <th>Editar</th>
-                <th>Valorar</th>
+                <th colspan="2" style="text-align: center">Asignacion</th>
                 <th>Crear comentario</th>
                 <th>Ver comentarios</th>
             </tr>
@@ -24,7 +24,8 @@
                     <td class="table-light">${usuario.fecIngreso}</td>
                     <td class="table-light">${usuario.idInstitucion.desInstitucion}</td>
                     <td class="table-light"><a class="btn btn-warning" href="${pageContext.request.contextPath}/Practicante?accion=actualizar&id=${usuario.bcsUsuario.cedUsuario}">Editar</a></td>
-                    <td class="table-light"><a class="btn btn-warning" href="${pageContext.request.contextPath}/Practicante?accion=valorarPracticante&id=${usuario.codUsuarioPract}">Valorar</a></td>
+                    <td class="table-light"><a class="btn btn-warning" href="${pageContext.request.contextPath}/Practicante?accion=realizarAsignacion&id=${usuario.codUsuarioPract}">Realizar Asignación</a></td>
+                    <td class="table-light"><a class="btn btn-warning" href="${pageContext.request.contextPath}/controladorHistPracticante?accion=mostrarAsignacion&id=${usuario.codUsuarioPract}">Mostrar Asignaciones</a></td>
                     <td class="table-light"><a class="btn btn-warning" href="${pageContext.request.contextPath}/controladorComentarios?accion=select&id=${usuario.codUsuarioPract}">Crear</a></td>   
                     <td class="table-light"><a class="btn btn-warning" href="${pageContext.request.contextPath}/controladorComentarios?accion=selectComen&id=${usuario.codUsuarioPract}">Ver</a></td>
                 </tr>
